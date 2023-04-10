@@ -1,0 +1,16 @@
+{
+  "name": "journal-themes",
+  "version": "1.0.0",
+  "description": "public theme for epublishing journals system",
+  "main": "index.js",
+  "author": "Zaid Bari",
+  "license": "private",
+  "private": true,
+  "dependencies": {
+    "@popperjs/core": "^2.11.6",
+    "bootstrap": "4.6.0"
+  },
+  "devDependencies": {
+    "sass": "^1.56.1"
+  }
+}

@@ -1,0 +1,4 @@
+<img loading="lazy" src="{{ _ENV('JOURNAL_DOMAIN') }}/admin/uploads/featured_article/{{ featured_article.image }}" alt="{{ _ENV('JOURNAL_TITLE') }} featured article" class="img-fluid mb-4 shadow rounded-lg">
+<h3 class="h5 text-primary mb-3">{{ featured_article.title }}</h3>
+{{ featured_article.article_content | raw }}
+<a href="{{ featured_article.url }}" class="btn btn-primary px-4" target="_blank" rel="noopener noreferrer">Read full article</a>

@@ -1,0 +1,12 @@
+/.env
+/composer.lock
+/vendor
+/node_modules
+/logs
+/cache
+/yarn.lock
+/.idea
+/files_html
+/fulltext
+/sitemap.xml
+error_logs
