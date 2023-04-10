@@ -7,12 +7,29 @@ use simplehtmldom\HtmlWeb;
 class IssueController extends Controller
 {
 
+    private function extract_issue_url($html)
+    {
+        $issues = ["previous" => null, "next" => null];
+        foreach ($html->find('div a') as $element) {
+            parse_str(parse_url($element->href, PHP_URL_QUERY), $query);
+            $href = explode("&", $query['iid'])[0];
+            if (str_contains($element->innertext, "Previous")) { 
+                $issues['previous'] = $href;
+            }
+            if (str_contains($element->innertext, "Next")) { 
+                $issues['next'] = $href;
+            }
+        }
+
+        return $issues;
+    }
+
     public function articles()
     {
         $client = new HtmlWeb();
         $html = $client->load("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV['JOURNAL_ID']. "&sec=cissue");
-
-        $this->dump($html->innertext);
+        $url = $this->extract_issue_url($html);
+        $this->dump($url);
     }
     public function current_issue()
     {
