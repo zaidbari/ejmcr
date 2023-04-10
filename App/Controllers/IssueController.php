@@ -26,10 +26,13 @@ class IssueController extends Controller
 
     public function articles()
     {
+        $data = [];
         $client = new HtmlWeb();
         $html = $client->load("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV['JOURNAL_ID']. "&sec=cissue");
-        $url = $this->extract_issue_url($html);
-        $this->dump($url);
+        $$data['issue_links'] = $this->extract_issue_url($html);
+        $data['articles'] = [];
+
+
     }
     public function current_issue()
     {
