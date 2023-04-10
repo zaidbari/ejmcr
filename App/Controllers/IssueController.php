@@ -27,10 +27,10 @@ class IssueController extends Controller
     public function articles()
     {
         $url = "https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV['JOURNAL_ID']. "&sec=cissue";
-        $content = \file_get_contents($url);
-        $content = str_replace("»", "",  $content);
-        $content = str_replace("<br>", "",  $content);
-        
+        $c = \file_get_contents($url);
+        $con = str_replace("»", "",  $c);
+        $content = str_replace("<br>", "",  $con);
+
         $data = [];
         $client = new HtmlDocument();
 
