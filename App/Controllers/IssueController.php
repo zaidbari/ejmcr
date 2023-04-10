@@ -35,10 +35,11 @@ class IssueController extends Controller
         $this->dump($data);
         $this->dump($html->innertext);
 
-        foreach ($html->find('ol')->childNodes as $li) {
-            $this->dump($li->innertext);
-            $this->dump($li->nodeName);
-        }                
+        $this->dump($html->find('ol')->childNodes);
+        // foreach ($html->find('ol')->childNodes as $li) {
+        //     $this->dump($li->innertext);
+        //     $this->dump($li->nodeName);
+        // }                
 
 
     }
