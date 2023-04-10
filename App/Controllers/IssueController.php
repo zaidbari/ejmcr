@@ -28,6 +28,9 @@ class IssueController extends Controller
     {
         $url = "https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV['JOURNAL_ID']. "&sec=cissue";
         $content = \file_get_contents($url);
+        $content = str_replace("»", "",  $content);
+        $content = str_replace("<br>", "",  $content);
+        
         $data = [];
         $client = new HtmlDocument();
 
