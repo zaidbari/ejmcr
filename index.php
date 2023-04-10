@@ -28,8 +28,8 @@ $router->setNamespace('\App\Controllers');
  **/
 $router->get('/', 'HomeController@index');
 
-$router->get('/current-issue', 'ArticlesController@currentIssue');
-$router->get('/latest-articles', 'Articles@latest');
+$router->get('/current-issue', 'IssueController@current_issue');
+$router->get('/latest-articles', 'IssueController@latest_issue');
 
 $router->get('/log/request', 'ErrorLog@request');
 $router->get('/log/error', 'ErrorLog@error');
