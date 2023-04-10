@@ -61,7 +61,9 @@ class HomeController extends Controller
 
 
         $ol = $html->find('ol', 0);
-
+        if (!isset($ol)) { 
+            return array();
+        }
         $articles = [];
         foreach ($ol->find('li') as $li) {
             $title = $li->find('span', 0)->find('b', 0)->innertext;

@@ -13,7 +13,7 @@ use Twig\TwigFunction;
 trait View
 {
 
-    use Request;
+    use Request, Model;
 
     /**
      * @param string $view relative path to twig template
@@ -35,6 +35,9 @@ trait View
                 ['auto_reload' => true]
             );
 
+            $settings = $this->db()->table('settings')->select()->where('id', 1)->get()[0];
+            $menu = $this->db()->table('policies')->select()->get();
+            $downloads = $this->db()->table('downloads')->select()->orderBy('pos', 'asc')->get();
 
 
             /* -------------------- global filters available in view -------------------- */
@@ -66,7 +69,9 @@ trait View
 
 
             /* ------------------- global variables available in view ------------------- */
-            // $twig->addGlobal('JOURNAL_ID', $_ENV['JOURNAL_ID']);
+            $twig->addGlobal('MENU', $menu);
+            $twig->addGlobal('SETTINGS', $settings);
+            $twig->addGlobal('DOWNLOADS', $downloads);
 
             /* ------------------------------- render view ------------------------------ */
             echo $twig->render($view . '.twig', $args);
