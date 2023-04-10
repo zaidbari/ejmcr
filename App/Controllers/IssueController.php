@@ -28,8 +28,7 @@ class IssueController extends Controller
     {
         $data = [];
         $client = new HtmlWeb();
-        $content = $client->load("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV['JOURNAL_ID']. "&sec=cissue");
-        $html = str_replace("»", "",  $content->innertext);
+        $html = $client->load("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV['JOURNAL_ID']. "&sec=cissue");
         
         $data['issue_links'] = $this->extract_issue_url($html);
         $data['articles'] = [];
