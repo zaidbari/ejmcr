@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 use App\Core\Controller;
-use simplehtmldom\HtmlDocument;
+use simplehtmldom\HtmlWeb;
 
 class IssueController extends Controller
 {
@@ -26,15 +26,11 @@ class IssueController extends Controller
 
     public function articles()
     {
-        $url = "https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV['JOURNAL_ID']. "&sec=cissue";
-        $c = \file_get_contents($url);
-        $con = str_replace("»", "",  $c);
-        $content = str_replace("<br>", "",  $con);
-
         $data = [];
-        $client = new HtmlDocument();
-
-        $html = $client->load($content);
+        $client = new HtmlWeb();
+        $content = $client->load("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV['JOURNAL_ID']. "&sec=cissue");
+        $html = str_replace("»", "",  $content->innertext);
+        
         $data['issue_links'] = $this->extract_issue_url($html);
         $data['articles'] = [];
         $data['issue_details'] = $html->find('span.journalfont b', 0)->innertext; 
@@ -42,7 +38,7 @@ class IssueController extends Controller
         $this->dump($data);
         $this->dump($html->innertext);
 
-        str_replace("»", "",  $html->innertext);
+        
     }
 
     public function current_issue()
