@@ -7,13 +7,6 @@ use simplehtmldom\HtmlWeb;
 class IssueController extends Controller
 {
 
-    private function my_callback($element)
-    {
-        // Hide all <b> tags
-        if ($element->tag === 'br') {
-                $element->outertext = '';
-        }
-    }
 
 
     private function extract_issue_url($html)
@@ -35,17 +28,28 @@ class IssueController extends Controller
 
     public function articles()
     {
+        function my_callback($element)
+        {
+            // Hide all <b> tags
+            if ($element->tag === 'br') {
+                $element->outertext = '';
+            }
+        }
+
         $data = [];
         $client = new HtmlWeb();
         $html = $client->load("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV['JOURNAL_ID']. "&sec=cissue");
-        $html->set_callback([$this, 'my_callback']);
+        $html->set_callback('my_callback');
         
         $data['issue_links'] = $this->extract_issue_url($html);
         $data['articles'] = [];
         $data['issue_details'] = $html->find('span.journalfont b', 0)->innertext; 
         
-        $this->dump($data);
+        // $this->dump($data);
         $this->dump($html->innertext);
+
+        $first = $html->find('ol p', 0);
+        $this->dump($first->next_sibling()->innertext);
 
         
     }
