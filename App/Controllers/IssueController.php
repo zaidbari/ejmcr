@@ -32,6 +32,11 @@ class IssueController extends Controller
         $$data['issue_links'] = $this->extract_issue_url($html);
         $data['articles'] = [];
 
+        foreach ($html->find('ol')->childNodes as $li) {
+            $this->dump($li->innertext);
+            $this->dump($li->nodeName);
+        }                
+
 
     }
     public function current_issue()
