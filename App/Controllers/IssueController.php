@@ -7,8 +7,18 @@ use simplehtmldom\HtmlWeb;
 class IssueController extends Controller
 {
 
+    public function articles()
+    {
+        $client = new HtmlWeb();
+        $html = $client->load("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV['JOURNAL_ID']. "&sec=cissue");
+
+        $this->dump($html->innertext);
+    }
     public function current_issue()
     {
+
+        $this->articles();
+
         $this->view('issues/current', [
             'meta' => [
             'title' => 'Current issue',
