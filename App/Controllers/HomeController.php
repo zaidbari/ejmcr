@@ -82,7 +82,7 @@ class HomeController extends Controller
                     "year" => $matches[1],
                     "volume" => $matches[2],
                     "issue" => $matches[3],
-                    "start_end" => $matches[4],
+                    "start_page" => $matches[4],
                     "end_page" => $matches[5],
                 ]
 
@@ -103,7 +103,7 @@ class HomeController extends Controller
         $featured_article = $this->db()->table('featured_article')->select()->where('id', 1)->get()[0];
         $editorial_board = $this->db()->table('editors')->select()->orderBy(['pos' => 'asc'])->get();
 
-        $most_access_articles = $this->articles("a");
+        $most_read_articles = $this->articles("a");
         $most_cited_articles = $this->articles("c");
         $most_downloaded_articles = $this->articles("d");
 
@@ -117,7 +117,7 @@ class HomeController extends Controller
             "metrics_data" => $metrics_data,
             "featured_article" => $featured_article,
             "editorial_board" => $editorial_board,
-            "most_access_articles" => $most_access_articles,
+            "most_read_articles" => $most_read_articles,
             "most_cited_articles" => $most_cited_articles,
             "most_downloaded_articles" => $most_downloaded_articles,
         ]);

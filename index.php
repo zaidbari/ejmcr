@@ -27,7 +27,6 @@ $router->setNamespace('\App\Controllers');
  * =========================
  **/
 $router->get('/', 'HomeController@index');
-$router->get('/cited', 'HomeController@cited');
 
 $router->get('/current-issue', 'ArticlesController@currentIssue');
 $router->get('/latest-articles', 'Articles@latest');

@@ -13,13 +13,59 @@
 	<div class="mb-5">
 		<div class="tab-content" id="articles_tab_content">
 			<div class="tab-pane article_list fade show active" id="most_read_articles" role="tabpanel" aria-labelledby="most_read_articles-tab"> 
-				<h1>Most read articles</h1>
+				
+				{% for article in most_read_articles %}
+					<div>
+						<h1>{{ article.title }}</h1>
+						<p>{{ article.authors }}</p>
+						<div>
+							<p>Year: {{ article.issue_details.year }}</p>
+							<p>Volume: {{ article.issue_details.volume }}</p>
+							<p>Issue: {{ article.issue_details.issue }}</p>
+							<p>Pages: {{ article.issue_details.start_page }} - {{ article.issue_details.end_page }}</p>
+						</div>
+						<div>
+							<a class="btn btn-primary btn-sm" href="{{ article.abstract_url }}">Abstract</a>
+							<a class="btn btn-secondary btn-sm" href="{{ article.doi_url }}">DOI</a>
+						</div>
+					</div>
+				{% endfor %}
 			</div>
 			<div class="tab-pane article_list fade" id="most_downloaded_articles" role="tabpanel" aria-labelledby="most_downloaded_articles-tab"> 
-				<h1>Most downloaded articles</h1>
+				{% for article in most_downloaded_articles %}
+					<div>
+						<h1>{{ article.title }}</h1>
+						<p>{{ article.authors }}</p>
+						<div>
+							<p>Year: {{ article.issue_details.year }}</p>
+							<p>Volume: {{ article.issue_details.volume }}</p>
+							<p>Issue: {{ article.issue_details.issue }}</p>
+							<p>Pages: {{ article.issue_details.start_page }} - {{ article.issue_details.end_page }}</p>
+						</div>
+						<div>
+							<a class="btn btn-primary btn-sm" href="{{ article.abstract_url }}">Abstract</a>
+							<a class="btn btn-secondary btn-sm" href="{{ article.doi_url }}">DOI</a>
+						</div>
+					</div>
+				{% endfor %}
 			</div>
 			<div class="tab-pane article_list fade" id="most_cited_articles" role="tabpanel" aria-labelledby="most_cited_articles-tab"> 
-				<h1>Most cited articles</h1>
+				{% for article in most_cited_articles %}
+					<div>
+						<h1>{{ article.title }}</h1>
+						<p>{{ article.authors }}</p>
+						<div>
+							<p>Year: {{ article.issue_details.year }}</p>
+							<p>Volume: {{ article.issue_details.volume }}</p>
+							<p>Issue: {{ article.issue_details.issue }}</p>
+							<p>Pages: {{ article.issue_details.start_page }} - {{ article.issue_details.end_page }}</p>
+						</div>
+						<div>
+							<a class="btn btn-primary btn-sm" href="{{ article.abstract_url }}">Abstract</a>
+							<a class="btn btn-secondary btn-sm" href="{{ article.doi_url }}">DOI</a>
+						</div>
+					</div>
+				{% endfor %}
 			</div>
 		</div>
 	</div>
