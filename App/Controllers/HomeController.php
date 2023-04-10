@@ -68,14 +68,17 @@ class HomeController extends Controller
             $abstract_url = $li->find('a', 0)->href;
             $doi_url = $li->find('a', 1)->href;
 
+            $mno = explode("=", $abstract_url)[1];
+            $doi = explode("doi.org/", $doi_url)[1];
+
             $text_string = $this->extract_text($li);
             $matches = $this->extract_issue_details($text_string[3]);
             $cited = $this->extract_citation_count($li);
 
             $article = [
                 "title" => $title,
-                "abstract_url" => $abstract_url,
-                "doi_url" => $doi_url,
+                "mno" => $mno,
+                "doi" => $doi,
                 "authors" => $text_string[2],
                 "cited" => $cited,
                 "issue_details" => [
