@@ -29,20 +29,15 @@ class IssueController extends Controller
         $data = [];
         $client = new HtmlWeb();
         $html = $client->load("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV['JOURNAL_ID']. "&sec=cissue");
-        $$data['issue_links'] = $this->extract_issue_url($html);
+        $data['issue_links'] = $this->extract_issue_url($html);
         $data['articles'] = [];
         $data['issue_details'] = $html->find('span.journalfont b', 0)->innertext; 
+        
         $this->dump($data);
         $this->dump($html->innertext);
 
-        $this->dump($html->find('ol')->childNodes);
-        // foreach ($html->find('ol')->childNodes as $li) {
-        //     $this->dump($li->innertext);
-        //     $this->dump($li->nodeName);
-        // }                
-
-
     }
+
     public function current_issue()
     {
 

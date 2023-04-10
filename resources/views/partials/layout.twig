@@ -7,7 +7,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>{{ meta.title ? meta.title | upper ~ ' | ' : '' }} {{ _ENV('JOURNAL_ABBREV') }}</title>
+		<title>{{ meta.title ? meta.title | upper ~ ' | ' : '' }} {{ _ENV('JOURNAL_TITLE') | upper }}</title>
 		<meta name="description" content="{{ _ENV('JOURNAL_TITLE') }}">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="/resources/assets/scss/default/app.css" />
