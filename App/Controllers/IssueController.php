@@ -88,8 +88,9 @@ class IssueController extends Controller
     {
 
         $content = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV["JOURNAL_ID"]. "&sec=cissue");
+        $tags = "<!DOCTYPE html><html><head></head><body>".$content."</body></html>";
         // write to a file
-        file_put_contents($_SERVER['DOCUMENT_ROOT'].'/files_html/'. "issue.html", $content);
+        file_put_contents($_SERVER['DOCUMENT_ROOT'].'/files_html/'. "issue.html", $tags);
         // read from a file
         $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/files_html/' . "issue.html");
         
