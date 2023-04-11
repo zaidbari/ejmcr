@@ -117,7 +117,7 @@ class IssueController extends Controller
         // $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/files_html/' . "issue_fixed.html");
         
         $content = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV["JOURNAL_ID"]. "&sec=cissue");
-        $con = $this->closetags($content);
+        $con = $this->closetags(htmlentities($content, ENT_QUOTES));
         file_put_contents($_SERVER['DOCUMENT_ROOT'].'/files_html/'. "issue.html", $con);
         $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/files_html/' . "issue.html");
         
