@@ -6,9 +6,6 @@ use simplehtmldom\HtmlDocument;
 
 class IssueController extends Controller
 {
-
-
-
     private function extract_issue_url($html)
     {
         $issues = ["previous" => null, "next" => null];
@@ -85,13 +82,19 @@ class IssueController extends Controller
             'details' => $details,
             'articles_data' => $articles_data
         ];
-        
     }
 
     public function articles()
     {
 
         $contents = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV["JOURNAL_ID"]. "&sec=cissue");
+        // write to a file
+        $file = fopen($_SERVER['DOCUMENT_ROOT'] . "issue.html", "w");
+        fwrite($file, $contents);
+        fclose($file);
+        // read from a file
+        $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'] . "issue.html");
+        
         $data = [];
         $client = new HtmlDocument();
         $html = $client->load($contents);
