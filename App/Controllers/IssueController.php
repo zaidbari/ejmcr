@@ -23,7 +23,7 @@ class IssueController extends Controller
             $mock->appendChild($mock->importNode($child, true));
         }
 
-        $fixed = trim($mock->saveHTML());
+        $fixed = trim(html_entity_decode($mock->saveHTML()));
         
         return $fixed;
     }
@@ -110,13 +110,15 @@ class IssueController extends Controller
     public function articles()
     {
 
+        // $content = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/files_html/'. "issue.html");
+        
+        // file_put_contents($_SERVER['DOCUMENT_ROOT'].'/files_html/'. "issue_fixed.html", $con);
+        // $con = $this->closetags($content);
+        // $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/files_html/' . "issue_fixed.html");
+        
         $content = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV["JOURNAL_ID"]. "&sec=cissue");
-        
-        // $d = str_replace(["</i>", "<br>", "<br/>"], "", $content);
         $con = $this->closetags($content);
-        // $tags = "<!DOCTYPE html><html><head></head><body>".$con."</body></html>";
         file_put_contents($_SERVER['DOCUMENT_ROOT'].'/files_html/'. "issue.html", $con);
-        
         $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/files_html/' . "issue.html");
         
         
