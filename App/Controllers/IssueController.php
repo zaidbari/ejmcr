@@ -36,9 +36,11 @@ class IssueController extends Controller
                 $cat = $item->prev_sibling()->find('b', 0)->innertext;
             }
 
+            $this->dump($item->innertext);
             $title = $item->find('span b', 0)->innertext;
-            $author_names = trim(explode("EJMCR", $item->find('span.authornames', 0)->plaintext)[0]);
-            preg_match("/(\d{4})\;\s(\d+)\((\d+)\)\:\s(\d+)\-(\d+)/", $item->find('.journalfont text', 0)->plaintext, $issue_details);
+            // $author_names = $item->find('.authornames', 0)->innertext;
+            // $author_names = trim(explode("EJMCR", $item->find('span.authornames', 0)->plaintext)[0]);
+            // preg_match("/(\d{4})\;\s(\d+)\((\d+)\)\:\s(\d+)\-(\d+)/", $item->find('.journalfont text', 0)->plaintext, $issue_details);
 
             $links = $item->find('a');
 
@@ -57,22 +59,22 @@ class IssueController extends Controller
                 }
             }
 
-            $details = [
-                "year" => $issue_details[1],
-                "volume" => $issue_details[2],
-                "issue" => $issue_details[3],
-            ];
+            // $details = [
+            //     "year" => $issue_details[1],
+            //     "volume" => $issue_details[2],
+            //     "issue" => $issue_details[3],
+            // ];
             
             $articles_data[$cat][] = [
                 "title" => $title,
-                "authors" => $author_names,
-                "issue_details" => [
-                    "year" => $issue_details[1],
-                    "volume" => $issue_details[2],
-                    "issue" => $issue_details[3],
-                    "start_page" => $issue_details[4],
-                    "end_page" => $issue_details[5],
-                ],
+                // "authors" => $author_names,
+                // "issue_details" => [
+                //     "year" => $issue_details[1],
+                //     "volume" => $issue_details[2],
+                //     "issue" => $issue_details[3],
+                //     "start_page" => $issue_details[4],
+                //     "end_page" => $issue_details[5],
+                // ],
                 "urls" => $urls
             ];
 
@@ -88,20 +90,21 @@ class IssueController extends Controller
     {
 
         $content = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV["JOURNAL_ID"]. "&sec=cissue");
-        $tags = "<!DOCTYPE html><html><head></head><body>".$content."</body></html>";
-        // write to a file
+        $d = str_replace("</i>", "", $content);
+        $tags = "<!DOCTYPE html><html><head></head><body>".$d."</body></html>";
         file_put_contents($_SERVER['DOCUMENT_ROOT'].'/files_html/'. "issue.html", $tags);
-        // read from a file
+        
         $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/files_html/' . "issue.html");
+        
         
         $data = [];
         $client = new HtmlDocument();
         $html = $client->load($contents);
-        
+
         $data['issue_links'] = $this->extract_issue_url($html);
         $article_data = $this->extract_articles($html);
-        $data['issue_details'] = $article_data['details']; 
-        $data['articles'] = $article_data['articles_data']; 
+        // $data['issue_details'] = $article_data['details']; 
+        // $data['articles'] = $article_data['articles_data']; 
         return $data;
     }
 
