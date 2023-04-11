@@ -90,7 +90,7 @@ class IssueController extends Controller
     {
 
         $content = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV["JOURNAL_ID"]. "&sec=cissue");
-        $d = str_replace("</i>", "", $content);
+        $d = str_replace(["</i>", "<br>", "<br />"], "", $content);
         $tags = "<!DOCTYPE html><html><head></head><body>".$d."</body></html>";
         file_put_contents($_SERVER['DOCUMENT_ROOT'].'/files_html/'. "issue.html", $tags);
         
