@@ -7,23 +7,6 @@ use simplehtmldom\HtmlWeb;
 class HomeController extends Controller
 {
 
-    private function extract_issue_url($html)
-    {
-        $issues = ["previous" => null, "next" => null];
-        foreach ($html->find('div a') as $element) {
-            parse_str(parse_url($element->href, PHP_URL_QUERY), $query);
-            $href = explode("&", $query['iid'])[0];
-            if (str_contains($element->innertext, "Previous")) { 
-                $issues['previous'] = $href;
-            }
-            if (str_contains($element->innertext, "Next")) { 
-                $issues['next'] = $href;
-            }
-        }
-
-        return $issues;
-    }
-
     private function extract_citation_count($html) 
     {
         $cited = $html->find('b', 2)->innertext; // get the citation information

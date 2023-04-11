@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 use App\Core\Controller;
-use simplehtmldom\HtmlWeb;
+use simplehtmldom\HtmlDocument;
 
 class IssueController extends Controller
 {
@@ -26,45 +26,90 @@ class IssueController extends Controller
         return $issues;
     }
 
-    public function articles()
+    private function extract_articles($html)
     {
-        function my_callback($element)
-        {
-            // Hide all <b> tags
-            if ($element->tag === 'br') {
-                $element->outertext = '';
+        $li = $html->find('li');
+        $cat = '';
+        $details = '';
+
+        $articles_data = [];
+        foreach ($li as $item) { 
+            $isCategory = $item->prev_sibling()->tag !== null && $item->prev_sibling()->tag == 'p';
+            if ($isCategory) { 
+                $cat = $item->prev_sibling()->find('b', 0)->innertext;
             }
+
+            $title = $item->find('span b', 0)->innertext;
+            $author_names = trim(explode("EJMCR", $item->find('span.authornames', 0)->plaintext)[0]);
+            preg_match("/(\d{4})\;\s(\d+)\((\d+)\)\:\s(\d+)\-(\d+)/", $item->find('.journalfont text', 0)->plaintext, $issue_details);
+
+            $links = $item->find('a');
+
+            foreach ($links as $link) {
+                if (str_contains($link->plaintext, "PDF")) {
+                    $urls['pdf'] = true;
+                }
+                if (str_contains($link->plaintext, "HTML")) {
+                    $urls['html'] = true;
+                }
+                if (str_contains($link->plaintext, "Abstract")) {
+                    $urls['mno'] = explode("=", $link->href)[1];
+                } 
+                if (str_contains($link->href, "doi.org")) {
+                    $urls['doi'] = explode("doi.org/", $link->href)[1];
+                }
+            }
+
+            $details = [
+                "year" => $issue_details[1],
+                "volume" => $issue_details[2],
+                "issue" => $issue_details[3],
+            ];
+            
+            $articles_data[$cat][] = [
+                "title" => $title,
+                "authors" => $author_names,
+                "issue_details" => [
+                    "year" => $issue_details[1],
+                    "volume" => $issue_details[2],
+                    "issue" => $issue_details[3],
+                    "start_page" => $issue_details[4],
+                    "end_page" => $issue_details[5],
+                ],
+                "urls" => $urls
+            ];
+
         }
 
+        return compact('details', 'articles_data');
+        
+    }
+
+    public function articles($sec)
+    {
+
+        $contents = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV['JOURNAL_ID']. "&sec=" . $sec);
         $data = [];
-        $client = new HtmlWeb();
-        $html = $client->load("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV['JOURNAL_ID']. "&sec=cissue");
-        $html->set_callback('my_callback');
+        $client = new HtmlDocument();
+        $html = $client->load($contents);
         
         $data['issue_links'] = $this->extract_issue_url($html);
-        $data['articles'] = [];
-        $data['issue_details'] = $html->find('span.journalfont b', 0)->innertext; 
-        
-        // $this->dump($data);
-        $this->dump($html->innertext);
-
-        $first = $html->find('ol p', 0);
-        $this->dump($first->next_sibling()->innertext);
-
-        
+        $article_data = $this->extract_articles($html);
+        $data['issue_details'] = $article_data['details']; 
+        $data['articles'] = $article_data['articles_data']; 
+        return $data;
     }
 
     public function current_issue()
     {
 
-        $this->articles();
-
         $this->view('issues/current', [
             'meta' => [
-            'title' => 'Current issue',
-            'description' => 'Current issue of the journal',
-            'keywords' => 'current issue'
+                'title' => 'Current issue',
+                'description' => 'Current issue of ' . $_ENV['JOURNAL_TITLE'],
+                'keywords' => 'current issue'
             ],
+            'data' => $this->articles('cissue')
         ]);
     }
     public function latest_issue()
