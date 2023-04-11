@@ -96,10 +96,10 @@ class HomeController extends Controller
         $most_downloaded_articles = $this->articles("d");
 
         $this->view('home/index', [
-            'meta' => [
-                'title' => 'Home',
-                'description' => 'Home page',
-                'keywords' => 'home, page'
+            "meta" => [
+                "title" => "Home",
+                "description" => "Home page",
+                "keywords" => "home, page"
             ],
             "header_data" => $header_data,
             "metrics_data" => $metrics_data,

@@ -81,14 +81,17 @@ class IssueController extends Controller
 
         }
 
-        return compact('details', 'articles_data');
+        return [
+            'details' => $details,
+            'articles_data' => $articles_data
+        ];
         
     }
 
-    public function articles($sec)
+    public function articles()
     {
 
-        $contents = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV['JOURNAL_ID']. "&sec=" . $sec);
+        $contents = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV["JOURNAL_ID"]. "&sec=cissue");
         $data = [];
         $client = new HtmlDocument();
         $html = $client->load($contents);
@@ -104,12 +107,12 @@ class IssueController extends Controller
     {
 
         $this->view('issues/current', [
-            'meta' => [
-                'title' => 'Current issue',
-                'description' => 'Current issue of ' . $_ENV['JOURNAL_TITLE'],
-                'keywords' => 'current issue'
+            "meta" => [
+                "title" => "Current issue",
+                "description" => "Current issue of " . $_ENV["JOURNAL_TITLE"],
+                "keywords" => "current issue"
             ],
-            'data' => $this->articles('cissue')
+            "data" => $this->articles()
         ]);
     }
     public function latest_issue()
