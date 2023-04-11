@@ -111,13 +111,14 @@ class IssueController extends Controller
     {
 
         // $content = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/files_html/'. "issue.html");
-        
+        // $tags = "<!DOCTYPE html><html><head></head><body>". $content. "</body></html>";
+        // $con = $this->closetags($tags);
         // file_put_contents($_SERVER['DOCUMENT_ROOT'].'/files_html/'. "issue_fixed.html", $con);
-        // $con = $this->closetags($content);
         // $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/files_html/' . "issue_fixed.html");
         
         $content = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV["JOURNAL_ID"]. "&sec=cissue");
-        $con = $this->closetags(htmlentities($content, ENT_QUOTES));
+        $tags = "<!DOCTYPE html><html><head></head><body>". $content. "</body></html>";
+        $con = $this->closetags($tags);
         file_put_contents($_SERVER['DOCUMENT_ROOT'].'/files_html/'. "issue.html", $con);
         $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/files_html/' . "issue.html");
         
