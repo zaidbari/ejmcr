@@ -12,6 +12,9 @@ class IssueController extends Controller
         libxml_use_internal_errors(true);
 
         $dom = new \DOMDocument;
+        // set encoding
+        $dom->encoding = 'utf-8';
+        
         $dom->loadHTML($html);
 
         // Strip wrapping <html> and <body> tags
@@ -58,9 +61,9 @@ class IssueController extends Controller
 
             $this->dump($item->innertext);
             $title = $item->find('span b', 0)->innertext;
-            // $author_names = $item->find('.authornames', 0)->innertext;
-            // $author_names = trim(explode("EJMCR", $item->find('span.authornames', 0)->plaintext)[0]);
-            // preg_match("/(\d{4})\;\s(\d+)\((\d+)\)\:\s(\d+)\-(\d+)/", $item->find('.journalfont text', 0)->plaintext, $issue_details);
+            $author_names = $item->find('.authornames', 0)->innertext;
+            $author_names = trim(explode("EJMCR", $item->find('span.authornames', 0)->plaintext)[0]);
+            preg_match("/(\d{4})\;\s(\d+)\((\d+)\)\:\s(\d+)\-(\d+)/", $item->find('.journalfont text', 0)->plaintext, $issue_details);
 
             $links = $item->find('a');
 
@@ -79,22 +82,22 @@ class IssueController extends Controller
                 }
             }
 
-            // $details = [
-            //     "year" => $issue_details[1],
-            //     "volume" => $issue_details[2],
-            //     "issue" => $issue_details[3],
-            // ];
+            $details = [
+                "year" => $issue_details[1],
+                "volume" => $issue_details[2],
+                "issue" => $issue_details[3],
+            ];
             
             $articles_data[$cat][] = [
                 "title" => $title,
-                // "authors" => $author_names,
-                // "issue_details" => [
-                //     "year" => $issue_details[1],
-                //     "volume" => $issue_details[2],
-                //     "issue" => $issue_details[3],
-                //     "start_page" => $issue_details[4],
-                //     "end_page" => $issue_details[5],
-                // ],
+                "authors" => $author_names,
+                "issue_details" => [
+                    "year" => $issue_details[1],
+                    "volume" => $issue_details[2],
+                    "issue" => $issue_details[3],
+                    "start_page" => $issue_details[4],
+                    "end_page" => $issue_details[5],
+                ],
                 "urls" => $urls
             ];
 
@@ -109,12 +112,12 @@ class IssueController extends Controller
     public function articles()
     {
 
-        $content = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV["JOURNAL_ID"]. "&sec=cissue");
+        // $content = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV["JOURNAL_ID"]. "&sec=cissue");
         
-        $d = str_replace(["</i>", "<br>", "<br/>"], "", $content);
-        $con = $this->closetags($d);
-        $tags = "<!DOCTYPE html><html><head></head><body>".$con."</body></html>";
-        file_put_contents($_SERVER['DOCUMENT_ROOT'].'/files_html/'. "issue.html", $tags);
+        // $d = str_replace(["</i>", "<br>", "<br/>"], "", $content);
+        // $con = $this->closetags($d);
+        // $tags = "<!DOCTYPE html><html><head></head><body>".$con."</body></html>";
+        // file_put_contents($_SERVER['DOCUMENT_ROOT'].'/files_html/'. "issue.html", $tags);
         
         $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/files_html/' . "issue.html");
         
@@ -125,8 +128,8 @@ class IssueController extends Controller
 
         $data['issue_links'] = $this->extract_issue_url($html);
         $article_data = $this->extract_articles($html);
-        // $data['issue_details'] = $article_data['details']; 
-        // $data['articles'] = $article_data['articles_data']; 
+        $data['issue_details'] = $article_data['details']; 
+        $data['articles'] = $article_data['articles_data']; 
         return $data;
     }
 
