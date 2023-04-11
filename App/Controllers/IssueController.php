@@ -87,13 +87,11 @@ class IssueController extends Controller
     public function articles()
     {
 
-        $contents = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV["JOURNAL_ID"]. "&sec=cissue");
+        $content = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV["JOURNAL_ID"]. "&sec=cissue");
         // write to a file
-        $file = fopen($_SERVER['DOCUMENT_ROOT'] . "issue.html", "w");
-        fwrite($file, $contents);
-        fclose($file);
+        file_put_contents($_SERVER['DOCUMENT_ROOT'].'/files_html/'. "issue.html", $content);
         // read from a file
-        $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'] . "issue.html");
+        $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/files_html/' . "issue.html");
         
         $data = [];
         $client = new HtmlDocument();
