@@ -17,7 +17,6 @@ class IssueController extends Controller
 
         $dom->loadHTML($html);
 
-        // Strip wrapping <html> and <body> tags
         $mock = new \DOMDocument;
         $body = $dom->getElementsByTagName('body')->item(0);
         foreach ($body->childNodes as $child) {
@@ -59,7 +58,6 @@ class IssueController extends Controller
                 $cat = $item->prev_sibling()->find('b', 0)->innertext;
             }
 
-            $this->dump($item->innertext);
             $title = $item->find('span b', 0)->innertext;
             $author_names = $item->find('.authornames', 0)->innertext;
             $author_names = trim(explode("EJMCR", $item->find('span.authornames', 0)->plaintext)[0]);
@@ -114,10 +112,10 @@ class IssueController extends Controller
 
         $content = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV["JOURNAL_ID"]. "&sec=cissue");
         
-        $d = str_replace(["</i>", "<br>", "<br/>"], "", $content);
-        $con = $this->closetags($d);
-        $tags = "<!DOCTYPE html><html><head></head><body>".$con."</body></html>";
-        file_put_contents($_SERVER['DOCUMENT_ROOT'].'/files_html/'. "issue.html", $tags);
+        // $d = str_replace(["</i>", "<br>", "<br/>"], "", $content);
+        $con = $this->closetags($content);
+        // $tags = "<!DOCTYPE html><html><head></head><body>".$con."</body></html>";
+        file_put_contents($_SERVER['DOCUMENT_ROOT'].'/files_html/'. "issue.html", $con);
         
         $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/files_html/' . "issue.html");
         
