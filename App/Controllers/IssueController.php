@@ -14,7 +14,7 @@ class IssueController extends Controller
         $dom = new \DOMDocument;
         // set encoding
         $dom->encoding = 'utf-8';
-        
+
         $dom->loadHTML($html);
 
         // Strip wrapping <html> and <body> tags
@@ -112,12 +112,12 @@ class IssueController extends Controller
     public function articles()
     {
 
-        // $content = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV["JOURNAL_ID"]. "&sec=cissue");
+        $content = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV["JOURNAL_ID"]. "&sec=cissue");
         
-        // $d = str_replace(["</i>", "<br>", "<br/>"], "", $content);
-        // $con = $this->closetags($d);
-        // $tags = "<!DOCTYPE html><html><head></head><body>".$con."</body></html>";
-        // file_put_contents($_SERVER['DOCUMENT_ROOT'].'/files_html/'. "issue.html", $tags);
+        $d = str_replace(["</i>", "<br>", "<br/>"], "", $content);
+        $con = $this->closetags($d);
+        $tags = "<!DOCTYPE html><html><head></head><body>".$con."</body></html>";
+        file_put_contents($_SERVER['DOCUMENT_ROOT'].'/files_html/'. "issue.html", $tags);
         
         $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/files_html/' . "issue.html");
         
