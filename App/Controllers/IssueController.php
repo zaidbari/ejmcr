@@ -6,6 +6,30 @@ use simplehtmldom\HtmlDocument;
 
 class IssueController extends Controller
 {
+
+    function closetags($html)
+    {
+        preg_match_all('#<([a-z]+)(?: .*)?(?<![/|/ ])>#iU', $html, $result);
+        $openedtags = $result[1];
+        preg_match_all('#</([a-z]+)>#iU', $html, $result);
+    
+        $closedtags = $result[1];
+        $len_opened = count($openedtags);
+    
+        if (count($closedtags) == $len_opened) {
+            return $html;
+        }
+        $openedtags = array_reverse($openedtags);
+        for ($i=0; $i < $len_opened; $i++) {
+            if (!in_array($openedtags[$i], $closedtags)) {
+                $html .= '</'.$openedtags[$i].'>';
+            } else {
+                unset($closedtags[array_search($openedtags[$i], $closedtags)]);
+            }
+        }
+        return $html;
+    }
+    
     private function extract_issue_url($html)
     {
         $issues = ["previous" => null, "next" => null];
@@ -90,8 +114,10 @@ class IssueController extends Controller
     {
 
         $content = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV["JOURNAL_ID"]. "&sec=cissue");
+        
         $d = str_replace(["</i>", "<br>", "<br/>"], "", $content);
-        $tags = "<!DOCTYPE html><html><head></head><body>".$d."</body></html>";
+        $con = $this->closetags($d);
+        $tags = "<!DOCTYPE html><html><head></head><body>".$con."</body></html>";
         file_put_contents($_SERVER['DOCUMENT_ROOT'].'/files_html/'. "issue.html", $tags);
         
         $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/files_html/' . "issue.html");
