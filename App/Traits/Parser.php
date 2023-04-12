@@ -113,7 +113,9 @@ trait Parser
 
     public function extract_article_info($content)
     {
-        file_put_contents($_SERVER['DOCUMENT_ROOT'] . '/files_html/article_info.html', $content);
+        $client = new HtmlDocument();
+        $html = $client->load($content);
+
     }
 
     public function extract_article_data($content)

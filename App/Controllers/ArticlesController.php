@@ -25,7 +25,8 @@ class ArticlesController extends Controller
         $info_contents = $this->fixTags(mb_convert_encoding($info_file, 'HTML-ENTITIES', 'UTF-8'));
         unset($info_file);
 
-        $this->extract_article_info(str_replace("<br>", "", $info_contents));
+        // $info_contents = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/files_html/article_info.html');
+        $this->extract_article_info($info_contents);
 
         // $this->view('articles/index', [
         //     'meta' => [
