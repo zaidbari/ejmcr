@@ -18,6 +18,8 @@ class IssueController extends Controller
         $dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
 
         $mock = new \DOMDocument;
+        $mock->encoding = 'utf-8';
+
         $body = $dom->getElementsByTagName('body')->item(0);
         foreach ($body->childNodes as $child) {
             $mock->appendChild($mock->importNode($child, true));
