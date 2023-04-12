@@ -10,7 +10,7 @@ class IssueController extends Controller
     function closetags($data)
     {
         $this->dump($data);
-        
+
         $html = mb_convert_encoding($data, 'HTML-ENTITIES', 'UTF-8');
         libxml_use_internal_errors(true);
 
@@ -115,11 +115,12 @@ class IssueController extends Controller
     public function articles()
     {
 
-        if ($_ENV['APP_DEBUG'] == true) {
+        if ($_ENV['APP_DEBUG'] == "true") {
             $content = file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/files_html/issue.html");
         } else {
             $content = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV["JOURNAL_ID"]. "&sec=cissue");
         }
+
         
         $contents = $this->closetags($content);
         // $contents = str_replace(["â&#128;&#153;", "Ã¢&#x80;&#x99;", "Ã¢&#128;&#153;"], "'", $this->closetags(htmlspecialchars($content)));

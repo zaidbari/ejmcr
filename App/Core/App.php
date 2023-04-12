@@ -22,7 +22,7 @@ class App
             mkdir($dir . '/files_html', 0777, true);
         }
 
-        if ($_ENV['APP_DEBUG'] == true) {
+        if ($_ENV['APP_DEBUG'] == "true") {
             $whoops = new Run;
             $handler = new PrettyPageHandler;
 
