@@ -121,7 +121,7 @@ class IssueController extends Controller
         unset($content);
 
         $client = new HtmlDocument();
-        $html = $client->load($contents);
+        $html = $client->load(htmlspecialchars_decode($contents));
 
         return  $this->extract_data($html);
     }
