@@ -126,7 +126,6 @@ class IssueController extends Controller
             "meta" => [
                 "title" => "Current issue",
                 "description" => "Current issue of " . $_ENV["JOURNAL_TITLE"],
-                "keywords" => "current issue"
             ],
             "data" => $this->articles("&sec=cissue")
         ]);
@@ -137,23 +136,20 @@ class IssueController extends Controller
             'meta' => [
             'title' => 'Current issue',
             'description' => 'Current issue of the journal',
-            'keywords' => 'current issue'
             ],
         ]);
     }
 
     public function index()
     {
-        // "https://www.ejmanager.com/index_myjournal.php?jid=".$journal_id."&iid=".$_GET['iid']."&target=local"
-        // $this->dump($_GET['iid']);
         $data = $this->articles("&iid=" . $_GET['iid'] . "&target=local");
-        $this->dump($data);
+        $description = "Issue " . $data['issue_details']['issue'] . " of " . $_ENV["JOURNAL_TITLE"] . " published in " . $data['issue_details']['year'];
         $this->view('issues/index', [
             'meta' => [
-            'title' => 'Current issue',
-            'description' => 'Current issue of the journal',
-            'keywords' => 'current issue'
+                'title' => 'Issue ' .  $data['issue_details']['issue']. " | Volume " . $data['issue_details']['volume'],
+                'description' => $description,
             ],
+            "data" => $data
         ]);
     }
 
