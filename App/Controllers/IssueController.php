@@ -113,7 +113,8 @@ class IssueController extends Controller
             $content = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV["JOURNAL_ID"]. "&sec=cissue");
         }
         
-        $contents = str_replace(["â&#128;&#153;", "Ã¢&#x80;&#x99;", "Ã¢&#128;&#153;"], "'", $this->closetags($content));
+        $contents = $this->closetags(htmlspecialchars($content));
+        // $contents = str_replace(["â&#128;&#153;", "Ã¢&#x80;&#x99;", "Ã¢&#128;&#153;"], "'", $this->closetags(htmlspecialchars($content)));
         unset($content);
 
         $client = new HtmlDocument();
