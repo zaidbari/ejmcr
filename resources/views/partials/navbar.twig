@@ -2,7 +2,9 @@
   <div class="container-fluid">
     <a class="navbar-brand pl-md-2 pr-4 font-weight-bold" href="/">{{ _ENV('JOURNAL_ABBREV') }}</a>
 
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav"></button>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav">
+      <i class="bi-list"></i>
+    </button>
     <div class="collapse navbar-collapse" id="main_nav">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
@@ -29,7 +31,7 @@
           </ul>
         </li>
       </ul>
-			<ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+			<ul class="navbar-nav ml-auto  mb-2 mb-lg-0 align-items-center">
 				<li class="nav-item">
 					<button type="button" class="nav-link btn" data-toggle="modal" data-target="#subscribe_modal">Subscribe</button>
 				</li>
@@ -40,7 +42,9 @@
 					<a class="text-white btn btn-primary" href="http://ejmanager.com/my/{{ _ENV('JOURNAL_ABBREV') | lower }}" target="_blank" rel="noopener noreferrer">Submit a Menuscript</a>
 				</li>
 				<li class="nav-item">
-					<button type="button" class="nav-link btn" data-toggle="modal" data-target="#search_modal"><?=$search_icon?></button>
+					<button type="button" class="nav-link btn p-0" data-toggle="modal" data-target="#search_modal">
+            <i class="bi-search" style="font-size: 1.3rem;"></i>
+          </button>
 				</li>
 			</ul>
     </div>

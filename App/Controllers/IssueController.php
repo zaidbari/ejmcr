@@ -45,7 +45,7 @@ class IssueController extends Controller
         return $issues;
     }
 
-    private function extract_articles($html)
+    private function extract_data($html)
     {
         $li = $html->find('li');
         $cat = '';
@@ -84,8 +84,9 @@ class IssueController extends Controller
                 "year" => $issue_details[1],
                 "volume" => $issue_details[2],
                 "issue" => $issue_details[3],
+                "urls" => $this->extract_issue_url($html)
             ];
-            
+
             $articles_data[$cat][] = [
                 "title" => $title,
                 "authors" => $author_names,
@@ -98,37 +99,36 @@ class IssueController extends Controller
                 ],
                 "urls" => $urls
             ];
-
         }
-
+        
         return [
-            'details' => $details,
-            'articles_data' => $articles_data
+            'issue_details' => $details,
+            'articles' => $articles_data
         ];
     }
 
     public function articles()
     {
 
-        $content = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV["JOURNAL_ID"]. "&sec=cissue");
+        if ($_ENV['APP_DEBUG']) {
+            $content = file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/files_html/issue.html");
+        } else {
+            $content = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV["JOURNAL_ID"]. "&sec=cissue");
+        }
+
         $contents = str_replace("â&#128;&#153;", "'", $this->closetags($content));
         unset($content);
-        
-        $data = [];
+
         $client = new HtmlDocument();
         $html = $client->load($contents);
 
-        $data['issue_links'] = $this->extract_issue_url($html);
-        $article_data = $this->extract_articles($html);
-        $data['issue_details'] = $article_data['details']; 
-        $data['articles'] = $article_data['articles_data']; 
-        return $data;
+        return  $this->extract_data($html);
     }
 
     public function current_issue()
     {
 
-        $this->view('issues/current', [
+        $this->view('issues/index', [
             "meta" => [
                 "title" => "Current issue",
                 "description" => "Current issue of " . $_ENV["JOURNAL_TITLE"],

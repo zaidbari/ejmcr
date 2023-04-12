@@ -11,6 +11,24 @@
 		</div>
 </header>
 <main class="container my-5">
+<div class="row mb-4">
+	<div class="col-6">
+		{% if data.issue_details.urls.previous %}
+			<a class="btn btn-primary" href="{{ _ENV('JOURNAL_DOMAIN') }}/issue?iid={{ data.issue_details.urls.previous }}">
+				<i class="bi bi-arrow-left pr-2"></i> 
+				<span>Previous Issue<span>
+			</a>
+		{% endif %}
+	</div>
+	<div class="col-6">
+		{% if data.issue_details.urls.next %}
+			<a class="btn btn-primary" href="{{ _ENV('JOURNAL_DOMAIN') }}/issue?iid={{ data.issue_details.urls.next }}">
+				<i class="bi bi-arrow-right pr-2"></i> 
+				<span>Next Issue<span>
+			</a>
+		{% endif %}
+</div>
+</div>
 	{% for category,articles in data.articles %}
 		<h2 class="h4 font-weight-bold px-md-5 px-2 bg-dark shadow-lg text-light rounded-lg mb-4 py-3">{{ category }}</h2>
 		{% for article in articles %}
@@ -29,12 +47,21 @@
 					</p>
 				</div>
 				<div>
-					<a class="btn btn-primary btn-sm" href="{{ _ENV('JOURNAL_DOMAIN') }}article?mno={{ article.urls.mno }}">Abstract</a>
+					<a class="btn btn-primary btn-sm" href="{{ _ENV('JOURNAL_DOMAIN') }}article?mno={{ article.urls.mno }}">
+							<i class="bi-file-earmark-ruled-fill pr-2"></i>
+							<span>Abstract</span>
+					</a>
 					{% if article.urls.pdf %}
-						<a class="btn btn-danger btn-sm" href="{{ _ENV('JOURNAL_DOMAIN') }}article?mno={{ article.urls.mno }}">PDF</a>
+						<a class="btn btn-danger btn-sm" href="{{ _ENV('JOURNAL_DOMAIN') }}article?mno={{ article.urls.mno }}">
+							<i class="bi-file-pdf-fill pr-2"></i>
+							<span>PDF</span>
+						</a>
 					{% endif %}
 					{% if article.urls.html %}
-					<a class="btn btn-outline-primary btn-sm" href="{{ _ENV('JOURNAL_DOMAIN') }}article?mno={{ article.urls.mno }}">Fulltext HTML</a>
+					<a class="btn btn-outline-primary btn-sm" href="{{ _ENV('JOURNAL_DOMAIN') }}article?mno={{ article.urls.mno }}">
+						<i class="bi-file-richtext-fill pr-2"></i>
+						<span>Fulltext HTML</span>
+					</a>
 					{% endif %}
 					<a class="btn btn-outline-secondary font-weight-bold btn-sm" target="_blank" rel="noopener noreferrer" href="https://doi.org/{{ article.urls.doi }}">DOI: {{ article.urls.doi }}</a>
 				</div>
