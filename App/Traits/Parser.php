@@ -113,12 +113,9 @@ trait Parser
 
     public function extract_article_data($content)
     {
-        $contents = str_replace(["<br>", "<br />"], "", $content);
-        $contents = $this->fixTags(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
-        unset($content);
 
         $client = new HtmlDocument();
-        $html = $client->load($contents);
+        $html = $client->load($content);
         
         $category = $html->find('td b', 0)->plaintext;
         $d = $html->find('#summary text');
