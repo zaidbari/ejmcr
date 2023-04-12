@@ -15,7 +15,7 @@ class IssueController extends Controller
         // set encoding
         $dom->encoding = 'utf-8';
 
-        $dom->loadHTML($html);
+        $dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
 
         $mock = new \DOMDocument;
         $body = $dom->getElementsByTagName('body')->item(0);
@@ -116,12 +116,12 @@ class IssueController extends Controller
             $content = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV["JOURNAL_ID"]. "&sec=cissue");
         }
         
-        $contents = $this->closetags(htmlspecialchars($content));
+        $contents = $this->closetags($content);
         // $contents = str_replace(["â&#128;&#153;", "Ã¢&#x80;&#x99;", "Ã¢&#128;&#153;"], "'", $this->closetags(htmlspecialchars($content)));
         unset($content);
 
         $client = new HtmlDocument();
-        $html = $client->load(htmlspecialchars_decode($contents));
+        $html = $client->load($contents);
 
         return  $this->extract_data($html);
     }
