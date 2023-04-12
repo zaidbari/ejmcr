@@ -25,7 +25,7 @@ class IssueController extends Controller
             $mock->appendChild($mock->importNode($child, true));
         }
 
-        $fixed = trim($mock->saveHTML());
+        $fixed = trim(mb_convert_encoding($mock->saveHTML(), 'HTML-ENTITIES', 'UTF-8'));
         
         return $fixed;
     }
