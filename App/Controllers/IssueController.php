@@ -23,7 +23,7 @@ class IssueController extends Controller
             $mock->appendChild($mock->importNode($child, true));
         }
 
-        $fixed = trim(html_entity_decode($mock->saveHTML()));
+        $fixed = trim($mock->saveHTML());
         
         return $fixed;
     }
