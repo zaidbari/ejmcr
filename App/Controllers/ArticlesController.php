@@ -15,14 +15,12 @@ class ArticlesController extends Controller
     {
 
         $content = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV['JOURNAL_ID'] . "&mno=" . $_GET['mno']);
-        $con = str_replace("<br>", "", $content);
-        $contents = $this->fixTags(mb_convert_encoding($con, 'HTML-ENTITIES', 'UTF-8'));
+        $contents = $this->fixTags(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
         unset($content);
 
-        // $content = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/files_html/article_fixed.html');
-        file_put_contents($_SERVER['DOCUMENT_ROOT'] . '/files_html/article.html', $contents);
+        // $content = str_replace("<br>", "", file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/files_html/article_fixed.html'));
 
-        $this->extract_article_data($contents);
+        $this->extract_article_data(str_replace("<br>", "", $contents));
 
         // $this->view('articles/list', [
         //     'meta' => [
