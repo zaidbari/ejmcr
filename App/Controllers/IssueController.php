@@ -102,13 +102,13 @@ class IssueController extends Controller
         ];
     }
 
-    public function articles()
+    public function articles($query)
     {
 
         if ($_ENV['APP_DEBUG'] == "true") {
             $content = file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/files_html/issue.html");
         } else {
-            $content = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV["JOURNAL_ID"]. "&sec=cissue");
+            $content = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV["JOURNAL_ID"]. $query);
         }
         $contents = $this->closetags(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
         unset($content);
@@ -128,7 +128,7 @@ class IssueController extends Controller
                 "description" => "Current issue of " . $_ENV["JOURNAL_TITLE"],
                 "keywords" => "current issue"
             ],
-            "data" => $this->articles()
+            "data" => $this->articles("&sec=cissue")
         ]);
     }
     public function latest_issue()
@@ -141,4 +141,20 @@ class IssueController extends Controller
             ],
         ]);
     }
+
+    public function index()
+    {
+        // "https://www.ejmanager.com/index_myjournal.php?jid=".$journal_id."&iid=".$_GET['iid']."&target=local"
+        // $this->dump($_GET['iid']);
+        $data = $this->articles("&iid=" . $_GET['iid'] . "&target=local");
+        $this->dump($data);
+        $this->view('issues/index', [
+            'meta' => [
+            'title' => 'Current issue',
+            'description' => 'Current issue of the journal',
+            'keywords' => 'current issue'
+            ],
+        ]);
+    }
+
 }
