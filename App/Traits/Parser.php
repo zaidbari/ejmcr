@@ -6,6 +6,8 @@ use simplehtmldom\HtmlDocument;
 
 trait Parser
 {
+    use Logs;
+
     public function fixTags($html)
     {
         libxml_use_internal_errors(true);
@@ -111,11 +113,76 @@ trait Parser
 
     public function extract_article_data($content)
     {
+        $contents = str_replace(["<br>", "<br />"], "", $content);
         $contents = $this->fixTags(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
         unset($content);
 
         $client = new HtmlDocument();
         $html = $client->load($contents);
+        
+        $category = $html->find('td b', 0)->plaintext;
+        $d = $html->find('#summary text');
+        $abstract = $d[1]->plaintext;
+        $keywords = $d[3]->plaintext;
+
+        $title = $html->find('td span', 0)->innertext;
+        $authors = explode(", ", trim(str_replace(".", "", $html->find('td i', 0)->plaintext)));
+        $doi = $html->find('td div a', 2)->plaintext;
+       
+        $issue_string = explode("-", explode("iid=", $html->find('td div a', 1)->href)[1]);
+        $issue_details['year'] = (int) $issue_string[0];
+        $issue_details['volume'] = (int) $issue_string[1];
+        $issue_details['issue'] = (int) explode(".", $issue_string[2])[0];
+
+
+        if (str_contains($html->find('td b a', 3)->plaintext, "Cited")) {
+            $citation_count = (int) explode(" ", $html->find('td b a', 3)->plaintext)[2];
+        } else {
+            $citation_count = 0;
+        }
+
+
+        $cites = $html->find("tr[valign=middle]");
+        $citations = [];
+        foreach ($cites as $item) {
+            $title = $item->find('td text', 0)->plaintext;
+            $link = $item->find('td a', 0)->href;
+            $link_title = $item->find('td a', 0)->plaintext;
+            $citations[] = [
+                "title" => $title,
+                "link" => [
+                    "url" => $link,
+                    "title" => $link_title
+                ]
+            ];
+        }
+
+        $article_links = ['previous' => null, 'next' => null];
+        foreach ($html->find('div a') as $link) {
+            if (str_contains($link->innertext, "Previous")) {
+                $article_links['previous'] = explode("=", $link->href)[1];
+            }
+            if (str_contains($link->innertext, "Next")) {
+                $article_links['next'] = explode("=", $link->href)[1];
+            }
+        }
+
+
+        $data = [
+            "title" => $title,
+            "authors" => $authors,
+            "category" => $category,
+            "abstract" => $abstract,
+            "keywords" => $keywords,
+            "doi" => $doi,
+            "issue_details" => $issue_details,
+            "citations" => $citations,
+            "citation_count" => $citation_count,
+            "article_links" => $article_links
+        ];
+
+        $this->dump($data);
+
 
     }
 }

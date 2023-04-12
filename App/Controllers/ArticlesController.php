@@ -3,17 +3,21 @@
 namespace App\Controllers;
 
 use App\Core\Controller;
+use App\Traits\Parser;
 
 class ArticlesController extends Controller
 {
 
 
+    use Parser;
+
     public function index()
     {
-        // "https://www.ejmanager.com/index_myjournal.php?jid=" . $journal_id . "&mno=" . $_GET['mno']
 
-        $content = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV['JOURNAL_ID'] . "&mno=" . $_GET['mno']);
-        $this->dump($content);
+        // $content = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV['JOURNAL_ID'] . "&mno=" . $_GET['mno']);
+        $content = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/files_html/article_fixed.html');
+        
+        $this->extract_article_data($content);
 
         // $this->view('articles/list', [
         //     'meta' => [
