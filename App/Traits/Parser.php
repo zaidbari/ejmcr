@@ -116,6 +116,7 @@ trait Parser
         $client = new HtmlDocument();
         $html = $client->load($content);
 
+        file_put_contents($_SERVER['DOCUMENT_ROOT'] . "/files_html/article_info.html", $content);
     }
 
     public function extract_article_data($content)
