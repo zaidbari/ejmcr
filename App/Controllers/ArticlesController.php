@@ -15,7 +15,7 @@ class ArticlesController extends Controller
     {
 
         $content = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV['JOURNAL_ID'] . "&mno=" . $_GET['mno']);
-        $con = str_replace(["<br>", "<br />"], "", $content);
+        $con = str_replace("<br>", "", $content);
         $contents = $this->fixTags(mb_convert_encoding($con, 'HTML-ENTITIES', 'UTF-8'));
         unset($content);
 
