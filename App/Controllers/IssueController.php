@@ -110,7 +110,7 @@ class IssueController extends Controller
     public function articles()
     {
 
-        if ($_ENV['APP_DEBUG']) {
+        if ($_ENV['APP_DEBUG'] == true) {
             $content = file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/files_html/issue.html");
         } else {
             $content = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV["JOURNAL_ID"]. "&sec=cissue");
