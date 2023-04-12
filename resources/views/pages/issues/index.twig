@@ -20,7 +20,7 @@
 			</a>
 		{% endif %}
 	</div>
-	<div class="col-6">
+	<div class="col-6 align-items-end text-right">
 		{% if data.issue_details.urls.next %}
 			<a class="btn btn-primary" href="{{ _ENV('JOURNAL_DOMAIN') }}/issue?iid={{ data.issue_details.urls.next }}">
 				<i class="bi bi-arrow-right pr-2"></i> 
@@ -58,7 +58,7 @@
 						</a>
 					{% endif %}
 					{% if article.urls.html %}
-					<a class="btn btn-outline-primary btn-sm" href="{{ _ENV('JOURNAL_DOMAIN') }}article?mno={{ article.urls.mno }}">
+					<a class="btn btn-secondary btn-sm" href="{{ _ENV('JOURNAL_DOMAIN') }}article?mno={{ article.urls.mno }}">
 						<i class="bi-file-richtext-fill pr-2"></i>
 						<span>Fulltext HTML</span>
 					</a>
