@@ -14,7 +14,7 @@
 <div class="row mb-4">
 	<div class="col-6">
 		{% if data.issue_details.urls.previous %}
-			<a class="btn btn-primary" href="{{ _ENV('JOURNAL_DOMAIN') }}/issue?iid={{ data.issue_details.urls.previous }}">
+			<a class="btn btn-primary" href="{{ _ENV('JOURNAL_DOMAIN') }}issue?iid={{ data.issue_details.urls.previous }}">
 				<i class="bi bi-arrow-left pr-2"></i> 
 				<span>Previous Issue<span>
 			</a>
@@ -22,9 +22,9 @@
 	</div>
 	<div class="col-6 align-items-end text-right">
 		{% if data.issue_details.urls.next %}
-			<a class="btn btn-primary" href="{{ _ENV('JOURNAL_DOMAIN') }}/issue?iid={{ data.issue_details.urls.next }}">
-				<i class="bi bi-arrow-right pr-2"></i> 
+			<a class="btn btn-primary" href="{{ _ENV('JOURNAL_DOMAIN') }}issue?iid={{ data.issue_details.urls.next }}">
 				<span>Next Issue<span>
+				<i class="bi bi-arrow-right pl-2"></i> 
 			</a>
 		{% endif %}
 </div>
