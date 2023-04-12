@@ -7,15 +7,16 @@ use simplehtmldom\HtmlDocument;
 class IssueController extends Controller
 {
 
-    function closetags($html)
+    function closetags($data)
     {
+        $html = mb_convert_encoding($data, 'HTML-ENTITIES', 'UTF-8');
         libxml_use_internal_errors(true);
 
         $dom = new \DOMDocument;
         // set encoding
         $dom->encoding = 'utf-8';
 
-        $dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
+        $dom->loadHTML($html);
 
         $mock = new \DOMDocument;
         $mock->encoding = 'utf-8';
@@ -25,7 +26,7 @@ class IssueController extends Controller
             $mock->appendChild($mock->importNode($child, true));
         }
 
-        $fixed = trim(mb_convert_encoding($mock->saveHTML(), 'HTML-ENTITIES', 'UTF-8'));
+        $fixed = trim($mock->saveHTML());
         
         return $fixed;
     }
