@@ -111,12 +111,17 @@ trait Parser
         ];
     }
 
+    public function extract_article_info($content)
+    {
+        file_put_contents($_SERVER['DOCUMENT_ROOT'] . '/files_html/article_info.html', $content);
+    }
+
     public function extract_article_data($content)
     {
 
         $client = new HtmlDocument();
         $html = $client->load($content);
-        
+
         $category = $html->find('td b', 0)->plaintext;
         $d = $html->find('#summary text');
         $abstract = $d[1]->plaintext;
@@ -125,11 +130,13 @@ trait Parser
         $title = $html->find('td span', 0)->innertext;
         $authors = explode(", ", trim(str_replace(".", "", $html->find('td i', 0)->plaintext)));
         $doi = $html->find('td div a', 2)->plaintext;
-       
-        $issue_string = explode("-", explode("iid=", $html->find('td div a', 1)->href)[1]);
+
+        $issue_link =  explode("iid=", $html->find('td div a', 1)->href)[1];
+        $issue_string = explode("-", $issue_link);
         $issue_details['year'] = (int) $issue_string[0];
         $issue_details['volume'] = (int) $issue_string[1];
         $issue_details['issue'] = (int) explode(".", $issue_string[2])[0];
+        $issue_details['link'] = $issue_link;
 
 
         if (str_contains($html->find('td b a', 3)->plaintext, "Cited")) {
@@ -139,20 +146,25 @@ trait Parser
         }
 
 
-        $cites = $html->find("tr[valign=middle]");
         $citations = [];
-        foreach ($cites as $item) {
+        foreach ($html->find("tr[valign=middle]") as $item) {
             $title = $item->find('td text', 0)->plaintext;
             $link = $item->find('td a', 0)->href;
             $link_title = $item->find('td a', 0)->plaintext;
             $citations[] = [
                 "title" => $title,
                 "link" => [
-                    "url" => $link,
+                    "url" => str_replace("http://dx.", "https://", $link),
                     "title" => $link_title
                 ]
             ];
         }
+
+        $pa = explode("-", explode(": ", $html->find('td[colspan=3] div div', 0)->find('text', 3)->innertext)[1]);
+        $pages = [
+            "first" => $pa[0],
+            "last" => $pa[1]
+        ];
 
         $article_links = ['previous' => null, 'next' => null];
         foreach ($html->find('div a') as $link) {
@@ -164,8 +176,41 @@ trait Parser
             }
         }
 
+        $c = $html->find('.articletitle', 0)->next_sibling()->find('td', 0);
+        $references = [];
+        $pubmed_style = [
+            "style" => $c->find('b', 0)->plaintext,
+            "reference" => $c->find('text', 1)->plaintext
+        ];
 
-        $data = [
+        $web_style = [
+            "style" => $c->find('b', 1)->plaintext,
+            "reference" => $c->find('text', 4)->plaintext
+        ];
+
+        $references[] = $pubmed_style;
+        $references[] = $web_style;
+
+        foreach ($c->find('p') as $item) {
+            $ref = trim(explode("doi:", $item->plaintext)[0]);
+            $style = $item->prev_sibling()->plaintext;
+            $references[] = [
+                "style" => $style,
+                "reference" => $ref
+            ];
+        }
+
+        $files = ['html' => null, 'pdf' => null];
+        foreach ($html->find('table[class=boxtext] a') as $link) {
+            if (str_contains($link->plaintext, "HTML")) {
+                $files['html'] = $link->href;
+            }
+            if (str_contains($link->plaintext, "PDF")) {
+                $files['pdf'] = explode("fulltxtp=", $link->href)[1];
+            }
+        }
+
+        return [
             "title" => $title,
             "authors" => $authors,
             "category" => $category,
@@ -175,11 +220,11 @@ trait Parser
             "issue_details" => $issue_details,
             "citations" => $citations,
             "citation_count" => $citation_count,
-            "article_links" => $article_links
+            "article_links" => $article_links,
+            "pages" => $pages,
+            "references" => $references,
+            "files" => $files
         ];
-
-        $this->dump($data);
-
 
     }
 }

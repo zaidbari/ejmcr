@@ -1,0 +1,22 @@
+{% extends "layout.twig" %}
+{% block content  %}
+	<header class="bg-light py-5">
+		<div class="container-fluid text-center">
+				<h1 class="h3 font-weight-light text-dark">{{ data.category }}</h1>
+				<p>
+					<span class="text-primary font-weight-bold">Year:</span> {{ data.issue_details.year }} |
+					<span class="text-primary font-weight-bold">Volume:</span> {{ data.issue_details.volume }} |
+					<span class="text-primary font-weight-bold">Issue:</span> {{ data.issue_details.issue }} |
+					<span class="text-primary font-weight-bold">Page:</span> {{ data.pages.first }} - {{ data.pages.last }}
+				</p>
+		</div>
+</header>
+
+<main>
+	<div class="row">
+	<div class="col-md-6"></div>
+	<div class="col-md-6"></div>
+	</div>
+</main>
+
+{% endblock %}
