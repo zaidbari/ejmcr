@@ -16,7 +16,7 @@
 				{% for article in most_read_articles %}
 					<article class="bg-light rounded shadow-lg p-5 mb-5">
 						<h1 class="h5 font-weight-bold">
-							<a href="{{ _ENV('JOURNAL_DOMAIN') }}/article?mno={{ article.mno }}">{{ article.title }}</a>
+							<a href="{{ _ENV('JOURNAL_DOMAIN') }}article?mno={{ article.mno }}">{{ article.title }}</a>
 						</h1>
 						<p class="font-italic">{{ article.authors }}</p>
 						<div>
@@ -41,7 +41,7 @@
 				{% for article in most_downloaded_articles %}
 					<article class="bg-light rounded shadow-lg p-5 mb-5">
 						<h1 class="h5 font-weight-bold">
-							<a href="{{ _ENV('JOURNAL_DOMAIN') }}/article?mno={{ article.mno }}">{{ article.title }}</a>
+							<a href="{{ _ENV('JOURNAL_DOMAIN') }}article?mno={{ article.mno }}">{{ article.title }}</a>
 						</h1>
 						<p class="font-italic">{{ article.authors }}</p>
 						<div>
@@ -67,7 +67,7 @@
 				{% for article in most_cited_articles %}
 					<article class="bg-light rounded shadow-lg p-5 mb-5">
 						<h1 class="h5 font-weight-bold">
-							<a href="{{ _ENV('JOURNAL_DOMAIN') }}/article?mno={{ article.mno }}">{{ article.title }}</a>
+							<a href="{{ _ENV('JOURNAL_DOMAIN') }}article?mno={{ article.mno }}">{{ article.title }}</a>
 						</h1>
 						<p class="font-italic">{{ article.authors }}</p>
 						<div>
