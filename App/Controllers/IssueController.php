@@ -49,6 +49,9 @@ class IssueController extends Controller
     {
         $li = $html->find('li');
         $cat = '';
+        $articles_data = [];
+        $urls = [];
+        $details = [];
         foreach ($li as $item) { 
             $isCategory = $item->prev_sibling()->tag !== null && $item->prev_sibling()->tag == 'p';
             if ($isCategory) { 
