@@ -9,6 +9,8 @@ class IssueController extends Controller
 
     function closetags($data)
     {
+        $this->dump($data);
+        
         $html = mb_convert_encoding($data, 'HTML-ENTITIES', 'UTF-8');
         libxml_use_internal_errors(true);
 
