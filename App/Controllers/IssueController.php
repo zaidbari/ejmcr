@@ -7,32 +7,22 @@ use simplehtmldom\HtmlDocument;
 class IssueController extends Controller
 {
 
-    function closetags($data)
+    function closetags($html)
     {
-        $this->dump($data);
-
-        $html = mb_convert_encoding($data, 'HTML-ENTITIES', 'UTF-8');
         libxml_use_internal_errors(true);
 
         $dom = new \DOMDocument;
-        // set encoding
-        $dom->encoding = 'utf-8';
-
         $dom->loadHTML($html);
-
         $mock = new \DOMDocument;
-        $mock->encoding = 'utf-8';
-
         $body = $dom->getElementsByTagName('body')->item(0);
         foreach ($body->childNodes as $child) {
             $mock->appendChild($mock->importNode($child, true));
         }
 
         $fixed = trim($mock->saveHTML());
-        
         return $fixed;
     }
-    
+
     private function extract_issue_url($html)
     {
         $issues = ["previous" => null, "next" => null];
@@ -120,10 +110,7 @@ class IssueController extends Controller
         } else {
             $content = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV["JOURNAL_ID"]. "&sec=cissue");
         }
-
-        
-        $contents = $this->closetags($content);
-        // $contents = str_replace(["â&#128;&#153;", "Ã¢&#x80;&#x99;", "Ã¢&#128;&#153;"], "'", $this->closetags(htmlspecialchars($content)));
+        $contents = $this->closetags(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
         unset($content);
 
         $client = new HtmlDocument();
