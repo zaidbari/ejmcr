@@ -31,7 +31,8 @@ class IssueController extends Controller
 
     public function latest_issue()
     {
-        $file_contents = file_get_contents($_SERVER['DOCUMENT_ROOT']."/files_html/test.html");
+        $file_contents = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV["JOURNAL_ID"]. "&sec=aip");
+        // $file_contents = file_get_contents($_SERVER['DOCUMENT_ROOT']."/files_html/test.html");
         $data = $this->extract_latest_issue_data($file_contents);
 
         $this->view('issues/latest', [
