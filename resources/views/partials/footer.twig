@@ -7,7 +7,7 @@
 					<li><a class="text-light d-block mb-2" href="/thankyou">Thank you to our reviewers</a></li>
 					{% for item in MENU %}
 						{% if item.type == 'journal' %}
-							<li><a class="text-light d-block mb-2" href="/pages/{{item.slug}}">{{item.title}}</a></li>
+							<li><a class="text-light d-block mb-2" href="/page/{{item.slug}}">{{item.title}}</a></li>
 						{% endif %}
 					{% endfor %}
 					<li><a class="text-light d-block mb-2" href="https://www.ejmanager.com/reviewers/index.php?isl=login">Reviewer Login</a></li>
@@ -21,7 +21,7 @@
 
 					{% for item in MENU %}
 						{% if item.type == 'author' %}
-							<li><a class="text-light d-block mb-2" href="/pages/{{item.slug}}">{{item.title}}</a></li>
+							<li><a class="text-light d-block mb-2" href="/page/{{item.slug}}">{{item.title}}</a></li>
 						{% endif %}
 					{% endfor %}
 
@@ -42,7 +42,7 @@
 				<ul class="list-unstyled text-small">
 					{% for item in MENU %}
 						{% if item.type == 'misc' %}
-							<li><a class="text-light d-block mb-2" href="/pages/{{item.slug}}">{{item.title}}</a></li>
+							<li><a class="text-light d-block mb-2" href="/page/{{item.slug}}">{{item.title}}</a></li>
 						{% endif %}
 					{% endfor %}
 
@@ -70,7 +70,7 @@
 
 					{% for item in MENU %}
 						{% if item.type == 'policy' %}
-							<li><a class="text-light d-block mb-2" href="/pages/{{item.slug}}">{{item.title}}</a></li>
+							<li><a class="text-light d-block mb-2" href="/page/{{item.slug}}">{{item.title}}</a></li>
 						{% endif %}
 					{% endfor %}
 

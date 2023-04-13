@@ -32,6 +32,9 @@ $router->get('/current-issue', 'IssueController@current_issue');
 $router->get('/latest-articles', 'IssueController@latest_issue');
 $router->get('/issue', 'IssueController@index');
 $router->get('/article', 'ArticlesController@index');
+$router->get('/page/guide-for-authors', 'PageController@gfa');
+$router->get('/page/editorial-board', 'PageController@eboard');
+$router->get('/page/{slug}', 'PageController@index');
 
 $router->get('/log/request', 'ErrorLog@request');
 $router->get('/log/error', 'ErrorLog@error');
