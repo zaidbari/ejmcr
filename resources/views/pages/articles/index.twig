@@ -34,15 +34,15 @@
  {% block meta %}
 	<meta name="citation_eissn" content="{{_ENV("JOURNAL_EISSN")}}" />
 	<meta name="citation_volume" content="{{data.issue_details.volume}}" />
-	<meta name="citation_lastpage" content="{{data.issue_details.pages.last}}" />
-	<meta name="citation_firstpage" content="{{data.issue_details.pages.first}}" />
+	<meta name="citation_lastpage" content="{{data.pages.last}}" />
+	<meta name="citation_firstpage" content="{{data.pages.first}}" />
 	<meta name="citation_publisher" content="{{_ENV("JOURNAL_PUBLISHER")}}" />
 	<meta name="citation_journal_title" content="{{_ENV("JOURNAL_TITLE")}}" />
 	<meta name="citation_type" content="JOUR" />
 	<meta name="citation_doi" content="{{data.doi}}" />
 	<meta name="dc.identifier" content="{{data.doi}}" />
 	<meta name="citation_article_type" content="{{data.category}} article" />
-	<meta property=og:description content="{{ _TRUNC(data.abstract)}} " />
+	<meta property=og:description content="{{ _TRUNC(data.abstract) }} " />
 	<meta name="citation_title" content="{{data.title}}" />
 	<meta property=og:title content="{{data.title}}" />
 	<meta name="citation_author" content="{{data.author_names}}" />
