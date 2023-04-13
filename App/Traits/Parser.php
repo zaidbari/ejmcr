@@ -188,6 +188,38 @@ trait Parser
 
     }
 
+    function custom_file_exists($file_path='')
+    {
+        $file_exists=false;
+    
+        //clear cached results
+        //clearstatcache();
+    
+        //trim path
+        $file_dir=trim(dirname($file_path));
+    
+        //normalize path separator
+        $file_dir=str_replace('/', DIRECTORY_SEPARATOR, $file_dir).DIRECTORY_SEPARATOR;
+    
+        //trim file name
+        $file_name=trim(basename($file_path));
+    
+        //rebuild path
+        $file_path=$file_dir."{$file_name}";
+    
+        //If you simply want to check that some file (not directory) exists, 
+        //and concerned about performance, try is_file() instead.
+        //It seems like is_file() is almost 2x faster when a file exists 
+        //and about the same when it doesn't.
+    
+        $file_exists=is_file($file_path);
+    
+        //$file_exists=file_exists($file_path);
+    
+        return $file_exists;
+    }
+
+    
     public function extract_article_data($content)
     {
 
@@ -284,10 +316,11 @@ trait Parser
             if (str_contains($link->plaintext, "PDF")) {
                 $fil = $_SERVER['DOCUMENt_ROOT'].'/fulltext/'. explode("/", $doi)[2] . '.pdf';
                 clearstatcache(true, $fil);
+                
                 $this->dump($fil);
-                $this->dump(file_exists($fil));
+                $this->dump($this->custom_file_exists($fil));
 
-                if (file_exists($fil)) {
+                if ($this->custom_file_exists($fil)) {
                     $files['pdf'] = $fil;
                 } else { 
                     $files['pdf'] = "https://www.ejmanager.com/fulltextpdf.php?mno=". $_GET['mno'];
