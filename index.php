@@ -31,6 +31,7 @@ $router->get('/', 'HomeController@index');
 $router->get('/current-issue', 'IssueController@current_issue');
 $router->get('/latest-articles', 'IssueController@latest_issue');
 $router->get('/issue', 'IssueController@index');
+$router->get('/archives', 'IssueController@archives');
 $router->get('/article', 'ArticlesController@index');
 $router->get('/page/guide-for-authors', 'PageController@gfa');
 $router->get('/page/editorial-board', 'PageController@eboard');

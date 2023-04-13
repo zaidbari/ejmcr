@@ -53,4 +53,14 @@ class IssueController extends Controller
         ]);
     }
 
+    public function archives()
+    {
+        $content = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=".$_ENV['JOURNAL_ID']."&sec=archive");
+        $contents = $this->fixTags(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
+        unset($content);
+
+        file_put_contents($_SERVER['DOCUMENT_ROOT']."/files_html/archives.html", $contents);
+
+    }
+
 }
