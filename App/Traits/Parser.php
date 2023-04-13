@@ -285,6 +285,7 @@ trait Parser
                 $fil = $_SERVER['DOCUMENt_ROOT'].'/fulltext/'. explode("/", $doi)[2] . '.pdf';
                 clearstatcache(true, $fil);
                 $this->dump($fil);
+                $this->dump(file_exists($fil));
 
                 if (file_exists($fil)) {
                     $files['pdf'] = $fil;
