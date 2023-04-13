@@ -314,8 +314,8 @@ trait Parser
                 $files['html'] = true;
             }
             if (str_contains($link->plaintext, "PDF")) {
-                $fil = $_SERVER['DOCUMENt_ROOT'].'/fulltext/'. explode("/", $doi)[2] . '.pdf';
-                clearstatcache(true, $fil);
+
+                $fil = __DIR__ . '/../../fulltext/' . explode("/", $doi)[2] . '.pdf';
                 
                 $this->dump($fil);
                 $this->dump($this->custom_file_exists($fil));
