@@ -252,7 +252,7 @@ trait Parser
             $client = new HtmlDocument();
             $con = $client->load($h);
             $con->find('p', 0)->remove();
-            $con->find('p', 1)->remove();
+            $con->find('p', 0)->remove();
             $con->find('h2', 0)->remove();
             $html = str_replace("images/", $_ENV['JOURNAL_DOMAIN'] . "/files_html/images/", $con->save());
         }
