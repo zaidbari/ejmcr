@@ -170,7 +170,7 @@ trait Parser
         $keywords = $d[3]->plaintext;
         unset($d);
 
-        $title = $html->find('td span', 0)->innertext;
+        $title = $html->find('span[style="font-size:1.3em;line-height:1.2em;font-weight:bold;"]', 0)->innertext;
         $authors = explode(", ", trim(str_replace(".", "", $html->find('td i', 0)->plaintext)));
         $author_names = trim(str_replace(".", "", $html->find('td i', 0)->plaintext));
         $doi = $html->find('td div a', 2)->plaintext;
