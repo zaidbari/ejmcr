@@ -283,8 +283,8 @@ trait Parser
             }
             if (str_contains($link->plaintext, "PDF")) {
                 $l = explode("fulltxtp=", $link->href)[1];
-                if (file_exists($_SERVER['DOCUMENt_ROOT'].'fulltext'. $l)) {
-                    $files['pdf'] = $_SERVER['DOCUMENt_ROOT'].'fulltext'. $l;
+                if (file_exists($_SERVER['DOCUMENt_ROOT'].'/fulltext/'. $l)) {
+                    $files['pdf'] = $_SERVER['DOCUMENt_ROOT'].'/fulltext/'. $l;
                 } else { 
                     $files['pdf'] = "https://www.ejmanager.com/fulltextpdf.php?mno=". $_GET['mno'];
                 }
