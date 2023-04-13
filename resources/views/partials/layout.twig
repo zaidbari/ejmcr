@@ -9,7 +9,7 @@
 		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<title>{{ meta.title ? meta.title ~ ' | ' : '' }} {{ _ENV('JOURNAL_TITLE') }}</title>
-		<meta name="description" content="{{ meta.description }}" />
+		<meta name="description" content="{{ _TRUNC(meta.description) }}" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="keywords" content="{{ meta.keywords }}" />
 		<meta name="robots" content="FOLLOW,INDEX" />
