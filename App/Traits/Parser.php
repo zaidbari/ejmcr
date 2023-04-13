@@ -253,6 +253,7 @@ trait Parser
             $con = $client->load($h);
             $con->find('p', 0)->remove();
             $con->find('p', 1)->remove();
+            $con->find('p', 2)->remove();
             $con->find('h2', 0)->remove();
             $html = $con->save();
         }
