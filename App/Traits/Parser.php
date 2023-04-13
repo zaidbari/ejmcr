@@ -248,7 +248,7 @@ trait Parser
         $html = '';
 
         if ($files['html'] !== null && $_ENV['APP_DEBUG'] !== "true") {
-            $h = file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/files_html/" . strtolower($_ENV['JOURNAL_ABBREV'] . "-" . $issue_details['volume'] . "-" . $pages['first'] . '.html'));
+            $h = file_get_contents($_ENV['JOURNAL_DOMAIN'] . "/files_html/" . strtolower($_ENV['JOURNAL_ABBREV'] . "-" . $issue_details['volume'] . "-" . $pages['first'] . '.html'));
             $client = new HtmlDocument();
             $con = $client->load($h);
             $con->find('p', 0)->remove();
