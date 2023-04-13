@@ -1,0 +1,12 @@
+<header class="bg-light py-5">
+	<div class="container-fluid text-center">
+		<h1 class="h3 font-weight-light text-dark">{{ data.category }}</h1>
+		<p>
+			<span class="text-primary font-weight-bold">Year:</span> {{ data.issue_details.year }} |
+			<span class="text-primary font-weight-bold">Volume:</span> {{ data.issue_details.volume }} |
+			<span class="text-primary font-weight-bold">Issue:</span> {{ data.issue_details.issue }} |
+			<span class="text-primary font-weight-bold">Page:</span> {{ data.pages.first }} - {{ data.pages.last }} |
+			<span class="text-primary font-weight-bold">DOI:</span> <a href="https://doi.org/{{data.doi}}" target="_blank" class="text-dark" rel="noopener noreferrer">{{ data.doi }}</a>
+		</p>
+	</div>
+</header>

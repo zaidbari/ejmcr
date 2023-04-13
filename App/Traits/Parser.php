@@ -116,7 +116,34 @@ trait Parser
         $client = new HtmlDocument();
         $html = $client->load($content);
 
-        file_put_contents($_SERVER['DOCUMENT_ROOT'] . "/files_html/article_info.html", $content);
+        $authors = $html->find('span[style|="font-size:1.3em;"]');
+        $author_names = [];
+        foreach ($authors as $author) {
+            $author_names[] = $author->plaintext;
+        }
+        $affiliations = $html->find('span[style|="font-size:.95em;"]');
+        $author_affiliations = [];
+        foreach ($affiliations as $affiliation) {
+            $author_affiliations[] = $affiliation->plaintext;
+        }
+
+        $authors = [];
+        foreach ($author_names as $key => $name) {
+            $authors[$name] = $author_affiliations[$key];
+        }
+
+        $correspond = $html->find('span[style|="font-size:1.0em;"]', 0);
+        $correspondence['name'] = trim(str_replace(".", "", explode(";", $correspond->plaintext)[0]));
+        $correspondence['email'] = $correspond->find('a', 0)->plaintext;
+        
+        $history = trim($html->find('span[style|="font-size:1.0em;"]', 1)->innertext);
+
+        return [
+            'authors' => $authors,
+            'correspondence' => $correspondence,
+            'history' => $history
+        ];
+
     }
 
     public function extract_article_data($content)
@@ -129,9 +156,11 @@ trait Parser
         $d = $html->find('#summary text');
         $abstract = $d[1]->plaintext;
         $keywords = $d[3]->plaintext;
+        unset($d);
 
         $title = $html->find('td span', 0)->innertext;
         $authors = explode(", ", trim(str_replace(".", "", $html->find('td i', 0)->plaintext)));
+        $author_names = trim(str_replace(".", "", $html->find('td i', 0)->plaintext));
         $doi = $html->find('td div a', 2)->plaintext;
 
         $issue_link =  explode("iid=", $html->find('td div a', 1)->href)[1];
@@ -140,6 +169,8 @@ trait Parser
         $issue_details['volume'] = (int) $issue_string[1];
         $issue_details['issue'] = (int) explode(".", $issue_string[2])[0];
         $issue_details['link'] = $issue_link;
+        unset($issue_string);
+        unset($issue_link);
 
 
         if (str_contains($html->find('td b a', 3)->plaintext, "Cited")) {
@@ -147,7 +178,6 @@ trait Parser
         } else {
             $citation_count = 0;
         }
-
 
         $citations = [];
         foreach ($html->find("tr[valign=middle]") as $item) {
@@ -168,6 +198,8 @@ trait Parser
             "first" => $pa[0],
             "last" => $pa[1]
         ];
+
+        unset($pa);
 
         $article_links = ['previous' => null, 'next' => null];
         foreach ($html->find('div a') as $link) {
@@ -206,16 +238,32 @@ trait Parser
         $files = ['html' => null, 'pdf' => null];
         foreach ($html->find('table[class=boxtext] a') as $link) {
             if (str_contains($link->plaintext, "HTML")) {
-                $files['html'] = $link->href;
+                $files['html'] = true;
             }
             if (str_contains($link->plaintext, "PDF")) {
                 $files['pdf'] = explode("fulltxtp=", $link->href)[1];
             }
         }
 
+        $html = '';
+
+        if ($files['html'] !== null && $_ENV['APP_DEBUG'] !== "true") {
+            $h = file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/files_html/" . strtolower($_ENV['JOURNAL_ABBREV'] . "-" . $issue_details['volume'] . "-" . $pages['first'] . 'html'));
+            $client = new HtmlDocument();
+            $con = $client->load($h);
+            $con->find('p', 0)->remove();
+            $con->find('p', 1)->remove();
+            $con->find('h2', 0)->remove();
+            $html = $con->save();
+        }
+
+        unset($client);
+
+
         return [
             "title" => $title,
             "authors" => $authors,
+            "author_names" => $author_names,
             "category" => $category,
             "abstract" => $abstract,
             "keywords" => $keywords,
@@ -226,7 +274,8 @@ trait Parser
             "article_links" => $article_links,
             "pages" => $pages,
             "references" => $references,
-            "files" => $files
+            "files" => $files,
+            "html" => $html
         ];
 
     }

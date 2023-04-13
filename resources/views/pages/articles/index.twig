@@ -1,22 +1,29 @@
 {% extends "layout.twig" %}
-{% block content  %}
-	<header class="bg-light py-5">
-		<div class="container-fluid text-center">
-				<h1 class="h3 font-weight-light text-dark">{{ data.category }}</h1>
-				<p>
-					<span class="text-primary font-weight-bold">Year:</span> {{ data.issue_details.year }} |
-					<span class="text-primary font-weight-bold">Volume:</span> {{ data.issue_details.volume }} |
-					<span class="text-primary font-weight-bold">Issue:</span> {{ data.issue_details.issue }} |
-					<span class="text-primary font-weight-bold">Page:</span> {{ data.pages.first }} - {{ data.pages.last }}
-				</p>
-		</div>
-</header>
+{% block content %}
 
-<main>
-	<div class="row">
-	<div class="col-md-6"></div>
-	<div class="col-md-6"></div>
-	</div>
+{% include 'articles/components/header.twig' %}
+<main class="container my-5">
+		{% include 'articles/components/links.twig' %}
+		{% include 'articles/components/nav.twig' %}
+
+		<div class="tab-content mb-5" id="nav-tabContent">
+				{% include 'articles/components/abstract.twig' %}
+				{% include 'articles/components/info.twig' %}
+				{% include 'articles/components/howto.twig' %}
+				{% include 'articles/components/tools.twig' %}
+				{% include 'articles/components/metrics.twig' %}
+		</div>
+		{% include 'articles/components/license.twig' %}
+
 </main>
+<article class="font-normal mb-5">
+	{{data.html | raw}}
+</article>
 
 {% endblock %}
+
+ {% block scripts %}
+		<script type="text/javascript" src="https://cdn.plu.mx/widget-details.js"></script>
+		<script type="text/javascript" src="//cdn.plu.mx/widget-popup.js"></script>
+
+ {% endblock %}
