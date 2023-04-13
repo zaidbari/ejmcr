@@ -296,7 +296,7 @@ trait Parser
             if (str_contains($link->plaintext, "PDF")) {
                 $l = '/fulltext/' . explode("/", $doi)[2] . '.pdf';
                 $fil = __DIR__ . '/../..' . $l;
-                
+
                 if ($this->custom_file_exists($fil)) {
                     $files['pdf'] = '/fulltext/' . explode("/", $doi)[2] . '.pdf';
                 } else { 
