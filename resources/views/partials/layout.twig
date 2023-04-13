@@ -8,11 +8,13 @@
 		<meta charset="utf-8" />
 		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<title>{{ meta.title ? meta.title ' | ' : '' }} {{ _ENV('JOURNAL_TITLE') }}</title>
+		<title>{{ meta.title ? meta.title ~ ' | ' : '' }} {{ _ENV('JOURNAL_TITLE') }}</title>
 		<meta name="description" content="{{ meta.description }}" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="keywords" content="{{ meta.keywords }}" />
-		<meta name="robots" content="INDEX,FOLLOW" />
+		<meta name="robots" content="FOLLOW,INDEX" />
+		<meta name="generator" content="Journal" />
+		<meta name="theme-color" content="#ffffff" />
 
 		<link rel="stylesheet" href="/resources/assets/scss/default/app.css" />
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css" />
