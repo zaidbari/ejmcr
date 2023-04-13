@@ -46,7 +46,7 @@ class IssueController extends Controller
         
         $this->view('issues/index', [
             'meta' => [
-                'title' => 'Issue ' .  $data['issue_details']['issue']. " | Volume " . $data['issue_details']['volume'],
+                'title' =>  $data['issue_details']['volume'] .' | Issue ' .  $data['issue_details']['issue'],
                 'description' => $description,
             ],
             "data" => $data
