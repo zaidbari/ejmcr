@@ -283,6 +283,7 @@ trait Parser
             }
             if (str_contains($link->plaintext, "PDF")) {
                 $l = explode("/", $doi)[2];
+                $this->dump($l);
                 if (file_exists($_SERVER['DOCUMENt_ROOT'].'/fulltext/'. $l .'.pdf')) {
                     $files['pdf'] = $_SERVER['DOCUMENt_ROOT'].'/fulltext/'. $l . '.pdf';
                 } else { 
