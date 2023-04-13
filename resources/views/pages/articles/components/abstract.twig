@@ -19,4 +19,14 @@
 		<p class="mb-0 pb-2"><b class="text-primary">Keywords: </b><i>{{data.keywords}}</i></p>
 	</article>
 	<hr>
+	<section>
+		{% if data.citation_count > 0 %}
+			<h3>Citations</h3>
+
+			{% for cite in data.citations %}
+				<h3>{{cite.title}}</h3>
+				<p><a href="{{cite.link.url}}">{{cite.link.title}}</a></p>
+			{% endfor %}
+		{% endif %}
+	</section>
 </div>
