@@ -31,10 +31,12 @@ class IssueController extends Controller
 
     public function latest_issue()
     {
-        $this->view('issues/current', [
+        $data=file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV["JOURNAL_ID"] . "&sec=aip");
+        file_put_contents($_SERVER['DOCUMENT_ROOT']."/files_html/latest_issue.html", $data);
+        $this->view('issues/index', [
             'meta' => [
-            'title' => 'Current issue',
-            'description' => 'Current issue of the journal',
+            'title' => 'Lates issue',
+            'description' => 'Online first articles of the journal ' . $_ENV["JOURNAL_TITLE"],
             ],
         ]);
     }
@@ -43,7 +45,7 @@ class IssueController extends Controller
     {
         $data = $this->articles("&iid=" . $_GET['iid'] . "&target=local");
         $description = "Issue " . $data['issue_details']['issue'] . " of " . $_ENV["JOURNAL_TITLE"] . " published in " . $data['issue_details']['year'];
-        
+
         $this->view('issues/index', [
             'meta' => [
                 'title' => 'Volume ' . $data['issue_details']['volume'] .' | Issue ' .  $data['issue_details']['issue'],
@@ -55,12 +57,10 @@ class IssueController extends Controller
 
     public function archives()
     {
-        // $file_contents = file_get_contents($_SERVER['DOCUMENT_ROOT']. '/files_html/archives.html');
-        $file_contents = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=".$_ENV['JOURNAL_ID']."&sec=archive");
-        $content = $file_contents;
-        
+        $content = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=".$_ENV['JOURNAL_ID']."&sec=archive");
+
         $class = "class='h4 font-weight-bold px-4 bg-dark shadow-lg text-light rounded-lg mt-3 py-3'";
-        // $content = file_get_contents($_SERVER['DOCUMENT_ROOT']. '/files_html/archives_fixed.html');
+
         $content = str_replace(["&nbsp;", "&raquo;", "&#187;"], "", $content);
         $content = str_replace(["&amp;&amp;", "&amp;", "&&"], "&", $content);
         $content = str_replace("style='padding:19px;'", $class, $content);

@@ -29,7 +29,7 @@ $router->setNamespace('\App\Controllers');
 $router->get('/', 'HomeController@index');
 
 $router->get('/current-issue', 'IssueController@current_issue');
-$router->get('/latest-articles', 'IssueController@latest_issue');
+$router->get('/latest-issue', 'IssueController@latest_issue');
 $router->get('/issue', 'IssueController@index');
 $router->get('/archives', 'IssueController@archives');
 $router->get('/article', 'ArticlesController@index');
