@@ -314,14 +314,14 @@ trait Parser
                 $files['html'] = true;
             }
             if (str_contains($link->plaintext, "PDF")) {
-
-                $fil = __DIR__ . '/../../fulltext/' . explode("/", $doi)[2] . '.pdf';
+                $l = '/fulltext/' . explode("/", $doi)[2] . '.pdf';
+                $fil = __DIR__ . '/../..' . $l;
                 
                 $this->dump($fil);
                 $this->dump($this->custom_file_exists($fil));
 
                 if ($this->custom_file_exists($fil)) {
-                    $files['pdf'] = $fil;
+                    $files['pdf'] = $_SERVER['DOCUMENT_ROOT'] . $fil;
                 } else { 
                     $files['pdf'] = "https://www.ejmanager.com/fulltextpdf.php?mno=". $_GET['mno'];
                 }
