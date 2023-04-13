@@ -61,14 +61,13 @@ class IssueController extends Controller
         
         $class = "class='alert-primary alert mt-3'";
         // $content = file_get_contents($_SERVER['DOCUMENT_ROOT']. '/files_html/archives_fixed.html');
-        $content = str_replace(["&nbsp;", "&raquo;"], "", $content);
+        $content = str_replace(["&nbsp;", "&raquo;", "&#187;"], "", $content);
         $content = str_replace(["&amp;&amp;", "&amp;"], "&", $content);
-        $content = str_replace('style="padding:19px;"', $class, $content);
-        $content = str_replace('?iid=', "/issue?iid=", $content);
-        $content = str_replace('&jid=' . $_ENV['JOURNAL_ID'] . "&lng=", "", $content);
+        $content = str_replace("style='padding:19px;'", $class, $content);
+        $content = str_replace("?iid=", "/issue?iid=", $content);
+        $content = str_replace("&jid=" . $_ENV['JOURNAL_ID'] . "&lng=", "", $content);
         $content = str_replace("pp.", "Page: ", $content);
         $content = str_replace("<a href", "<hr /><a href", $content);
-        file_put_contents($_SERVER['DOCUMENT_ROOT']. "/files_html/archives.html", $content);
         
         $this->view('issues/archive', [
             'meta' => [
