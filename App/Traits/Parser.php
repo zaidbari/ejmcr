@@ -317,11 +317,8 @@ trait Parser
                 $l = '/fulltext/' . explode("/", $doi)[2] . '.pdf';
                 $fil = __DIR__ . '/../..' . $l;
                 
-                $this->dump($fil);
-                $this->dump($this->custom_file_exists($fil));
-
                 if ($this->custom_file_exists($fil)) {
-                    $files['pdf'] = $_SERVER['DOCUMENT_ROOT'] . $fil;
+                    $files['pdf'] = $_SERVER['DOCUMENT_ROOT'] . $l;
                 } else { 
                     $files['pdf'] = "https://www.ejmanager.com/fulltextpdf.php?mno=". $_GET['mno'];
                 }
