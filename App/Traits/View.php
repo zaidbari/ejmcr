@@ -45,6 +45,7 @@ trait View
 
 
             /* ------------------- global functions available in view ------------------- */
+            $twig->addFunction(new TwigFunction('_GET', fn ($content) => $_GET[$content]));
             $twig->addFunction(new TwigFunction('_ENV', fn ($content) => $_ENV[$content]));
             $twig->addFunction(new TwigFunction('vardump', function ($content) {
                 echo "<pre>";

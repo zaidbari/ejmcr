@@ -132,6 +132,18 @@ trait Parser
             $authors[$name] = $author_affiliations[$key];
         }
 
+        // Author name = Rahul Kumar
+        // pubmed search = https://pubmed.ncbi.nlm.nih.gov/?access_num=Kachroo+R&link_type=AUTHORSEARCH&cmd=search&term=Kachroo+R%5Bau%5D&dispmax=50
+        // google scholor search = https://scholar.google.com/scholar?q=%22author:%20Rahul%20Kachroo%22
+        // generate google scholor and pubmed search links for each author
+        foreach ($authors as $name => $affiliation) {
+            $authors[$name] = [
+                'affiliation' => $affiliation,
+                'pubmed' => "https://pubmed.ncbi.nlm.nih.gov/?access_num=" . str_replace(" ", "+", $name) . "&link_type=AUTHORSEARCH&cmd=search&term=" . str_replace(" ", "+", $name) . "%5Bau%5D&dispmax=50",
+                'google_scholar' => "https://scholar.google.com/scholar?q=%22author:%20" . str_replace(" ", "%20", $name) . "%22"
+            ];
+        }
+
         $correspond = $html->find('span[style|="font-size:1.0em;"]', 0);
         $correspondence['name'] = trim(str_replace(".", "", explode(";", $correspond->plaintext)[0]));
         $correspondence['email'] = $correspond->find('a', 0)->plaintext;
