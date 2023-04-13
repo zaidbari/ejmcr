@@ -58,7 +58,8 @@ class IssueController extends Controller
         // $file_contents = file_get_contents($_SERVER['DOCUMENT_ROOT']. '/files_html/archives.html');
         $file_contents = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=".$_ENV['JOURNAL_ID']."&sec=archive");
         $content = str_replace(["&amp;&amp;", "&amp;"], "&", str_replace(["&nbsp;", "&raquo;"], "", $file_contents));
-        file_put_contents($_SERVER['DOCUMENT_ROOT']. "files_html/archives.html", $file_contents);
+        file_put_contents($_SERVER['DOCUMENT_ROOT']. "/files_html/archives.html", $file_contents);
+       
         $class = "class='alert-primary alert mt-3'";
         // $content = file_get_contents($_SERVER['DOCUMENT_ROOT']. '/files_html/archives_fixed.html');
         $content = str_replace('style="padding:19px;"', $class, $content);
