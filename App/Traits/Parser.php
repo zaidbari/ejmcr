@@ -132,10 +132,6 @@ trait Parser
             $authors[$name] = $author_affiliations[$key];
         }
 
-        // Author name = Rahul Kumar
-        // pubmed search = https://pubmed.ncbi.nlm.nih.gov/?access_num=Kachroo+R&link_type=AUTHORSEARCH&cmd=search&term=Kachroo+R%5Bau%5D&dispmax=50
-        // google scholor search = https://scholar.google.com/scholar?q=%22author:%20Rahul%20Kachroo%22
-        // generate google scholor and pubmed search links for each author
         foreach ($authors as $name => $affiliation) {
             $authors[$name] = [
                 'affiliation' => $affiliation,
@@ -192,11 +188,11 @@ trait Parser
 
         $citations = [];
         foreach ($html->find("tr[valign=middle]") as $item) {
-            $title = $item->find('td text', 0)->plaintext;
+            $citation_title = $item->find('td text', 0)->plaintext;
             $link = $item->find('td a', 0)->href;
             $link_title = $item->find('td a', 0)->plaintext;
             $citations[] = [
-                "title" => $title,
+                "title" => $citation_title,
                 "link" => [
                     "url" => str_replace("http://dx.", "https://", $link),
                     "title" => $link_title
