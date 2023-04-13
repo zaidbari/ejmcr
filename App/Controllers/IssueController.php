@@ -55,12 +55,25 @@ class IssueController extends Controller
 
     public function archives()
     {
-        $content = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=".$_ENV['JOURNAL_ID']."&sec=archive");
-        $contents = $this->fixTags(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
-        unset($content);
-
-        file_put_contents($_SERVER['DOCUMENT_ROOT']."/files_html/archives.html", $contents);
-
+        // $file_contents = file_get_contents($_SERVER['DOCUMENT_ROOT']. '/files_html/archives.html');
+        $file_contents = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=".$_ENV['JOURNAL_ID']."&sec=archive");
+        $content = str_replace(["&amp;&amp;", "&amp;"], "&", str_replace(["&nbsp;", "&raquo;"], "", $file_contents));
+        unset($file_contents);
+        $class = "class='alert-primary alert mt-3'";
+        // $content = file_get_contents($_SERVER['DOCUMENT_ROOT']. '/files_html/archives_fixed.html');
+        $content = str_replace('style="padding:19px;"', $class, $content);
+        $content = str_replace('?iid=', "/issue?iid=", $content);
+        $content = str_replace('&jid=' . $_ENV['JOURNAL_ID'] . "&lng=", "", $content);
+        $content = str_replace("pp.", "Page: ", $content);
+        $content = str_replace("<a href", "<hr /><a href", $content);
+        
+        $this->view('issues/archive', [
+            'meta' => [
+            'title' => 'Archives',
+            'description' => 'Archives of the journal'. $_ENV['JOURNAL_TITLE'],
+            ],
+            'content' => $content
+        ]);
     }
 
 }
