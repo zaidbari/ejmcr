@@ -111,6 +111,40 @@ trait Parser
         ];
     }
 
+    public function extract_latest_issue_data($content)
+    {
+        $contents = $this->fixTags(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
+        unset($content);
+
+        $contents = str_replace(["&#xBB;", "&#187;", "&raquo;"], "", $contents);
+
+        $articles = [];
+        $client = new HtmlDocument();
+        $html = $client->load($contents);
+
+        foreach ($html->find('li') as $article) {
+            $title = $article->find('span b', 0)->plaintext;
+            $author_names = explode("Abstract", $article->find('span.authornames', 0)->plaintext)[0];
+            $mno = explode("=", $article->find('a', 0)->href)[1];
+            $pdf = $article->find('a', 1)->href;
+            $doi = explode("doi.org/", $article->find('a', 2)->href)[1];
+            $history = trim($article->find('i', 0)->plaintext);
+            $category = $article->find('i', 1)->plaintext;
+
+            $articles[] = [
+                'title' => $title,
+                'authors' => $author_names,
+                'mno' => $mno,
+                'pdf' => $pdf,
+                'doi' => $doi,
+                'history' => $history,
+                'category' => $category
+            ];
+        }
+
+        return $articles;
+    }
+
     public function extract_article_info($content)
     {
         $client = new HtmlDocument();
@@ -248,7 +282,12 @@ trait Parser
                 $files['html'] = true;
             }
             if (str_contains($link->plaintext, "PDF")) {
-                $files['pdf'] = explode("fulltxtp=", $link->href)[1];
+                $l = explode("fulltxtp=", $link->href)[1];
+                if (file_exists($_SERVER['DOCUMENt_ROOT'].'fulltext'. $l)) {
+                    $files['pdf'] = $_SERVER['DOCUMENt_ROOT'].'fulltext'. $l;
+                } else { 
+                    $files['pdf'] = "https://www.ejmanager.com/fulltextpdf.php?mno=". $_GET['mno'];
+                }
             }
         }
 

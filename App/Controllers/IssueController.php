@@ -31,13 +31,15 @@ class IssueController extends Controller
 
     public function latest_issue()
     {
-        $data=file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV["JOURNAL_ID"] . "&sec=aip");
-        file_put_contents($_SERVER['DOCUMENT_ROOT']."/files_html/latest_issue.html", $data);
-        $this->view('issues/index', [
+        $file_contents = file_get_contents($_SERVER['DOCUMENT_ROOT']."/files_html/test.html");
+        $data = $this->extract_latest_issue_data($file_contents);
+
+        $this->view('issues/latest', [
             'meta' => [
             'title' => 'Lates issue',
             'description' => 'Online first articles of the journal ' . $_ENV["JOURNAL_TITLE"],
             ],
+            'data' => $data
         ]);
     }
 
@@ -68,7 +70,7 @@ class IssueController extends Controller
         $content = str_replace("&jid=" . $_ENV['JOURNAL_ID'] . "&lng=", "", $content);
         $content = str_replace("pp.", "Page: ", $content);
         $content = str_replace("<a href", "<hr /><a href", $content);
-        
+
         $this->view('issues/archive', [
             'meta' => [
             'title' => 'Archives',
