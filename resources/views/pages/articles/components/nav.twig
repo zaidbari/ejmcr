@@ -19,6 +19,11 @@
 				<li class="nav-item">
 					<a class="nav-link" id="metrics-tab" data-toggle="tab" href="#metrics" role="tab" aria-controls="metrics" aria-selected="false">Metrics</a>
 				</li>
+				{% if data.files.html %}
+					<li class="nav-item">
+						<a class="nav-link" id="html-tab" data-toggle="tab" href="#html" role="tab" aria-controls="html" aria-selected="false">HTML</a>
+					</li>
+				{% endif %}
 			</ul>
 		</div>
 	</div>
