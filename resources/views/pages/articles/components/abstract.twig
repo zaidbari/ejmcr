@@ -21,11 +21,13 @@
 	<hr>
 	<section>
 		{% if data.citation_count > 0 %}
-			<h3>Citations</h3>
+			<h4>Citations</h4>
 
 			{% for cite in data.citations %}
-				<h3>{{cite.title}}</h3>
+			<div class="card mb-3">
+				<h5>{{cite.title}}</h5>
 				<p><a href="{{cite.link.url}}">{{cite.link.title}}</a></p>
+			</div>
 			{% endfor %}
 		{% endif %}
 	</section>
