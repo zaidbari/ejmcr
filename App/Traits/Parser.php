@@ -282,10 +282,11 @@ trait Parser
                 $files['html'] = true;
             }
             if (str_contains($link->plaintext, "PDF")) {
-                $l = explode("/", $doi)[2];
-                $this->dump($l);
-                if (file_exists($_SERVER['DOCUMENt_ROOT'].'/fulltext/'. $l .'.pdf')) {
-                    $files['pdf'] = $_SERVER['DOCUMENt_ROOT'].'/fulltext/'. $l . '.pdf';
+                $fil = $_SERVER['DOCUMENt_ROOT'].'/fulltext/'. explode("/", $doi)[2] . '.pdf';
+                $this->dump($fil);
+                $this->dump(file_exists($fil));
+                if (file_exists($fil)) {
+                    $files['pdf'] = $fil;
                 } else { 
                     $files['pdf'] = "https://www.ejmanager.com/fulltextpdf.php?mno=". $_GET['mno'];
                 }
