@@ -15,17 +15,17 @@
 				</h1>
 				<p class="font-italic">{{ article.authors }}</p>
 				<div>
-					<a class="btn btn-primary d-md-inline-block d-block text-left btn-sm" href="{{ _ENV('JOURNAL_DOMAIN') }}article?mno={{ article.mno }}">
+					<a class="btn btn-primary d-md-inline-block d-block mb-md-0 mb-2 text-left btn-sm" href="{{ _ENV('JOURNAL_DOMAIN') }}article?mno={{ article.mno }}">
 							<i class="bi-file-earmark-ruled-fill pr-2"></i>
 							<span>Abstract</span>
 					</a>
 					{% if article.pdf %}
-						<a class="btn btn-danger d-md-inline-block d-block text-left btn-sm" href="{{ article.pdf }}" target="_blank" rel="noopener noreferrer">
+						<a class="btn btn-danger d-md-inline-block d-block mb-md-0 mb-2 text-left btn-sm" href="{{ article.pdf }}" target="_blank" rel="noopener noreferrer">
 							<i class="bi-file-pdf-fill pr-2"></i>
 							<span>PDF</span>
 						</a>
 					{% endif %}
-					<a class="btn btn-outline-secondary d-md-inline-block d-block text-left font-weight-bold btn-sm" target="_blank" rel="noopener noreferrer" href="https://doi.org/{{ article.doi }}">DOI: {{ article.doi }}</a>
+					<a class="btn btn-outline-secondary d-md-inline-block d-block mb-md-0 mb-2 text-left font-weight-bold btn-sm" target="_blank" rel="noopener noreferrer" href="https://doi.org/{{ article.doi }}">DOI: {{ article.doi }}</a>
 				</div>
 			</article>
 		{% endfor %}
