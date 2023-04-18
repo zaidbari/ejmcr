@@ -47,23 +47,23 @@
 					</p>
 				</div>
 				<div>
-					<a class="btn btn-primary btn-sm" href="/article?mno={{ article.urls.mno }}">
+					<a class="btn btn-primary d-md-inline-block d-block btn-sm" href="/article?mno={{ article.urls.mno }}">
 							<i class="bi-file-earmark-ruled-fill pr-2"></i>
 							<span>Abstract</span>
 					</a>
 					{% if article.urls.pdf %}
-						<a class="btn btn-danger btn-sm" href="https://www.ejmanager.com/fulltextpdf.php?mno={{ article.urls.mno }}" target="_blank" rel="noopener noreferrer">
+						<a class="btn btn-danger d-md-inline-block d-block btn-sm" href="https://www.ejmanager.com/fulltextpdf.php?mno={{ article.urls.mno }}" target="_blank" rel="noopener noreferrer">
 							<i class="bi-file-pdf-fill pr-2"></i>
 							<span>PDF</span>
 						</a>
 					{% endif %}
 					{% if article.urls.html %}
-					<a class="btn btn-secondary btn-sm" href="/article?mno={{ article.urls.mno }}">
+					<a class="btn btn-secondary d-md-inline-block d-block btn-sm" href="/article?mno={{ article.urls.mno }}">
 						<i class="bi-file-richtext-fill pr-2"></i>
 						<span>Fulltext HTML</span>
 					</a>
 					{% endif %}
-					<a class="btn btn-outline-secondary font-weight-bold btn-sm" target="_blank" rel="noopener noreferrer" href="https://doi.org/{{ article.urls.doi }}">DOI: {{ article.urls.doi }}</a>
+					<a class="btn btn-outline-secondary d-md-inline-block d-block font-weight-bold btn-sm" target="_blank" rel="noopener noreferrer" href="https://doi.org/{{ article.urls.doi }}">DOI: {{ article.urls.doi }}</a>
 				</div>
 			</article>
 		{% endfor %}
