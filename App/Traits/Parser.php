@@ -147,8 +147,12 @@ trait Parser
 
     public function extract_article_info($content)
     {
+        $contents = $this->fixTags(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
+        unset($content);
+
+
         $client = new HtmlDocument();
-        $html = $client->load($content);
+        $html = $client->load($contents);
 
         $authors = $html->find('span[style|="font-size:1.3em;"]');
         $author_names = [];
@@ -202,9 +206,11 @@ trait Parser
     
     public function extract_article_data($content)
     {
+        $contents = $this->fixTags(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
+        unset($content);
 
         $client = new HtmlDocument();
-        $html = $client->load($content);
+        $html = $client->load($contents);
         $category = $html->find('td b', 0)->plaintext;
         $d = $html->find('#summary text');
         $abstract = $d[1]->plaintext;
