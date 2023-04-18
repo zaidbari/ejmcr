@@ -244,7 +244,7 @@ trait Parser
             $link = $item->find('td a', 0)->href;
             $link_title = $item->find('td a', 0)->plaintext;
             $citations[] = [
-                "title" => $citation_title,
+                "title" => str_replace("â&#128;&#147;", "–", $citation_title),
                 "link" => [
                     "url" => str_replace("http://dx.", "https://", $link),
                     "title" => $link_title
