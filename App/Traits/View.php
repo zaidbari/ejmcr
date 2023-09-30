@@ -26,18 +26,33 @@ trait View
         try {
             /* ---------------------------- Views directories --------------------------- */
             $root_path = 'resources/views/';
-            $pages_path = $root_path . '/pages';
-            $partials_path = $root_path . '/partials';
+            $theme_path = $root_path . $_ENV['JOURNAL_ABBREV'];
+            $pages_path = $theme_path . '/pages';
+            $partials_path = $theme_path . '/partials';
 
+            
+            $settings = $this->db()->table('settings')->select()->where('id', 1)->one() ?? null;
+            if (!$settings) {
+                $this->db()->table('settings')->insert(['id' => 1])->execute();
+                $settings = $this->db()->table('settings')->select()->where('id', 1)->one();
+            }
+
+            $featured_article = $this->db()->table('featuredarticle')->select()->one() ?? null;
+            if (!$featured_article) {
+                $this->db()->table('featuredarticle')->insert(['id' => 1])->execute();
+                $featured_article = $this->db()->table('featuredarticle')->select()->where('id', 1)->one();
+            }
+
+            
             /* ------------------------ View loader configuration ----------------------- */
             $twig = new Environment(
-                new FilesystemLoader([$pages_path, $partials_path]),
+                new FilesystemLoader([$pages_path, $partials_path, $root_path]),
                 ['auto_reload' => true]
             );
 
-            $settings = $this->db()->table('settings')->select()->where('id', 1)->get()[0];
-            $menu = $this->db()->table('policies')->select()->get();
-            $downloads = $this->db()->table('downloads')->select()->orderBy('pos', 'asc')->get();
+            $pages_count = $this->db()->table('pages')->select()->where('isPublished', true)->count();
+            $menu = $this->db()->table('pages')->select()->where('isPublished', 1)->get();
+            // $downloads = $this->db()->table('downloads')->select()->orderBy('pos', 'asc')->get();
 
             
 
@@ -49,6 +64,7 @@ trait View
 
             // truncate string to `length` characters
             $twig->addFunction(new TwigFunction('_TRUNC', fn ($content) => substr($content, 0, 150) . '...'));
+            $twig->addFunction(new TwigFunction('decode', fn ($content) => html_entity_decode($content)));
             $twig->addFunction(new TwigFunction('_GET', fn ($content) => $_GET[$content]));
             $twig->addFunction(new TwigFunction('_ENV', fn ($content) => $_ENV[$content]));
             $twig->addFunction(new TwigFunction('vardump', function ($content) {
@@ -56,7 +72,21 @@ trait View
                 var_dump($content);
                 echo "</pre>";
             }));
-                        // Required to check availability of PDF file for an article
+
+
+            $twig->addFunction(new TwigFunction('has', function ($data) {
+                return $_SESSION[$data] ?? false;
+            }));
+            $twig->addFunction(new TwigFunction('flash', function () {
+                $msg = $_SESSION['flash'];
+                unset($_SESSION['error']); 
+                unset($_SESSION['success']);
+                unset($_SESSION['flash']);
+                return $msg;
+             }));
+
+
+            // Required to check availability of PDF file for an article
             $twig->addFunction(new TwigFunction('get_pdf', function ($content) {
                 return array_search(
                     $_ENV['APP_ABBRV'] . '-' . $content .'.pdf',
@@ -74,9 +104,11 @@ trait View
 
 
             /* ------------------- global variables available in view ------------------- */
-            $twig->addGlobal('MENU', $menu);
+            $twig->addGlobal('PAGE_COUNT', $pages_count);
             $twig->addGlobal('SETTINGS', $settings);
-            $twig->addGlobal('DOWNLOADS', $downloads);
+            $twig->addGlobal('MENU', $menu);
+
+            // $twig->addGlobal('DOWNLOADS', $downloads);
 
             /* ------------------------------- render view ------------------------------ */
             echo $twig->render($view . '.twig', $args);

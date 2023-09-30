@@ -1,0 +1,70 @@
+{% extends "/admin/partials/layout.twig" %}
+{% block content %}
+<div class="text-right mb-4">
+    <a href="/admin/editors/create" class="btn btn-sm btn-primary"> <i class="bi bi-plus"></i> Create new editor</a>
+</div>
+<div class="card mb-7">
+    <div class="table-responsive">
+        <table class="table table-hover table-nowrap">
+            <thead class="table-white">
+                <tr>
+                    <th class="fw-bold" scope="col">#</th>
+                    <th class="fw-bold" scope="col">Name</th>
+                    <th class="fw-bold" scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for editor in data %}
+                    <tr>
+                        <td>
+                            <span class="avatar avatar-sm bg-primary rounded-circle text-white">
+                                <img class="w-100 h-100" src="/uploads/editors/{{editor.editor_image}}">
+                            </span>
+                        </td>
+                        <td>
+                            <strong>
+                                {{ editor.editor_name }}
+                            </strong>
+                        </td>
+                        
+                        <td class="text-end">
+                            <a href="/admin/editors/edit/{{ editor.id }}" class="btn btn-sm btn-neutral">
+                                Edit
+                            </a>
+
+                            <button type="button" class="btn btn-sm btn-neutral" data-bs-toggle="modal" data-bs-target="#modal_example_{{editor.id}}">
+                                <i class="bi bi-upload"></i> Image
+                            </button>
+                            <div class="modal fade" id="modal_example_{{editor.id}}" tabindex="-1" aria-labelledby="modal_example_{{editor.id}}" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                  <div class="modal-content shadow-3">
+                                    <div class="modal-body">
+                                        <form enctype="multipart/form-data" class="d-inline" action="/admin/editors/upload-image/{{editor.id}}" method="post">
+                                            <div class="row">
+                                                <div class="col-md-9">
+                                                    <input class="form-control form-control-sm" type="file" name="editor_image">
+                                                </div>
+                                                <div class="col-auto">
+                                                    <button type="submit" class="btn btn-sm btn-primary">Upload</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    
+                                  </div>
+                                </div>
+                            </div>
+                            <form class="d-inline" action="/admin/editors/delete/{{editor.id}}" method="post">
+                                <button type="submit" class="btn btn-sm btn-square btn-danger">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+        
+{% endblock %}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>{{ meta.title ? meta.title ~ ' | ' : '' }} {{ _ENV('JOURNAL_TITLE') }}</title>
+		<meta name="description" content="{{ _TRUNC(meta.description) }}" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="robots" content="NOFOLLOW,NOINDEX" />
+		<meta name="generator" content="Journal" />
+		<meta name="theme-color" content="#ffffff" />
+
+		<link rel="stylesheet" href="/resources/assets/scss/admin/app.css" />
+		<link rel="stylesheet" href="/vendor/twbs/bootstrap-icons/font/bootstrap-icons.min.css" />
+    	{% block meta %}{% endblock %}
+
+		<script src="/vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js" defer></script>
+	</head>
+	<body>
+		<!--[if lt IE 7]>
+			<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+		<![endif]-->
+		<div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
+			{% include "/admin/partials/sidebar.twig" %}
+
+			<!-- Main content -->
+			<div class="h-screen flex-grow-1 overflow-y-lg-auto">
+				<!-- Header -->
+				<header class="py-3 px-4">
+					<div class="container-fluid">
+
+						<h1 class="h4 mb-3 ls-tight">{{meta.title}}</h1>
+						{% if(has('error')) %}
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							<strong>{{ flash() }}</strong>
+							<button type="button" class="btn-close text-xs text-danger" data-bs-dismiss="alert" aria-label="Close"></button>
+						</div>
+						{% endif %}
+						{% if(has('success')) %}
+						<div class="alert alert-success alert-dismissible fade show" role="alert">
+							<strong>{{ flash() }}</strong>
+							<button type="button" class="btn-close text-xs text-success" data-bs-dismiss="alert" aria-label="Close"></button>
+						</div>
+						{% endif %}
+						{% if(has('info')) %}
+						<div class="alert alert-info alert-dismissible fade show" role="alert">
+							<strong>{{ flash() }}</strong>
+							<button type="button" class="btn-close text-xs text-info" data-bs-dismiss="alert" aria-label="Close"></button>
+						</div>
+						{% endif %}
+					</div>
+				</header>
+				
+				<!-- Main -->
+				<main class="py-3 bg-surface-secondary px-4">
+					<div class="container-fluid ">
+						{% block content %}{% endblock %}
+					</div>
+				</main>
+			</div>
+		</div>
+		
+		{% block scripts %}{% endblock %}
+	</body>
+</html>

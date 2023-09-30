@@ -1,0 +1,9 @@
+{% extends "/admin/partials/layout.twig" %}
+{% block content %}
+
+<form class="mb-6" action="/admin/create-editor" method="post">
+    {% include "/admin/editors/form.twig" %}
+</form>
+
+        
+{% endblock %}

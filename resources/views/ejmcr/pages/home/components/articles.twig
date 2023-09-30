@@ -1,0 +1,101 @@
+<section>
+	<ul class="nav nav-tabs nav-fill mb-4" id="articles_tab" role="tablist">
+		{% if SETTINGS.show_read %}
+			<li class="nav-item cursor-pointer" role="presentation">
+				<a class="nav-link cursor-pointer active fw-bold" id="read-tab" data-bs-toggle="tab" data-bs-target="#most_read_articles" role="tab" aria-controls="home" aria-selected="true">Most Read Articles</a>
+			</li>
+		{% endif %}
+		{% if SETTINGS.show_downloaded %}
+			<li class="nav-item cursor-pointer">
+				<a class="nav-link cursor-pointer fw-bold" id="downloaded-tab" data-bs-toggle="tab" data-bs-target="#most_downloaded_articles" role="tab" aria-controls="profile" aria-selected="false">Most Downloaded Articles</a>
+			</li>
+		{% endif %}
+		{% if SETTINGS.show_cited %}
+			<li class="nav-item cursor-pointer">
+				<a class="nav-link fw-bold cursor-pointer" id="cited-tab" data-bs-toggle="tab" data-bs-target="#most_cited_articles" role="tab" aria-controls="cited" aria-selected="false">Most Cited Articles</a>
+			</li>
+		{% endif %}
+	</ul>
+	<div class="mb-5">
+		<div class="tab-content" id="articles_tab_content">
+			<div class="tab-pane article_list fade show active" id="most_read_articles" role="tabpanel" aria-labelledby="most_read_articles-tab"> 
+				{% for article in most_read_articles %}
+					<article class="bg-light rounded shadow-lg p-5 mb-5">
+						<h1 class="h5 font-weight-bold">
+							<a href="/article?mno={{ article.mno }}">{{ article.title }}</a>
+						</h1>
+						<p class="font-italic">{{ article.authors }}</p>
+						<div>
+							<p>
+								<span class="text-primary font-weight-bold">Year:</span> {{ article.issue_details.year }} |
+								<span class="text-primary font-weight-bold">Volume:</span> {{ article.issue_details.volume }} |
+								<span class="text-primary font-weight-bold">Issue:</span> {{ article.issue_details.issue }} |
+								<span class="text-primary font-weight-bold">Pages:</span> {{ article.issue_details.start_page }} - {{ article.issue_details.end_page }}
+							</p>
+						</div>
+						<div>
+							<a class="btn btn-primary btn-sm" href="/article?mno={{ article.mno }}">
+								<i class="bi-file-earmark-ruled-fill pr-2"></i>
+								<span>View Abstract</span>
+							</a>
+							<a class="btn btn-outline-secondary font-weight-bold btn-sm" target="_blank" rel="noopener noreferrer" href="https://doi.org/{{ article.doi }}">DOI: {{ article.doi }}</a>
+						</div>
+					</article>
+				{% endfor %}
+			</div>
+			<div class="tab-pane article_list fade" id="most_downloaded_articles" role="tabpanel" aria-labelledby="most_downloaded_articles-tab"> 
+				{% for article in most_downloaded_articles %}
+					<article class="bg-light rounded shadow-lg p-5 mb-5">
+						<h1 class="h5 font-weight-bold">
+							<a href="/article?mno={{ article.mno }}">{{ article.title }}</a>
+						</h1>
+						<p class="font-italic">{{ article.authors }}</p>
+						<div>
+							<p>
+								<span class="text-primary font-weight-bold">Year:</span> {{ article.issue_details.year }} |
+								<span class="text-primary font-weight-bold">Volume:</span> {{ article.issue_details.volume }} |
+								<span class="text-primary font-weight-bold">Issue:</span> {{ article.issue_details.issue }} |
+								<span class="text-primary font-weight-bold">Pages:</span> {{ article.issue_details.start_page }} - {{ article.issue_details.end_page }}
+							</p>
+						</div>
+						<div>
+							<a class="btn btn-primary btn-sm" href="/article?mno={{ article.mno }}">
+								<i class="bi-file-earmark-ruled-fill pr-2"></i>
+								<span>View Abstract</span>
+							</a>
+							<a class="btn btn-outline-secondary font-weight-bold btn-sm" target="_blank" rel="noopener noreferrer" href="https://doi.org/{{ article.doi }}">DOI: {{ article.doi }}</a>
+						</div>
+					</article>
+
+				{% endfor %}
+			</div>
+			<div class="tab-pane article_list fade" id="most_cited_articles" role="tabpanel" aria-labelledby="most_cited_articles-tab"> 
+				{% for article in most_cited_articles %}
+					<article class="bg-light rounded shadow-lg p-5 mb-5">
+						<h1 class="h5 font-weight-bold">
+							<a href="/article?mno={{ article.mno }}">{{ article.title }}</a>
+						</h1>
+						<p class="font-italic">{{ article.authors }}</p>
+						<div>
+							<p>
+								<span class="text-primary font-weight-bold">Year:</span> {{ article.issue_details.year }} |
+								<span class="text-primary font-weight-bold">Volume:</span> {{ article.issue_details.volume }} |
+								<span class="text-primary font-weight-bold">Issue:</span> {{ article.issue_details.issue }} |
+								<span class="text-primary font-weight-bold">Pages:</span> {{ article.issue_details.start_page }} - {{ article.issue_details.end_page }} |
+								<span class="text-primary font-weight-bold">Cited:</span> {{ article.cited }}
+							</p>
+						</div>
+						<div>
+							<a class="btn btn-primary btn-sm" href="/article?mno={{ article.mno }}">
+								<i class="bi-file-earmark-ruled-fill pr-2"></i>
+								<span>View Abstract</span>
+							</a>
+							<a class="btn btn-outline-secondary font-weight-bold btn-sm" target="_blank" rel="noopener noreferrer" href="https://doi.org/{{ article.doi }}">DOI: {{ article.doi }}</a>
+						</div>
+					</article>
+
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</section>

@@ -1,0 +1,69 @@
+{% extends "/admin/partials/layout.twig" %}
+{% block content %}
+<div class="text-right mb-4">
+    <a href="/admin/pages/create" class="btn btn-sm btn-primary"> <i class="bi bi-plus"></i> Create new page</a>
+</div>
+<div class="card mb-7">
+    <div class="table-responsive">
+        <table class="table table-hover table-nowrap">
+            <thead class="table-white">
+                <tr>
+                    <th class="fw-bold" scope="col">Title</th>
+                    <th class="fw-bold" scope="col">Type</th>
+                    <th class="fw-bold" scope="col">Published</th>
+                    <th class="fw-bold" scope="col">Last Updated</th>
+                    <th class="fw-bold" scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for page in data %}
+                    <tr>
+                        <td>
+                            <a class="text-heading font-semibold" href="/page/{{ page.page_url }}">{{ page.page_title }}</a>
+                        </td>
+                        <td>
+                            <span class="badge bg-soft-primary text-primary text-uppercase rounded-pill d-inline-flex align-items-center ms-auto">{{ page.page_type }}</span>
+                        </td>
+                        <td>
+                            <span class="badge badge-lg badge-dot">
+                                {% if page.isPublished %} 
+                                    <i class="bg-success"></i> Published 
+                                {% else %} 
+                                    <i class="bg-warning"></i> Draft 
+                                {% endif %}
+                            </span>
+                        </td>
+                        <td>
+                            {{ page.updatedAt | date("d/m/Y h:m a") }}
+                        </td>
+                        <td class="text-end">
+                            <a href="/admin/pages/edit/{{ page.id }}" class="btn btn-sm btn-neutral">
+                                Edit
+                            </a>
+                            {% if page.isPublished %}
+                                <form class="d-inline" action="/admin/pages/update/{{page.id}}/draft" method="post">
+                                    <button type="submit" class="btn btn-sm btn-neutral text-warning">
+                                        <i class="bi bi-eye-slash"></i> Draft 
+                                    </button>
+                                </form>
+                            {% else %} 
+                                <form class="d-inline" action="/admin/pages/update/{{page.id}}/publish" method="post">
+                                    <button type="submit" class="btn btn-sm btn-neutral text-success">
+                                        <i class="bi bi-eye"></i> Publish 
+                                    </button>
+                                </form>
+                            {% endif %}
+                            <form class="d-inline" action="/admin/pages/update/{{page.id}}/delete" method="post">
+                                <button type="submit" class="btn btn-sm btn-square btn-danger">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+        
+{% endblock %}

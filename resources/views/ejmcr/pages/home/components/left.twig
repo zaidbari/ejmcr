@@ -1,0 +1,28 @@
+{% if SETTINGS.show_metrics %}
+	<div class="bg-light mb-4 rounded shadow p-4" id="metrics">
+		<h2 class="h4 text-primary mb-4">Journal Metrics</h2>
+		<h6><span class="badge bg-primary">{{ journal_data.decission }}</span> Days</h6>
+		<small>{{ journal_data.decission_text }}</small>
+		<hr />
+		<h6 class="mt-3"><span class="badge bg-primary">{{ journal_data.acceptance }}</span> Days</h6>
+		<small>{{ journal_data.acceptance_text }}</small>
+		<hr />
+		<h2 class="h4 text-primary my-4">Acceptance Rate</h2>
+		<h6 class="mt-3"><span class="badge bg-primary">{{ journal_data.rate }}</span> %</h6>
+		<small>{{ journal_data.rate_text }}</small>
+	</div>
+{% endif %}
+{% if journal_data.twitter != '' %}
+	<div id="twitter_widget">
+		<a class="twitter-timeline" data-height="500" href="https://twitter.com/{{ journal_data.twitter }}?ref_src=twsrc%5Etfw"></a> 
+		<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+	</div>
+{% endif %}
+{% if SETTINGS.show_coffee %}
+
+	<div id="donations">
+		<h3 class="my-4">Buy us a cup of coffee</h3>
+		<img  src="/resources/assets/images/coffee.png" class="img-fluid mb-4" loading="lazy" alt="qr code" />
+		<a class="btn btn-block btn-primary" href="https://buy.stripe.com/3cscPzgyy9tyfS06oM" target="_blank">Buy now</a>
+	</div>
+{% endif %}

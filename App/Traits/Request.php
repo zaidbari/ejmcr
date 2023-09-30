@@ -37,11 +37,11 @@ trait Request
      * 
      * @return void
      */
-    protected function back($message = null)
+    protected function back($type = null, $message = null)
     {
-        if ($message) { 
-            $_SESSION['FLASH'] = $message;
-        }
+        if ($message) $_SESSION['flash'] = $message;
+        if ($type) $_SESSION[$type] = $type;
+
         header('Location: ' . $_SERVER['HTTP_REFERER']);
         exit();
     }
@@ -55,7 +55,7 @@ trait Request
     protected function redirect( string $url, $message = null )
     {
         if ($message) {
-            $_SESSION['FLASH'] = $message;
+            $_SESSION['flash'] = $message;
         }
         header('Location: ' . $url);
         exit();

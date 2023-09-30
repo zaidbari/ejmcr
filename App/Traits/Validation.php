@@ -33,5 +33,18 @@ trait Validation
 
         return true;
     }
+    protected function validateJSON( array $rules = [] ) : bool
+    {
+        $validator = new Validator;
+
+        $validation = $validator->validate((array) json_decode(file_get_contents('php://input')) + $_FILES, $rules);
+
+        if ($validation->fails() ) {
+            $this->validation_errors = $validation->errors()->firstOfAll();
+            return false;
+        }
+
+        return true;
+    }
 
 }

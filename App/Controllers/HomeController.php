@@ -86,11 +86,10 @@ class HomeController extends Controller
 
     public function index()
     {
-        $header_data = $this->db()->table('settings')->select()->where('id', 1)->get()[0];
-        $metrics_data = $this->db()->table('metrics')->select()->where('id', 1)->get()[0];
-        $featured_article = $this->db()->table('featured_article')->select()->where('id', 1)->get()[0];
-        $editorial_board = $this->db()->table('editors')->select()->orderBy(['pos' => 'asc'])->get();
 
+        $featured_article = $this->db()->table('featuredarticle')->select()->first();
+        $journal_data = $this->db()->table('settings')->select()->where('id', 1)->first();
+        $editorial_board = $this->db()->table('editors')->select()->orderBy('position')->get();
         $most_read_articles = $this->articles("a");
         $most_cited_articles = $this->articles("c");
         $most_downloaded_articles = $this->articles("d");
@@ -101,8 +100,7 @@ class HomeController extends Controller
                 "description" => "Home page",
                 "keywords" => "home, page"
             ],
-            "header_data" => $header_data,
-            "metrics_data" => $metrics_data,
+            "journal_data" => $journal_data,
             "featured_article" => $featured_article,
             "editorial_board" => $editorial_board,
             "most_read_articles" => $most_read_articles,

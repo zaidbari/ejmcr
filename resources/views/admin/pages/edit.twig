@@ -1,0 +1,9 @@
+{% extends "/admin/partials/layout.twig" %}
+{% block content %}
+
+<form class="mb-6" action="/admin/update-page/{{data.id}}" method="post">
+    {% include "/admin/pages/form.twig" %}
+</form>
+
+        
+{% endblock %}

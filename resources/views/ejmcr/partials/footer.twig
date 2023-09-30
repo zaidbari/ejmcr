@@ -1,0 +1,82 @@
+<div class="bg-primary px-5 py-3 mb-0">
+	<footer class="pt-4 pt-md-5">
+		<div class="row">
+			<div class=" col-md-2">
+				<h4 class="text-white text-uppercase">Journal</h4>
+				<ul class="list-unstyled text-small">
+					<li><a class="text-light d-block mb-2" href="/thankyou">Thank you to our reviewers</a></li>
+					{% for item in MENU %}
+						{% if item.page_type == 'journal' %}
+							<li><a class="text-light d-block mb-2" href="/page/{{item.page_url}}">{{item.page_title}}</a></li>
+						{% endif %}
+					{% endfor %}
+					<li><a class="text-light d-block mb-2" href="https://www.ejmanager.com/reviewers/index.php?isl=login">Reviewer Login</a></li>
+					<li><a class="text-light d-block mb-2" href="/reviewer-registration">Voluntary Reviewer Registration</a></li>
+				</ul>
+			</div>
+			<div class=" col-md-2">
+				<h4 class="text-white text-uppercase">Authors</h4>
+				<ul class="list-unstyled text-small">
+					<li><a class="text-light d-block mb-2" href="http://www.ejmanager.com/my/{{ _ENV('JOURNAL_ABBREV') | lower }}">Author Login</a></li>
+
+					{% for item in MENU %}
+						{% if item.page_type == 'author' %}
+							<li><a class="text-light d-block mb-2" href="/page/{{item.page_url}}">{{item.page_title}}</a></li>
+						{% endif %}
+					{% endfor %}
+
+					<li>
+						<a class="text-light d-block mb-2" target="_blank" rel="noopener noreferrer" href="https://www.ejmanager.com/my/{{ _ENV('JOURNAL_ABBREV') | lower }}/">
+							Submit an article
+						</a>
+					</li>
+					<li>
+						<a class="text-light d-block mb-2" target="_blank" rel="noopener noreferrer" href="https://www.ejmanager.com/my/{{ _ENV('JOURNAL_ABBREV') | lower }}/submit.php?isl=track">
+							Track your Article
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class=" col-md-2">
+				<h4 class="text-white text-uppercase">Miscellaneous Links</h4>
+				<ul class="list-unstyled text-small">
+					{% for item in MENU %}
+						{% if item.page_type == 'misc' %}
+							<li><a class="text-light d-block mb-2" href="/page/{{item.page_url}}">{{item.page_title}}</a></li>
+						{% endif %}
+					{% endfor %}
+
+					{% if SETTINGS.twitter != '' %}
+    					<li>
+    					    <a href="https://twitter.com/{{SETTINGS.twitter}}?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-size="large" data-show-screen-name="false" data-dnt="true" data-show-count="false">Follow @{{SETTINGS.twitter}}</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    					</li>
+    					<li>
+    					    <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-url="https://ejmcr.com/" data-via="{{SETTINGS.twitter}}" data-show-screen-name="false" data-dnt="true" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    					</li>
+					{% endif %}
+				</ul>
+			</div>
+			<div class=" col-md-2">
+				<h4 class="text-white text-uppercase">Downloads</h4>
+				<ul class="list-unstyled text-small">
+					{% for item in DOWNLOADS %}
+						<li><a class="text-light d-block mb-2" target="_blank" rel="noopener noreferrer" href="/admin/uploads/downloads/{{ item.file }}">{{ item.title }}</a></li>
+					{% endfor %}
+				</ul>
+			</div>
+			<div class=" col-md-4">
+				<h4 class="text-white text-uppercase">Policies</h4>
+				<ul class="list-unstyled text-small">
+
+					{% for item in MENU %}
+						{% if item.page_type == 'policy' %}
+							<li><a class="text-light d-block mb-2" href="/page/{{item.page_url}}">{{item.page_title}}</a></li>
+						{% endif %}
+					{% endfor %}
+
+
+				</ul>
+			</div>
+		</div>
+	</footer>
+</div>

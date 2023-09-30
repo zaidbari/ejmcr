@@ -1,0 +1,37 @@
+<div class="tab-pane fade show active" id="abstract" role="tabpanel" aria-labelledby="abstract-tab">
+	<h1 class="h3 text-primary" aria-label="Abstract Title">{{data.title}}</h1>
+	<p aria-describedby="article authors"><b class="text-primary" role="strong">Authors: </b><i role="emphasis">{{data.author_names}}</i></p>
+	<a 
+		aria-describedby="plumx article metrics link"
+		data-badge="true"
+		data-hide-when-empty="true"
+		href="https://plu.mx/plum/a/?doi={{data.doi}}" 
+		data-popup="bottom" 
+		data-size="medium" 
+		class="plumx-plum-print-popup plum-liberty-theme" 
+		data-site="plum" 
+		data-pass-hidden-categories="true"
+	>
+		{{data.title}}
+	</a>
+	<article role="article">
+		<p class="lead font-normal" aria-label="paragraph">{{data.abstract}}</p>
+		<hr />
+		<p class="mb-0 pb-2" aria-describedby="article keywords"><b role="strong" class="text-primary">Keywords: </b><i>{{data.keywords}}</i></p>
+	</article>
+	<hr />
+	<section>
+		{% if data.citation_count > 0 %}
+			<h4 aria-describedby="section heading">Citations</h4>
+
+			{% for cite in data.citations %}
+			<div class="card mb-3">
+				<div class="card-body bg-light">
+					<h5 aria-describedby="citation body">{{cite.title}}</h5>
+					<a aria-describedby="citaion link" name="citation_link" target="_blank" rel="noopener noreferrer" href="{{cite.link.url}}">{{cite.link.title}}</a>
+				</div>
+			</div>
+			{% endfor %}
+		{% endif %}
+	</section>
+</div>

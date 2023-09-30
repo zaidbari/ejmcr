@@ -1,0 +1,270 @@
+{% extends "/admin/partials/layout.twig" %}
+{% block content %}
+
+    <!-- Profile picture -->
+    <div class="card shadow border-0 mb-5">
+        <div class="card-body">
+            <div class="row gap-6 align-items-md-center">
+                <div class="col-md-4">
+                    <div class="d-flex align-items-center">
+                        <a href="/uploads/cover/{{data.journal_cover}}" target="_blank" class="avatar avatar-lg bg-primary rounded-circle text-white">
+                            <img alt="{{ _ENV('JOURNAL_ABBREV') }}" class="w-100 h-100" src="/uploads/cover/{{data.journal_cover}}">
+                        </a>
+                        <div class="ms-4">
+                            <span class="h4 d-block mb-0">{{ _ENV('JOURNAL_ABBREV') }} Cover</span>
+                            <a href="/" target="_blank" class="text-sm font-semibold text-muted">View Journal</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="ms-auto col-auto">
+                    <form action="/admin/upload-cover" class="row" method="post" enctype="multipart/form-data">
+                        <div class="col-auto">
+                            <input type="file" class="form-control col-auto form-control-sm d-inline" name="cover" id="first_name">
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-sm col-auto btn-primary d-inline">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Individual switch cards -->
+    <form id="hideShow" method="post">
+        <div class="row g-6">
+            <div class="col-md-4">
+                <div class="card shadow border-0">
+                    <div class="card-body">
+                        <h5 class="mb-2">Featured Article</h5>
+                        <p class="text-sm text-muted mb-6">
+                            Show featured article on home page of the journal?
+                        </p>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" name="show_article" id="show_article" {% if(data.show_article) %} checked {% endif %} />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow border-0">
+                    <div class="card-body">
+                        <h5 class="mb-2">News &amp; Events</h5>
+                        <p class="text-sm text-muted mb-6">
+                            Show news and events on home page of the journal?
+                        </p>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" name="show_news" id="show_news" {% if(data.show_news) %} checked {% endif %}>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow border-0">
+                    <div class="card-body">
+                        <h5 class="mb-2">Buy a coffee</h5>
+                        <p class="text-sm text-muted mb-6">
+                            Show buy us a coffee QR code on home page of the journal?
+                        </p>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" name="show_coffee" id="show_coffee" {% if(data.show_coffee) %} checked {% endif %}>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow border-0">
+                    <div class="card-body">
+                        <h5 class="mb-2">Journal Metrics</h5>
+                        <p class="text-sm text-muted mb-6">
+                            Show journal metrics on home page of the journal?
+                        </p>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" name="show_metrics" id="show_metrics" {% if(data.show_metrics) %} checked {% endif %}>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow border-0">
+                    <div class="card-body">
+                        <h5 class="mb-2">Journal Editors</h5>
+                        <p class="text-sm text-muted mb-6">
+                            Show journal editors on home page of the journal?
+                        </p>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" name="show_editors" id="show_editors" {% if(data.show_editors) %} checked {% endif %}>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow border-0">
+                    <div class="card-body">
+                        <h5 class="mb-2">Most Read</h5>
+                        <p class="text-sm text-muted mb-6">
+                            Show most read articles on home page of the journal?
+                        </p>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" name="show_read" id="show_read" {% if(data.show_read) %} checked {% endif %}>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow border-0">
+                    <div class="card-body">
+                        <h5 class="mb-2">Most Cited</h5>
+                        <p class="text-sm text-muted mb-6">
+                            Show most cited articles on home page of the journal?
+                        </p>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" name="show_cited" id="show_cited" {% if(data.show_cited) %} checked {% endif %}>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow border-0">
+                    <div class="card-body">
+                        <h5 class="mb-2">Most Downloaded</h5>
+                        <p class="text-sm text-muted mb-6">
+                            Show most downloaded articles on home page of the journal?
+                        </p>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" name="show_downloaded" id="show_downloaded" {% if(data.show_downloaded) %} checked {% endif %}>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <hr class="my-10" />
+
+    <!-- Form -->
+    <div class="mb-5">
+        <h5 class="mb-0">Journal Metrics</h5>
+    </div>
+    <form class="mb-6" action="/admin/update-settings" method="post">
+        <div class="row mb-5">
+            <div class="col-md-3">
+                <div class="">
+                    <label class="form-label" for="decission">Days</label>
+                    <input type="number" value="{{data.decission}}" name="decission" min="0" class="form-control" id="decission">
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="">
+                    <label class="form-label" for="decission_text">First editorial decision text</label>
+                    <input type="text" value="{{data.decission_text}}" name="decission_text" class="form-control" id="decission_text">
+                </div>
+            </div>
+        </div>
+        <div class="row g-5">
+            <div class="col-md-3">
+                <div class="">
+                    <label class="form-label" for="acceptance">Days</label>
+                    <input type="number" value="{{data.acceptance}}" name="acceptance" min="0" class="form-control" id="acceptance">
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="">
+                    <label class="form-label" for="acceptance_text">Acceptance to publication text</label>
+                    <input type="text" value="{{data.acceptance_text}}" name="acceptance_text" class="form-control" id="acceptance_text">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="">
+                    <label class="form-label" for="rate">Percent</label>
+                    <input type="number" value="{{data.rate}}" name="rate" min="0" class="form-control" id="rate">
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="">
+                    <label class="form-label" for="rate_text">Acceptance rate text</label>
+                    <input type="text" value="{{data.rate_text}}" name="rate_text" class="form-control" id="rate_text">
+                </div>
+            </div>
+        </div>
+        <div class="text-end mt-4">
+            <button type="button" class="btn btn-sm btn-neutral me-2">Cancel</button>
+            <button type="submit" class="btn btn-sm btn-primary">Save</button>
+        </div>
+    </form>
+    <hr class="my-10" />
+    <div class="mb-5">
+        <h5 class="mb-0">Journal Info</h5>
+    </div>
+    <form class="mb-6" action="/admin/update-settings" method="post">
+        <div class="row g-5">
+            <div class="col-md-6">
+                <div class="">
+                    <label class="form-label" for="issn">ISSN</label>
+                    <input type="text" value="{{data.issn}}" name="issn" class="form-control" id="issn">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="">
+                    <label class="form-label" for="eissn">EISSN</label>
+                    <input type="text" value="{{data.eissn}}" name="eissn" class="form-control" id="eissn">
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="">
+                    <label class="form-label" for="short_description">Short description</label>
+                    <textarea rows="5" value="{{data.short_description}}" name="short_description" class="form-control" id="short_description">{{data.short_description | raw}}</textarea>
+                </div>
+            </div>
+        </div>
+        <div class="text-end mt-4">
+            <button type="button" class="btn btn-sm btn-neutral me-2">Cancel</button>
+            <button type="submit" class="btn btn-sm btn-primary">Save</button>
+        </div>
+    </form>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Hide/show form submit button plain javascript
+    const hideShow = document.getElementById('hideShow');
+    // prevent form submission
+    hideShow.addEventListener('submit', function(e) {
+        e.preventDefault();
+    });
+
+    
+    // add event listener to all checkboxex
+    hideShow.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
+        checkbox.addEventListener('change', (e) => {
+            // post to /admin/showHide-settings
+            fetch('/admin/showHide-settings', {
+                method: 'POST',
+                body: JSON.stringify({
+                    [e.target.name]: e.target.checked
+                })
+            })
+        })
+    })
+</script>
+<script
+        type="text/javascript"
+        src='/resources/assets/js/editor.js'>
+</script>
+<script type="text/javascript">
+    tinymce.init({
+        selector: '#short_description',
+        height: 600,
+        plugins: [
+            'advlist autolink link lists charmap preview hr anchor pagebreak',
+            'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime nonbreaking',
+            'table paste help'
+        ],
+        toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | ' +
+            'bullist numlist outdent indent | link | preview fullpage | ' +
+            'forecolor backcolor | help',
+
+        menubar: 'edit view insert format tools table help',
+    });
+</script>
+
+{% endblock %}

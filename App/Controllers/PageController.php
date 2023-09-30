@@ -8,14 +8,14 @@ class PageController extends Controller
     public function index($slug)
     {
 
-        $data = $this->db()->table('policies')->select()->where('slug', $slug)->get()[0];
+        $data = $this->db()->table('pages')->select()->where('page_url', $slug)->first();
         $this->view('single/index', [
             "meta" => [
-            "title" => $data['title'],
-            "description" => $data['title'] . " information for " .  $_ENV['JOURNAL_TITLE'],
-            "keywords" =>  $data['title'] .  $_ENV['JOURNAL_TITLE'],
+            "title" => $data['page_title'],
+            "description" => $data['page_title'] . " information for " .  $_ENV['JOURNAL_TITLE'],
+            "keywords" =>  $data['page_title'] .  $_ENV['JOURNAL_TITLE'],
             ],
-            "content" => $data['content']
+            "content" => $data['page_content']
         ]);
     }
 

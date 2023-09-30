@@ -1,0 +1,53 @@
+<div class="row g-5">
+    <div class="col-md-12">
+        <div class="">
+            <label class="form-label" for="page_title">Title</label>
+            <input type="text" value="{{data.page_title}}" name="page_title" class="form-control" id="page_title">
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="">
+            <label class="form-label" for="page_type">URL</label>
+            <select value="{{data.page_type}}" name="page_type" class="form-control" id="page_type">
+                <option value="policy" {% if data.page_type == 'policy' %} selected {% endif %}>Policy</option>
+                <option value="misc" {% if data.page_type == 'misc' %} selected {% endif %}>Miscellaneous</option>
+                <option value="author" {% if data.page_type == 'author' %} selected {% endif %}>Authors</option>
+                <option value="journal" {% if data.page_type == 'journal' %} selected {% endif %}>Journal</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="">
+            <label class="form-label" for="page_content">Text</label>
+            <textarea rows="10" name="page_content" class="form-control" id="page_content">{{data.page_content | raw }}</textarea>
+        </div>
+    </div>
+</div>
+<div class="text-end mt-4">
+    <button type="button" class="btn btn-sm btn-neutral me-2">Cancel</button>
+    <button type="submit" class="btn btn-sm btn-primary">Save</button>
+</div>
+
+{% block scripts %}
+    <script
+            type="text/javascript"
+            src='/resources/assets/js/editor.js'>
+    </script>
+    <script type="text/javascript">
+        tinymce.init({
+            selector: '#page_content',
+            height: 600,
+            plugins: [
+                'advlist autolink link lists charmap preview hr anchor pagebreak',
+                'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime nonbreaking',
+                'table paste help'
+            ],
+            toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | ' +
+                'bullist numlist outdent indent | link | preview fullpage | ' +
+                'forecolor backcolor | help',
+
+            menubar: 'edit view insert format tools table help',
+        });
+    </script>
+
+{% endblock %}
