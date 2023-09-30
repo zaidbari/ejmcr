@@ -232,7 +232,7 @@ trait Parser
         unset($issue_link);
 
 
-        if (str_contains($html->find('td b a', 3)->plaintext, "Cited")) {
+        if (str_contains($html->find('td b a', 3)->plaintext ?? '', "Cited")) {
             $citation_count = (int) explode(" ", $html->find('td b a', 3)->plaintext)[2];
         } else {
             $citation_count = 0;
