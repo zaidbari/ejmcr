@@ -26,7 +26,8 @@ trait View
         try {
             /* ---------------------------- Views directories --------------------------- */
             $root_path = 'resources/views/';
-            $theme_path = $root_path . $_ENV['JOURNAL_ABBREV'];
+            
+            $theme_path = $root_path . strtolower($_ENV['JOURNAL_ABBREV']);
             $pages_path = $theme_path . '/pages';
             $partials_path = $theme_path . '/partials';
 
