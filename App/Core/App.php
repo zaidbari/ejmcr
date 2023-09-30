@@ -33,9 +33,15 @@ class App
             $handler->blacklist('_ENV', 'DB_PASSWORD');
             $handler->blacklist('_ENV', 'DB_NAME');
             $handler->blacklist('_ENV', 'DB_USERNAME');
+            $handler->blacklist('_ENV', 'DB_DATABASE');
+            $handler->blacklist('_ENV', 'JOURNAL_ID');
+            $handler->blacklist('_ENV', 'ANALYTICS');
             $handler->blacklist('_ENV', 'DB_HOST');
             $handler->blacklist('_SERVER', 'DB_PASSWORD');
             $handler->blacklist('_SERVER', 'DB_NAME');
+            $handler->blacklist('_SERVER', 'DB_DATABASE');
+            $handler->blacklist('_SERVER', 'JOURNAL_ID');
+            $handler->blacklist('_SERVER', 'ANALYTICS');
             $handler->blacklist('_SERVER', 'DB_USERNAME');
             $handler->blacklist('_SERVER', 'DB_HOST');
             $handler->blacklist('_SERVER', 'HTTP_COOKIE');
