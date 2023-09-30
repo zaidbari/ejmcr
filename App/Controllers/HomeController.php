@@ -22,7 +22,7 @@ class HomeController extends Controller
     {
         $text_string = array();
         foreach ($html->find('text') as $text_node) {
-            $text = trim($text_node->text());
+            $text = trim($text_node->text() ?? '');
             if (!empty($text)) {
                 $text_string[] = $text;
             }

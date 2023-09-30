@@ -20,7 +20,7 @@ trait Parser
             $mock->appendChild($mock->importNode($child, true));
         }
 
-        $fixed = trim($mock->saveHTML());
+        $fixed = trim($mock->saveHTML() ?? '');
         return $fixed;
 
     }
@@ -64,7 +64,7 @@ trait Parser
 
             $title = $item->find('span b', 0)->innertext;
             $author_names = $item->find('.authornames', 0)->innertext;
-            $author_names = trim(explode("EJMCR", $item->find('span.authornames', 0)->plaintext)[0]);
+            $author_names = trim(explode("EJMCR", $item->find('span.authornames', 0)->plaintext)[0] ?? '');
             preg_match("/(\d{4})\;\s(\d+)\((\d+)\)\:\s(\d+)\-(\d+)/", $item->find('.journalfont text', 0)->plaintext, $issue_details);
 
             $links = $item->find('a');
@@ -128,7 +128,7 @@ trait Parser
             $mno = explode("=", $article->find('a', 0)->href)[1];
             $pdf = $article->find('a', 1)->href;
             $doi = explode("doi.org/", $article->find('a', 2)->href)[1];
-            $history = trim($article->find('i', 0)->plaintext);
+            $history = trim($article->find('i', 0)->plaintext ?? '');
             $category = $article->find('i', 1)->plaintext;
 
             $articles[] = [
@@ -179,10 +179,10 @@ trait Parser
         }
 
         $correspond = $html->find('span[style|="font-size:1.0em;"]', 0);
-        $correspondence['name'] = trim(str_replace(".", "", explode(";", $correspond->plaintext)[0]));
+        $correspondence['name'] = trim(str_replace(".", "", explode(";", $correspond->plaintext)[0]), '');
         $correspondence['email'] = $correspond->find('a', 0)->plaintext;
         
-        $history = trim($html->find('span[style|="font-size:1.0em;"]', 1)->innertext);
+        $history = trim($html->find('span[style|="font-size:1.0em;"]', 1)->innertext, '');
 
         return [
             'authors' => $authors,
@@ -195,9 +195,9 @@ trait Parser
     function custom_file_exists($file_path='')
     {
         $file_exists=false;
-        $file_dir=trim(dirname($file_path));
+        $file_dir=trim(dirname($file_path), '');
         $file_dir=str_replace('/', DIRECTORY_SEPARATOR, $file_dir).DIRECTORY_SEPARATOR;
-        $file_name=trim(basename($file_path));
+        $file_name=trim(basename($file_path), '');
         $file_path=$file_dir."{$file_name}";
         $file_exists=is_file($file_path);    
         return $file_exists;
@@ -218,8 +218,8 @@ trait Parser
         unset($d);
 
         $title = $html->find('span[style="font-size:1.3em;line-height:1.2em;font-weight:bold;"]', 0)->innertext;
-        $authors = explode(", ", trim(str_replace(".", "", $html->find('td i', 0)->plaintext)));
-        $author_names = trim(str_replace(".", "", $html->find('td i', 0)->plaintext));
+        $authors = explode(", ", trim(str_replace(".", "", $html->find('td i', 0)->plaintext)), '');
+        $author_names = trim(str_replace(".", "", $html->find('td i', 0)->plaintext), '');
         $doi = $html->find('td div a', 2)->plaintext;
 
         $issue_link =  explode("iid=", $html->find('td div a', 1)->href)[1];
@@ -286,7 +286,7 @@ trait Parser
         $references[] = $web_style;
 
         foreach ($c->find('p') as $item) {
-            $ref = trim(explode("doi:", $item->plaintext)[0]);
+            $ref = trim(explode("doi:", $item->plaintext)[0], '');
             $style = $item->prev_sibling()->plaintext;
             $references[] = [
                 "style" => $style,
