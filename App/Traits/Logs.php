@@ -19,6 +19,13 @@ trait Logs
     public static function log( $type, string $message, array $data = [] ) : void
     {
         $path = $_SERVER['DOCUMENT_ROOT'] . '/logs/' . $type . '.log';
+
+        // check if path exists and create it if it doesn't
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
+        
+
         $stream = new StreamHandler($path, $type);
         $firephp = new FirePHPHandler();
 
