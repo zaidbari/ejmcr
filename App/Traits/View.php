@@ -63,7 +63,7 @@ trait View
             /* ------------------- global functions available in view ------------------- */
 
             // truncate string to `length` characters
-            $twig->addFunction(new TwigFunction('_TRUNC', fn ($content) => substr($content, 0, 150) . '...'));
+            $twig->addFunction(new TwigFunction('_TRUNC', fn ($content) => substr($content ?? '', 0, 150) . '...'));
             $twig->addFunction(new TwigFunction('decode', fn ($content) => html_entity_decode($content ?? ' ')));
             $twig->addFunction(new TwigFunction('_GET', fn ($content) => $_GET[$content]));
             $twig->addFunction(new TwigFunction('_ENV', fn ($content) => $_ENV[$content]));
