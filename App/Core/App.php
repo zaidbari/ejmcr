@@ -16,11 +16,11 @@ class App
 
         if (!file_exists($dir . '/fulltext')) mkdir($dir . '/fulltext', 0777, true);
         if (!file_exists($dir . '/files_html')) mkdir($dir . '/files_html', 0777, true);
-        if (!file_exists($dir . 'uploads/cover')) mkdir($dir . 'uploads/cover', 0777, true);
-        if (!file_exists($dir . 'uploads')) mkdir($dir . 'uploads', 0777, true);
-        if (!file_exists('uploads/cover')) mkdir('uploads/cover', 0777, true);
-        if (!file_exists('uploads/featured')) mkdir('uploads/featured', 0777, true);
-        if (!file_exists('uploads/editors')) mkdir('uploads/editors', 0777, true);
+        if (!file_exists($dir . '/logs')) mkdir($dir . '/logs', 0777, true);
+        if (!file_exists($dir . '/uploads')) mkdir($dir . '/uploads', 0777, true);
+        if (!file_exists($dir . '/uploads/cover')) mkdir($dir . '/uploads/cover', 0777, true);
+        if (!file_exists($dir . '/uploads/featured')) mkdir($dir . '/uploads/featured', 0777, true);
+        if (!file_exists($dir . '/uploads/editors')) mkdir($dir . '/uploads/editors', 0777, true);
 
         
 
