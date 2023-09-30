@@ -9,7 +9,7 @@ class HomeController extends Controller
 
     private function extract_citation_count($html) 
     {
-        $cited = $html->find('b', 2)->innertext; // get the citation information
+        $cited = $html->find('b', 2)->innertext ?? null; // get the citation information
         if (isset($cited)) {
             preg_match('/(\d+) times/', $cited, $matches); // extract the number of times cited using regex
             return $matches[1]; // get the first matched group which contains the number of times cited
