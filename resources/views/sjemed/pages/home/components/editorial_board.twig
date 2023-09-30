@@ -1,0 +1,28 @@
+{% if SETTINGS.show_editors and editorial_board %}
+<div class="bg-light px-md-5 px-2 py-5 rounded shadow">
+
+{% for member in editorial_board %}
+	<div class="member">
+		<h2 class="h4 text-primary">{{ member.editor_title }}</h2>
+		<h4 class="h5 fw-bold text-primary">{{ member.editor_name }}</h4>
+
+		<div class="row mb-4">
+			<div class="col-lg-10 col-md-8 align-self-center">
+				<p style="font-weight: bold" class="">{{ member.editor_affiliation }}</p>
+				{{ decode(member.editor_description) | raw }}
+			</div>
+			{% if member.editor_image %}
+			<div class="col-lg-2 col-md-4 align-self-center">
+				<img 
+					class="img-fluid border-primary border-2 border rounded-circle shadow" 
+					src="/uploads/editors/{{ member.editor_image }}" 
+					alt="{{ member.editor_name }}"
+					loading="lazy"
+				/>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+{% endfor %}
+</div>
+{% endif %}

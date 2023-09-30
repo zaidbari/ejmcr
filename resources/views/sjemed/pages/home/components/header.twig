@@ -1,0 +1,23 @@
+<header class="bg-light py-5" id="main_header">
+	<div class="container-fluid">
+	<div class="row">
+		<div class="col-lg-2 col-md-4 px-4">
+			<img loading="lazy" src="/uploads/cover/{{ journal_data.journal_cover }}" alt="{{ _ENV('JOURNAL_TITLE') }} Cover" class="img-fluid shadow rounded-3 mb-2">
+				<p class="mb-4">
+				{%  if( journal_data.issn != '' )  %}
+					<div class="d-block" id="issn"><span class="fw-bold text-primary">ISSN: </span>{{ journal_data.issn }}</div>
+				{% endif %}
+				{%  if( journal_data.eissn != '' )  %}
+					<div class="d-block" id="eissn"><span class="fw-bold text-primary">E-ISSN: </span>{{ journal_data.eissn }}</div>
+				{% endif %}
+			</p>
+		</div>
+		<div class="col-lg-7 align-self-center col-md-8 px-4">
+			<h1 class="text-primary h2">{{ _ENV('JOURNAL_TITLE') }}</h1>
+			{{ decode(journal_data.short_description) | raw }}
+			<a href="http://ejmanager.com/my/{{ _ENV('JOURNAL_ABBREV') | lower }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary px-3">Submit a Menuscript</a>
+			<a href="/current-issue" class="btn btn-outline-primary px-3">Current Issue</a>
+		</div>
+	</div>
+	</div>
+</header>

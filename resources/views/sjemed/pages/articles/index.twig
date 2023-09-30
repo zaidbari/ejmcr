@@ -1,0 +1,58 @@
+{% extends "layout.twig" %}
+{% block content %}
+
+{% include 'articles/components/header.twig' %}
+<main class="container my-5">
+		{% include 'articles/components/links.twig' %}
+		{% include 'articles/components/nav.twig' %}
+
+		<div class="tab-content mb-5" id="nav-tabContent">
+				{% include 'articles/components/abstract.twig' %}
+				{% include 'articles/components/info.twig' %}
+				{% include 'articles/components/howto.twig' %}
+				{% include 'articles/components/tools.twig' %}
+				{% include 'articles/components/metrics.twig' %}
+				<div class="tab-pane fade" id="html" role="tabpanel" aria-labelledby="html tab">
+					<article class="font-normal" role="article" aria-describedby="Article full text">
+						{{data.html | raw}}
+					</article>
+				</div>
+		</div>
+		<div id="trendmd-suggestions"></div>
+
+		{% include 'articles/components/license.twig' %}
+
+</main>
+
+
+{% endblock %}
+
+ {% block scripts %}
+		<script type="text/javascript" src="https://cdn.plu.mx/widget-details.js"></script>
+		<script type="text/javascript" src="//cdn.plu.mx/widget-popup.js"></script>
+		<script type="text/javascript" src="https://js.trendmd.com/trendmd.min.js" data-trendmdconfig='{"journal_id":"173", "element":"#trendmd-suggestions"}'></script>
+
+ {% endblock %}
+
+ {% block meta %}
+	<meta name="citation_eissn" content="{{_ENV("JOURNAL_EISSN")}}" />
+	<meta name="citation_volume" content="{{data.issue_details.volume}}" />
+	<meta name="citation_lastpage" content="{{data.pages.last}}" />
+	<meta name="citation_firstpage" content="{{data.pages.first}}" />
+	<meta name="citation_publisher" content="{{_ENV("JOURNAL_PUBLISHER")}}" />
+	<meta name="citation_journal_title" content="{{_ENV("JOURNAL_TITLE")}}" />
+	<meta name="citation_type" content="JOUR" />
+	<meta name="citation_doi" content="{{data.doi}}" />
+	<meta name="dc.identifier" content="{{data.doi}}" />
+	<meta name="citation_article_type" content="{{data.category}} article" />
+	<meta property=og:description content="{{ _TRUNC(data.abstract) }} " />
+	<meta name="citation_title" content="{{data.title}}" />
+	<meta property=og:title content="{{data.title}}" />
+	<meta name="citation_author" content="{{data.author_names}}" />
+	<meta name="citation_publication_date" content="{{data.date}}" />
+	<meta name="citation_issn" content="{{_ENV("JOURNAL_ISSN")}}" />
+	<meta name="citation_issue" content="{{data.issue_details.issue}}" />
+	<meta name="citation_keywords" content="{{data.keywords}}" />
+	<meta name="citation_language" content="en" />
+	<meta name="citation_pdf_url" content="{{data.files.pdf}}" />
+ {% endblock %}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>{{ meta.title ? meta.title ~ ' | ' : '' }} {{ _ENV('JOURNAL_TITLE') }}</title>
+		<meta name="description" content="{{ _TRUNC(meta.description) }}" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="keywords" content="{{ meta.keywords }}" />
+		<meta name="robots" content="FOLLOW,INDEX" />
+		<meta name="generator" content="Journal" />
+		<meta name="theme-color" content="#ffffff" />
+
+		<link rel="stylesheet" href="/resources/assets/scss/{{ _ENV('JOURNAL_ABBREV') | lower }}/app.css" />
+		<link rel="stylesheet" href="/vendor/twbs/bootstrap-icons/font/bootstrap-icons.min.css" />
+    	{% block meta %}{% endblock %}
+
+		<script src="/vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js" defer></script>
+	</head>
+	<body>
+		<!--[if lt IE 7]>
+			<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+		<![endif]-->
+		{% include "navbar.twig" %}
+
+		{% block content %}{% endblock %}
+		{% include "footer.twig" %}
+		{% include "scripts.twig" %}
+		{% block scripts %}{% endblock %}
+	</body>
+</html>

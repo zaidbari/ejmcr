@@ -1,0 +1,10 @@
+{% if SETTINGS.show_article and featured_article.featured_title %}
+    {% if featured_article.featured_image %}
+        <img loading="lazy" src="/uploads/featured/{{ featured_article.featured_image }}" alt="{{ _ENV('JOURNAL_TITLE') }} featured article" class="img-fluid mb-4 shadow rounded-3"/>
+    {% endif %}
+    <h3 class="h5 text-primary mb-3">{{ featured_article.featured_title }}</h3>
+    <div>{{ decode(featured_article.featured_text) | raw }}</div>
+    <div>
+        <a href="{{ featured_article.featured_url }}" class="btn btn-primary px-4" target="_blank" rel="noopener noreferrer">Read full article</a>
+    </div>
+{% endif %}

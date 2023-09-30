@@ -1,0 +1,17 @@
+{% extends "layout.twig" %}
+{% block content  %}
+{% include "home/components/header.twig" %}
+
+<main class="home">
+    <div class="container-fluid my-5">
+        <div class="row">
+            <div class="col-lg-2 mb-5 px-4">{% include "home/components/left.twig" %}</div>
+            <div class="col-lg-7 mb-5 px-4 border-left border-right border-2">
+                {% include "home/components/articles.twig" %}
+                {% include "home/components/editorial_board.twig" %}
+            </div>
+            <div class="col-lg-3 mb-5 px-4">{% include "home/components/right.twig" %}</div>
+        </div>
+    </div>
+</main>
+{%  endblock  %}
