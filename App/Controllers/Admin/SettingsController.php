@@ -27,7 +27,7 @@ class SettingsController extends Controller
             $data = json_decode($data, true);
             $this->db()->table('settings')->update()->set($data)->where('id', 1)->execute();
             echo "success";
-        } catch (\Error $th) {
+        } catch (\Exception $th) {
             Logs::log("error",$th->getMessage());
             echo "error" . $th->getMessage();
         }
