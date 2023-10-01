@@ -3,6 +3,7 @@
 namespace App\Controllers\Admin;
 
 use App\Core\Controller;
+use App\Traits\Logs;
 
 class SettingsController extends Controller
 {
@@ -27,7 +28,8 @@ class SettingsController extends Controller
             $data = json_decode($data, true);
             $this->db()->table('settings')->update()->set($data)->where('id', 1)->execute();
             echo "success";
-        } catch (\Throwable $th) {
+        } catch (\ErrorException $th) {
+            Logs::log("error",$th->getMessage());
             echo "error" . $th->getMessage();
         }
     }
