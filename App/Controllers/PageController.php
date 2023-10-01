@@ -11,7 +11,7 @@ class PageController extends Controller
         $data = $this->db()->table('pages')->select()->where('page_url', $slug)->first();
         if(!$data) $this->redirect('/404');
         
-        $this->view('single/index', [
+        $this->view('common/single/index', [
             "meta" => [
             "title" => $data['page_title'],
             "description" => $data['page_title'] . " information for " .  $_ENV['JOURNAL_TITLE'],
@@ -23,13 +23,13 @@ class PageController extends Controller
 
     public function notFound()
     {
-        $this->view('empty/index');
+        $this->view('common/empty/index');
     }
 
     public function gfa()
     {
         $content = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=".$_ENV['JOURNAL_ID']."&sec=gfa");
-        $this->view('single/index', [
+        $this->view('common/single/index', [
             "meta" => [
             "title" => "Guide for Authors",
             "description" => "Guide for Authors",
@@ -42,7 +42,7 @@ class PageController extends Controller
     public function eboard()
     {
         $content = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=".$_ENV['JOURNAL_ID']."&sec=eboard");
-        $this->view('single/index', [
+        $this->view('common/single/index', [
             "meta" => [
             "title" => "Editorial Board",
             "description" => "Editorial Board of " . $_ENV['JOURNAL_TITLE'],

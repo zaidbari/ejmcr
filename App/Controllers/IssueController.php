@@ -20,7 +20,7 @@ class IssueController extends Controller
     public function current_issue()
     {
 
-        $this->view('issues/index', [
+        $this->view('common/issues/index', [
             "meta" => [
                 "title" => "Current issue",
                 "description" => "Current issue of " . $_ENV["JOURNAL_TITLE"],
@@ -35,7 +35,7 @@ class IssueController extends Controller
         // $file_contents = file_get_contents($_SERVER['DOCUMENT_ROOT']."/files_html/test.html");
         $data = $this->extract_latest_issue_data($file_contents);
 
-        $this->view('issues/latest', [
+        $this->view('common/issues/latest', [
             'meta' => [
             'title' => 'Lates issue',
             'description' => 'Online first articles of the journal ' . $_ENV["JOURNAL_TITLE"],
@@ -49,7 +49,7 @@ class IssueController extends Controller
         $data = $this->articles("&iid=" . $_GET['iid'] . "&target=local");
         $description = "Issue " . $data['issue_details']['issue'] . " of " . $_ENV["JOURNAL_TITLE"] . " published in " . $data['issue_details']['year'];
 
-        $this->view('issues/index', [
+        $this->view('common/issues/index', [
             'meta' => [
                 'title' => 'Volume ' . $data['issue_details']['volume'] .' | Issue ' .  $data['issue_details']['issue'],
                 'description' => $description,
@@ -72,7 +72,7 @@ class IssueController extends Controller
         $content = str_replace("pp.", "Page: ", $content);
         $content = str_replace("<a href", "<hr /><a href", $content);
 
-        $this->view('issues/archive', [
+        $this->view('common/issues/archive', [
             'meta' => [
             'title' => 'Archives',
             'description' => 'Archives of the journal'. $_ENV['JOURNAL_TITLE'],
