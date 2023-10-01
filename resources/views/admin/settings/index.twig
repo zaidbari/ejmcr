@@ -236,10 +236,11 @@
     hideShow.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
         checkbox.addEventListener('change', (e) => {
             // post to /admin/showHide-settings
+            console.log({[e.target.name]: e.target.checked})
             fetch('/admin/showHide-settings', {
                 method: 'POST',
                 body: JSON.stringify({
-                    [e.target.name]: e.target.checked
+                    [e.target.name]: e.target.checked ? 1 : 0
                 })
             }).then((response) => {
                 return response.text();
