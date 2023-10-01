@@ -15,7 +15,7 @@
 		{{data.title}}
 	</a>
 	<article role="article">
-		<p class="lead font-normal" aria-label="paragraph">{{data.abstract}}</p>
+		<p class="font-normal" aria-label="paragraph">{{decode(data.abstract) | raw}}</p>
 		<hr />
 		<p class="mb-0 pb-2" aria-describedby="article keywords"><b role="strong" class="text-primary">Keywords: </b><i>{{data.keywords}}</i></p>
 	</article>
