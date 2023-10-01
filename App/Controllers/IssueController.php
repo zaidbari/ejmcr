@@ -62,7 +62,7 @@ class IssueController extends Controller
     {
         $content = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=".$_ENV['JOURNAL_ID']."&sec=archive");
 
-        $class = "class='h4 font-weight-bold px-4 bg-dark shadow-lg text-light rounded-lg mt-3 py-3'";
+        $class = "class='h4 fw-bold px-4 bg-primary shadow-lg text-light rounded-2 mt-3 py-3'";
 
         $content = str_replace(["&nbsp;", "&raquo;", "&#187;"], "", $content);
         $content = str_replace(["&amp;&amp;", "&amp;", "&&"], "&", $content);
