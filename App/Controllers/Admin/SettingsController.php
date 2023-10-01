@@ -25,13 +25,9 @@ class SettingsController extends Controller
         try {
             $data = file_get_contents('php://input');
             $data = json_decode($data, true);
-            var_dump($data);
-
             $this->db()->table('settings')->update()->set($data)->where('id', 1)->execute();
-            echo "success";
         } catch (\Exception $th) {
             var_dump("error", $th->getMessage());
-            echo "error" . $th->getMessage();
         }
     }
 
