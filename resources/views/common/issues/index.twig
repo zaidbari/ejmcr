@@ -4,9 +4,9 @@
 	<div class="container-fluid text-center">
 			<h1>{{ meta.title }}</h1>
 			<p>
-				<span class="text-primary font-weight-bold">Year:</span> {{ data.issue_details.year }} |
-				<span class="text-primary font-weight-bold">Volume:</span> {{ data.issue_details.volume }} |
-				<span class="text-primary font-weight-bold">Issue:</span> {{ data.issue_details.issue }}
+				<span class="text-primary fw-bold">Year:</span> {{ data.issue_details.year }} |
+				<span class="text-primary fw-bold">Volume:</span> {{ data.issue_details.volume }} |
+				<span class="text-primary fw-bold">Issue:</span> {{ data.issue_details.issue }}
 			</p>
 	</div>
 </header>
@@ -30,20 +30,20 @@
 </div>
 </div>
 	{% for category,articles in data.articles %}
-		<h2 class="h4 font-weight-bold px-md-5 px-2 bg-dark shadow-lg text-light rounded-lg mb-4 py-3">{{ category }}</h2>
+		<h2 class="h4 fw-bold px-md-5 px-2 bg-primary shadow-lg text-light rounded-2 mb-4 py-3">{{ category }}</h2>
 		{% for article in articles %}
 			<article class="bg-light rounded p-5 mb-5">
-				<span class="badge text-uppercase bg-dark badge-pill">{{ category }}</span>
-				<h1 class="h5 mt-3 font-weight-bold">
+				<span class="badge text-uppercase bg-primary badge-pill">{{ category }}</span>
+				<h1 class="h5 mt-3 fw-bold">
 					<a href="/article?mno={{ article.urls.mno }}">{{ article.title }}</a>
 				</h1>
 				<p class="font-italic">{{ article.authors }}</p>
 				<div>
 					<p>
-						<span class="text-primary font-weight-bold">Year:</span> {{ article.issue_details.year }} |
-						<span class="text-primary font-weight-bold">Volume:</span> {{ article.issue_details.volume }} |
-						<span class="text-primary font-weight-bold">Issue:</span> {{ article.issue_details.issue }} |
-						<span class="text-primary font-weight-bold">Pages:</span> {{ article.issue_details.start_page }} - {{ article.issue_details.end_page }}
+						<span class="text-primary fw-bold">Year:</span> {{ article.issue_details.year }} |
+						<span class="text-primary fw-bold">Volume:</span> {{ article.issue_details.volume }} |
+						<span class="text-primary fw-bold">Issue:</span> {{ article.issue_details.issue }} |
+						<span class="text-primary fw-bold">Pages:</span> {{ article.issue_details.start_page }} - {{ article.issue_details.end_page }}
 					</p>
 				</div>
 				<div>
@@ -63,7 +63,7 @@
 						<span>Fulltext HTML</span>
 					</a>
 					{% endif %}
-					<a class="btn btn-outline-secondary d-md-inline-block d-block mb-md-0 mb-2  text-left font-weight-bold btn-sm" target="_blank" rel="noopener noreferrer" href="https://doi.org/{{ article.urls.doi }}">DOI: {{ article.urls.doi }}</a>
+					<a class="btn btn-outline-secondary d-md-inline-block d-block mb-md-0 mb-2  text-left fw-bold btn-sm" target="_blank" rel="noopener noreferrer" href="https://doi.org/{{ article.urls.doi }}">DOI: {{ article.urls.doi }}</a>
 				</div>
 			</article>
 		{% endfor %}
