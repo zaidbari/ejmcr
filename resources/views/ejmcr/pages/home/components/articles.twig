@@ -21,16 +21,16 @@
 			<div class="tab-pane article_list fade show active" id="most_read_articles" role="tabpanel" aria-labelledby="most_read_articles-tab"> 
 				{% for article in most_read_articles %}
 					<article class="bg-light rounded shadow-lg p-5 mb-5">
-						<h1 class="h5 font-weight-bold">
+						<h1 class="h5 fw-bold">
 							<a href="/article?mno={{ article.mno }}">{{ article.title }}</a>
 						</h1>
 						<p class="font-italic">{{ article.authors }}</p>
 						<div>
 							<p>
-								<span class="text-primary font-weight-bold">Year:</span> {{ article.issue_details.year }} |
-								<span class="text-primary font-weight-bold">Volume:</span> {{ article.issue_details.volume }} |
-								<span class="text-primary font-weight-bold">Issue:</span> {{ article.issue_details.issue }} |
-								<span class="text-primary font-weight-bold">Pages:</span> {{ article.issue_details.start_page }} - {{ article.issue_details.end_page }}
+								<span class="text-primary fw-bold">Year:</span> {{ article.issue_details.year }} |
+								<span class="text-primary fw-bold">Volume:</span> {{ article.issue_details.volume }} |
+								<span class="text-primary fw-bold">Issue:</span> {{ article.issue_details.issue }} |
+								<span class="text-primary fw-bold">Pages:</span> {{ article.issue_details.start_page }} - {{ article.issue_details.end_page }}
 							</p>
 						</div>
 						<div>
@@ -38,7 +38,7 @@
 								<i class="bi-file-earmark-ruled-fill pr-2"></i>
 								<span>View Abstract</span>
 							</a>
-							<a class="btn btn-outline-secondary font-weight-bold btn-sm" target="_blank" rel="noopener noreferrer" href="https://doi.org/{{ article.doi }}">DOI: {{ article.doi }}</a>
+							<a class="btn btn-outline-secondary fw-bold btn-sm" target="_blank" rel="noopener noreferrer" href="https://doi.org/{{ article.doi }}">DOI: {{ article.doi }}</a>
 						</div>
 					</article>
 				{% endfor %}
@@ -46,16 +46,16 @@
 			<div class="tab-pane article_list fade" id="most_downloaded_articles" role="tabpanel" aria-labelledby="most_downloaded_articles-tab"> 
 				{% for article in most_downloaded_articles %}
 					<article class="bg-light rounded shadow-lg p-5 mb-5">
-						<h1 class="h5 font-weight-bold">
+						<h1 class="h5 fw-bold">
 							<a href="/article?mno={{ article.mno }}">{{ article.title }}</a>
 						</h1>
 						<p class="font-italic">{{ article.authors }}</p>
 						<div>
 							<p>
-								<span class="text-primary font-weight-bold">Year:</span> {{ article.issue_details.year }} |
-								<span class="text-primary font-weight-bold">Volume:</span> {{ article.issue_details.volume }} |
-								<span class="text-primary font-weight-bold">Issue:</span> {{ article.issue_details.issue }} |
-								<span class="text-primary font-weight-bold">Pages:</span> {{ article.issue_details.start_page }} - {{ article.issue_details.end_page }}
+								<span class="text-primary fw-bold">Year:</span> {{ article.issue_details.year }} |
+								<span class="text-primary fw-bold">Volume:</span> {{ article.issue_details.volume }} |
+								<span class="text-primary fw-bold">Issue:</span> {{ article.issue_details.issue }} |
+								<span class="text-primary fw-bold">Pages:</span> {{ article.issue_details.start_page }} - {{ article.issue_details.end_page }}
 							</p>
 						</div>
 						<div>
@@ -63,7 +63,7 @@
 								<i class="bi-file-earmark-ruled-fill pr-2"></i>
 								<span>View Abstract</span>
 							</a>
-							<a class="btn btn-outline-secondary font-weight-bold btn-sm" target="_blank" rel="noopener noreferrer" href="https://doi.org/{{ article.doi }}">DOI: {{ article.doi }}</a>
+							<a class="btn btn-outline-secondary fw-bold btn-sm" target="_blank" rel="noopener noreferrer" href="https://doi.org/{{ article.doi }}">DOI: {{ article.doi }}</a>
 						</div>
 					</article>
 
@@ -72,17 +72,17 @@
 			<div class="tab-pane article_list fade" id="most_cited_articles" role="tabpanel" aria-labelledby="most_cited_articles-tab"> 
 				{% for article in most_cited_articles %}
 					<article class="bg-light rounded shadow-lg p-5 mb-5">
-						<h1 class="h5 font-weight-bold">
+						<h1 class="h5 fw-bold">
 							<a href="/article?mno={{ article.mno }}">{{ article.title }}</a>
 						</h1>
 						<p class="font-italic">{{ article.authors }}</p>
 						<div>
 							<p>
-								<span class="text-primary font-weight-bold">Year:</span> {{ article.issue_details.year }} |
-								<span class="text-primary font-weight-bold">Volume:</span> {{ article.issue_details.volume }} |
-								<span class="text-primary font-weight-bold">Issue:</span> {{ article.issue_details.issue }} |
-								<span class="text-primary font-weight-bold">Pages:</span> {{ article.issue_details.start_page }} - {{ article.issue_details.end_page }} |
-								<span class="text-primary font-weight-bold">Cited:</span> {{ article.cited }}
+								<span class="text-primary fw-bold">Year:</span> {{ article.issue_details.year }} |
+								<span class="text-primary fw-bold">Volume:</span> {{ article.issue_details.volume }} |
+								<span class="text-primary fw-bold">Issue:</span> {{ article.issue_details.issue }} |
+								<span class="text-primary fw-bold">Pages:</span> {{ article.issue_details.start_page }} - {{ article.issue_details.end_page }} |
+								<span class="text-primary fw-bold">Cited:</span> {{ article.cited }}
 							</p>
 						</div>
 						<div>
@@ -90,7 +90,7 @@
 								<i class="bi-file-earmark-ruled-fill pr-2"></i>
 								<span>View Abstract</span>
 							</a>
-							<a class="btn btn-outline-secondary font-weight-bold btn-sm" target="_blank" rel="noopener noreferrer" href="https://doi.org/{{ article.doi }}">DOI: {{ article.doi }}</a>
+							<a class="btn btn-outline-secondary fw-bold btn-sm" target="_blank" rel="noopener noreferrer" href="https://doi.org/{{ article.doi }}">DOI: {{ article.doi }}</a>
 						</div>
 					</article>
 
