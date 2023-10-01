@@ -9,6 +9,8 @@ class PageController extends Controller
     {
 
         $data = $this->db()->table('pages')->select()->where('page_url', $slug)->first();
+        if(!$data) $this->redirect('/404');
+        
         $this->view('single/index', [
             "meta" => [
             "title" => $data['page_title'],
@@ -17,6 +19,11 @@ class PageController extends Controller
             ],
             "content" => $data['page_content']
         ]);
+    }
+
+    public function notFound()
+    {
+        $this->view('empty/index');
     }
 
     public function gfa()

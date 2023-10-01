@@ -26,7 +26,7 @@ class ArticlesController extends Controller
         // $info_contents = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/files_html/article_info.html');
         $article_info = $this->extract_article_info($info_contents);
 
-        $this->view('articles/index', [
+        $this->view('common/articles/index', [
             'meta' => [
                 'title' => $data['title'],
                 'description' => $data['abstract'],

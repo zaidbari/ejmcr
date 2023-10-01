@@ -159,3 +159,7 @@ $theme-colors: (
 );
 
 @import "../../../vendor/twbs/bootstrap/scss/utilities/api";
+
+.cursor-pointer {
+  cursor: pointer !important;
+}

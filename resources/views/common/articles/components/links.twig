@@ -1,0 +1,25 @@
+<div class="row">
+	<div class="col-md-6">
+		{% if data.article_links.previous %}
+			<a href="?mno={{data.article_links.previous}}" class="btn mr-2 btn-primary d-md-inline-block d-block">
+				<i class="bi bi-arrow-left pr-2"></i> 
+				Previous Article
+			</a>
+		{% endif %}
+		{% if data.article_links.next %}
+			<a href="?mno={{data.article_links.next}}" class="btn mr-2 btn-primary d-md-inline-block d-block">
+				Next Article
+				<i class="bi bi-arrow-right pl-2"></i> 
+			</a>
+		{% endif %}
+
+	</div>
+	<div class="col-md-6 text-right">
+		{% if data.files.pdf %}
+			<a href="{{ data.files.pdf }}" target="_blank" rel="noopener noreferrer" class="btn mr-2 btn-danger d-md-inline-block d-block">
+				<i class="bi-file-pdf-fill pr-2"></i>
+				View PDF
+			</a>
+		{% endif %}
+	</div>
+</div>
