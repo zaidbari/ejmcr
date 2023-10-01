@@ -21,10 +21,15 @@ class SettingsController extends Controller
 
     public function showHide()
     {
-        $data = file_get_contents('php://input');
-        $data = json_decode($data, true);
-        $this->db()->table('settings')->update()->set($data)->where('id', 1)->execute();
-        echo "success";
+        try {
+
+            $data = file_get_contents('php://input');
+            $data = json_decode($data, true);
+            $this->db()->table('settings')->update()->set($data)->where('id', 1)->execute();
+            echo "success";
+        } catch (\Throwable $th) {
+            echo "error" . $th->getMessage();
+        }
     }
 
 

@@ -67,14 +67,11 @@
 			<div class=" col-md-4">
 				<h4 class="text-white text-uppercase">Policies</h4>
 				<ul class="list-unstyled text-small">
-
 					{% for item in MENU %}
 						{% if item.page_type == 'policy' %}
 							<li><a class="text-light d-block mb-2" href="/page/{{item.page_url}}">{{item.page_title}}</a></li>
 						{% endif %}
 					{% endfor %}
-
-
 				</ul>
 			</div>
 		</div>
