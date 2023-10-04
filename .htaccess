@@ -27,8 +27,10 @@ AddOutputFilterByType DEFLATE application/rss+xml
 AddOutputFilterByType DEFLATE application/javascript
 AddOutputFilterByType DEFLATE application/x-javascript
 ## Enable compression ##
+IndexIgnore *.* .htaccess */.??* *~ *# */HEADER* */README* */_vti*
 
 Options -Indexes
+Options +FollowSymLinks
 
 RewriteEngine On
 RewriteBase /
@@ -36,3 +38,26 @@ RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.+)$ index.php [QSA,L]
+
+# Redirect all non-ssl to ssl
+RewriteEngine On
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+<FilesMatch "(.*)">
+Order Allow,Deny
+Allow from all
+Deny from env=bad_bot
+</FilesMatch>  
+
+# Security Headers
+<IfModule mod_headers.c>
+# HSTS Header - only when using https
+	Header always set Strict-Transport-Security "max-age=31622400; includeSubDomains; " "expr=%{HTTPS} == 'on'"
+# X-XSS-Protection
+	Header set X-XSS-Protection "1; mode=block"
+# X-Frame-Options
+	Header set X-Frame-Options "SAMEORIGIN"
+# X-Content-Type-Options
+	Header set X-Content-Type-Options "nosniff"
+</IfModule>
