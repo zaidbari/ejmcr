@@ -25,6 +25,21 @@ $router = new Router();
  * Public routes
  * =========================
  **/
+// Get the current URL.
+$currentUrl = $_SERVER['REQUEST_URI'];
+
+// Check if the current URL matches the pattern to be redirected and does not already contain the `mno` query parameter.
+if (isset($_GET['mno'])) {
+
+    // Construct the new URL.
+    $newUrl = "/article/" . $_GET['mno'];
+
+    // Send a 301 redirect header to the new URL.
+    header('HTTP/1.1 301 Moved Permanently');
+    header('Location: ' . $newUrl);
+    exit();
+}
+
 $router->get('/', '\App\Controllers\HomeController@index');
 $router->get('/current-issue', '\App\Controllers\IssueController@current_issue');
 $router->get('/latest-issue', '\App\Controllers\IssueController@latest_issue');
