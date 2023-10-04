@@ -33,6 +33,7 @@ class ArticlesController extends Controller
                 'keywords' => $data['keywords']
             ],
             'data' => $data,
+            'mno' => $mno,
             'article_info' => $article_info,
         ]);
     }
