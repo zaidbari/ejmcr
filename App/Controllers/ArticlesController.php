@@ -17,7 +17,7 @@ class ArticlesController extends Controller
         unset($content);
 
         // $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/files_html/article_fixed.html');
-        $data = $this->extract_article_data(str_replace("<br>", "", $contents));
+        $data = $this->extract_article_data(str_replace("<br>", "", $contents), $mno);
         
         $info_file = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV['JOURNAL_ID'] . "&mno=" . $mno . "&sec=articleInfo");
         $info_contents = $this->fixTags(mb_convert_encoding($info_file, 'HTML-ENTITIES', 'UTF-8'));

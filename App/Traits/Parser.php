@@ -226,7 +226,7 @@ trait Parser
     }
 
     
-    public function extract_article_data($content)
+    public function extract_article_data($content, $mno)
     {
         $contents = $this->fixTags(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
         unset($content);
@@ -328,7 +328,7 @@ trait Parser
                 if ($this->custom_file_exists($fil)) {
                     $files['pdf'] = '/fulltext/' . explode("/", $doi)[2] . '.pdf';
                 } else { 
-                    $files['pdf'] = "https://www.ejmanager.com/fulltextpdf.php?mno=". $_GET['mno'];
+                    $files['pdf'] = "https://www.ejmanager.com/fulltextpdf.php?mno=". $mno;
                 }
             }
         }
