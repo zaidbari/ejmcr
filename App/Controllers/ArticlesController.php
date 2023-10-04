@@ -9,17 +9,17 @@ class ArticlesController extends Controller
 {
     use Parser;
 
-    public function index()
+    public function index($mno)
     {
 
-        $content = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV['JOURNAL_ID'] . "&mno=" . $_GET['mno']);
+        $content = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV['JOURNAL_ID'] . "&mno=" . $mno);
         $contents = $this->fixTags(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
         unset($content);
 
         // $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/files_html/article_fixed.html');
         $data = $this->extract_article_data(str_replace("<br>", "", $contents));
         
-        $info_file = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV['JOURNAL_ID'] . "&mno=" . $_GET['mno'] . "&sec=articleInfo");
+        $info_file = file_get_contents("https://www.ejmanager.com/index_myjournal.php?jid=" . $_ENV['JOURNAL_ID'] . "&mno=" . $mno . "&sec=articleInfo");
         $info_contents = $this->fixTags(mb_convert_encoding($info_file, 'HTML-ENTITIES', 'UTF-8'));
         unset($info_file);
 
