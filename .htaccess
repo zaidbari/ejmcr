@@ -61,3 +61,5 @@ Deny from env=bad_bot
 # X-Content-Type-Options
 	Header set X-Content-Type-Options "nosniff"
 </IfModule>
+
+Redirect 301 /?mno= /article?mno=
