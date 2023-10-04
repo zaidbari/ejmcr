@@ -30,7 +30,7 @@ $router->get('/current-issue', '\App\Controllers\IssueController@current_issue')
 $router->get('/latest-issue', '\App\Controllers\IssueController@latest_issue');
 $router->get('/issue', '\App\Controllers\IssueController@index');
 $router->get('/archives', '\App\Controllers\IssueController@archives');
-$router->get('/article', '\App\Controllers\ArticlesController@index');
+$router->get('/article/{mno}', '\App\Controllers\ArticlesController@index');
 $router->get('/page/guide-for-authors', '\App\Controllers\PageController@gfa');
 $router->get('/page/editorial-board', '\App\Controllers\PageController@eboard');
 $router->get('/page/{slug}', '\App\Controllers\PageController@index');
