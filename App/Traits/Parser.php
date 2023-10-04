@@ -49,8 +49,7 @@ trait Parser
 
         $client = new HtmlDocument();
         $html = $client->load($contents);
-
-
+ 
         $li = $html->find('li');
         $cat = '';
         $articles_data = [];
@@ -65,8 +64,29 @@ trait Parser
             $title = $item->find('span b', 0)->innertext;
             $author_names = $item->find('.authornames', 0)->innertext;
             $author_names = trim(explode($_ENV['JOURNAL_ABBREV'], $item->find('span.authornames', 0)->plaintext)[0] ?? '');
-            preg_match("/(\d{4})\;\s(\d+)\((\d+)\)\:\s(\d+)\-(\d+)/", $item->find('.journalfont text', 0)->plaintext, $issue_details);
+            // preg_match("/(\d{4})\;\s(\d+)\((\d+)\)\:\s(\d+)\-(\d+)/", $item->find('.journalfont text', 0)->plaintext, $issue_details);
+        
+            $issue_details_array = explode(';',  $item->find('.journalfont text', 0)->plaintext);
+            
+            // Extract the issue details from the array.
+            $year = explode('.', $issue_details_array[0])[1];
+            $volume = explode('(', $issue_details_array[1])[0];
+            $issue = explode('(', $issue_details_array[1])[1];
+            $issue = str_replace(')', '', explode(':', $issue)[0]);
 
+            $issue_details = explode(':', $issue_details_array[1])[1];
+            
+            // Remove the parentheses from the issue details.
+            $issue_details = str_replace('(', '', $issue_details);
+            $issue_details = str_replace(')', '', $issue_details);
+            
+            // Split the issue details into an array using the hyphen (-) character as the delimiter.
+            $issue_details_array = explode('-', $issue_details);
+
+            // Get the first and last pages from the issue details array.
+            $first_page = $issue_details_array[0];
+            $last_page = $issue_details_array[1];
+    
             $links = $item->find('a');
 
             foreach ($links as $link) {
@@ -85,9 +105,11 @@ trait Parser
             }
 
             $details = [
-                "year" => $issue_details[1],
-                "volume" => $issue_details[2],
-                "issue" => $issue_details[3],
+                "year" => $year,
+                "issue" => $issue,
+                "volume" => $volume,
+                "first_page" => $first_page,
+                "last_page" => $last_page,
                 "urls" => $this->extract_issue_url($html)
             ];
 
@@ -95,11 +117,11 @@ trait Parser
                 "title" => $title,
                 "authors" => $author_names,
                 "issue_details" => [
-                    "year" => $issue_details[1],
-                    "volume" => $issue_details[2],
-                    "issue" => $issue_details[3],
-                    "start_page" => $issue_details[4],
-                    "end_page" => $issue_details[5],
+                    "year" => $year,
+                    "issue" => $issue,
+                    "volume" => $volume,
+                    "start_page" => $first_page,
+                    "end_page" => $last_page,
                 ],
                 "urls" => $urls
             ];
