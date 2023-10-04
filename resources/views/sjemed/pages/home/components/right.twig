@@ -1,5 +1,11 @@
+
 <section class="text-white">
-    <img loading="lazy" src="/uploads/cover/{{ journal_data.journal_cover }}" alt="{{ _ENV('JOURNAL_TITLE') }} Cover" class="img-fluid shadow rounded-3 mb-2">
+    <h3 class="h5 mb-3">Affiliated Society</h3>
+    <div class="bg-white">
+        <img loading="lazy" src="/resources/assets/images/redcresent.png" alt="Red crecent logo" class="img-fluid rounded-3"/>
+    </div>
+
+    <img loading="lazy" src="/uploads/cover/{{ journal_data.journal_cover }}" alt="{{ _ENV('JOURNAL_TITLE') }} Cover" class="img-fluid shadow rounded-3 my-2">
     <p class="mb-4">
         {%  if( journal_data.issn != '' )  %}
         <div class="d-block" id="issn"><span class="fw-bold">ISSN: </span>{{ journal_data.issn }}</div>

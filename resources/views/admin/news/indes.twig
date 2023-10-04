@@ -1,0 +1,46 @@
+{% extends "/admin/partials/layout.twig" %}
+{% block content %}
+<div class="text-right mb-4">
+    <a href="/admin/news/create" class="btn btn-sm btn-primary"> <i class="bi bi-plus"></i> Create new news</a>
+</div>
+<div class="card mb-7">
+    <div class="table-responsive">
+        <table class="table table-hover table-nowrap">
+            <thead class="table-white">
+                <tr>
+                    <th class="fw-bold" scope="col">#</th>
+                    <th class="fw-bold" scope="col">Name</th>
+                    <th class="fw-bold" scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for news in data %}
+                    <tr>
+                        <td>
+                            <span class="avatar avatar-sm bg-primary rounded-circle text-white">
+                                <img class="w-100 h-100" src="/uploads/news/{{news.news_image}}">
+                            </span>
+                        </td>
+                        <td>
+                            <strong>
+                                {{ news.news_name }}
+                            </strong>
+                        </td>
+                        <td class="text-end">
+                            <a href="/admin/news/edit/{{ news.id }}" class="btn btn-sm btn-neutral">
+                                Edit
+                            </a>
+                            <form class="d-inline" action="/admin/news/delete/{{news.id}}" method="post">
+                                <button type="submit" class="btn btn-sm btn-square btn-danger">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+        
+{% endblock %}
