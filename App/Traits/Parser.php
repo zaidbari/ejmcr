@@ -64,7 +64,7 @@ trait Parser
 
             $title = $item->find('span b', 0)->innertext;
             $author_names = $item->find('.authornames', 0)->innertext;
-            $author_names = trim(explode("EJMCR", $item->find('span.authornames', 0)->plaintext)[0] ?? '');
+            $author_names = trim(explode($_ENV['JOURNAL_ABBREV'], $item->find('span.authornames', 0)->plaintext)[0] ?? '');
             preg_match("/(\d{4})\;\s(\d+)\((\d+)\)\:\s(\d+)\-(\d+)/", $item->find('.journalfont text', 0)->plaintext, $issue_details);
 
             $links = $item->find('a');
