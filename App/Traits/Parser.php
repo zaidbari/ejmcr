@@ -276,8 +276,8 @@ trait Parser
 
         $pa = explode("-", explode(": ", $html->find('td[colspan=3] div div', 0)->find('text', 3)->innertext)[1]);
         $pages = [
-            "first" => $pa[0],
-            "last" => $pa[1]
+            "first" => $pa[0] ?? '',
+            "last" => $pa[1] ?? ''
         ];
 
         unset($pa);
