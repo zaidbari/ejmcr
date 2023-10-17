@@ -62,7 +62,7 @@ Deny from env=bad_bot
 	Header set X-Content-Type-Options "nosniff"
 </IfModule>
 
-<Files .env>
+<FilesMatch "\.(env|json|lock|htaccess|xml|log)$">
   Order allow,deny
   Deny from all
-</Files>
+</FilesMatch>
