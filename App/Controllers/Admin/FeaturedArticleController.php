@@ -57,7 +57,7 @@ class FeaturedArticleController extends Controller
                     
                     
                     if (move_uploaded_file($file_tmp, $file_destination)) {
-                        $this->db()->table('featuredArticle')->update()->set('featured_image', $file_name_new)->where('id', 1)->execute();
+                        $this->db()->table('featuredarticle')->update()->set('featured_image', $file_name_new)->where('id', 1)->execute();
 
                         $this->back('success', 'Image uploaded successfully');
                     } else {

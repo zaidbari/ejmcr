@@ -4,14 +4,12 @@
 			<div class=" col-md-2">
 				<h4 class="text-white text-uppercase">Journal</h4>
 				<ul class="list-unstyled text-small">
-					<li><a class="text-light d-block mb-2" href="/thankyou">Thank you to our reviewers</a></li>
 					{% for item in MENU %}
 						{% if item.page_type == 'journal' %}
 							<li><a class="text-light d-block mb-2" href="/page/{{item.page_url}}">{{item.page_title}}</a></li>
 						{% endif %}
 					{% endfor %}
 					<li><a class="text-light d-block mb-2" href="https://www.ejmanager.com/reviewers/index.php?isl=login">Reviewer Login</a></li>
-					<li><a class="text-light d-block mb-2" href="/reviewer-registration">Voluntary Reviewer Registration</a></li>
 				</ul>
 			</div>
 			<div class=" col-md-2">
