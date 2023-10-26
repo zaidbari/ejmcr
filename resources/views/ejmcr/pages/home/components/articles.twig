@@ -1,20 +1,14 @@
 <section>
 	<ul class="nav nav-tabs nav-fill mb-4" id="articles_tab" role="tablist">
-		{% if SETTINGS.show_read %}
 			<li class="nav-item cursor-pointer" role="presentation">
 				<a class="nav-link cursor-pointer active fw-bold" id="read-tab" data-bs-toggle="tab" data-bs-target="#most_read_articles" role="tab" aria-controls="home" aria-selected="true">Most Read Articles</a>
 			</li>
-		{% endif %}
-		{% if SETTINGS.show_downloaded %}
 			<li class="nav-item cursor-pointer">
 				<a class="nav-link cursor-pointer fw-bold" id="downloaded-tab" data-bs-toggle="tab" data-bs-target="#most_downloaded_articles" role="tab" aria-controls="profile" aria-selected="false">Most Downloaded Articles</a>
 			</li>
-		{% endif %}
-		{% if SETTINGS.show_cited %}
 			<li class="nav-item cursor-pointer">
 				<a class="nav-link fw-bold cursor-pointer" id="cited-tab" data-bs-toggle="tab" data-bs-target="#most_cited_articles" role="tab" aria-controls="cited" aria-selected="false">Most Cited Articles</a>
 			</li>
-		{% endif %}
 	</ul>
 	<div class="mb-5">
 		<div class="tab-content" id="articles_tab_content">

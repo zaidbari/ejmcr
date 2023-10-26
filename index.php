@@ -1,19 +1,18 @@
 <?php
 session_start();
 
-// autoloader
+require __DIR__ . '/vendor/autoload.php';
+
 use App\Core\App;
 use Bramus\Router\Router;
-
-require __DIR__ . '/vendor/autoload.php';
 
 App::run(__DIR__);
 
 if (!function_exists('str_contains')) {
-    function str_contains($haystack, $needle)
-    {
-        return $needle !== '' && mb_strpos($haystack, $needle) !== false;
-    }
+	function str_contains($haystack, $needle)
+	{
+		return $needle !== '' && mb_strpos($haystack, $needle) !== false;
+	}
 }
 
 
@@ -31,13 +30,13 @@ $currentUrl = $_SERVER['REQUEST_URI'];
 // Check if the current URL matches the pattern to be redirected and does not already contain the `mno` query parameter.
 if (isset($_GET['mno'])) {
 
-    // Construct the new URL.
-    $newUrl = "/article/" . $_GET['mno'];
+	// Construct the new URL.
+	$newUrl = "/article/" . $_GET['mno'];
 
-    // Send a 301 redirect header to the new URL.
-    header('HTTP/1.1 301 Moved Permanently');
-    header('Location: ' . $newUrl);
-    exit();
+	// Send a 301 redirect header to the new URL.
+	header('HTTP/1.1 301 Moved Permanently');
+	header('Location: ' . $newUrl);
+	exit();
 }
 
 $router->get('/', '\App\Controllers\HomeController@index');
@@ -65,11 +64,11 @@ $router->get('/admin', '\App\Controllers\Admin\AuthController@login');
  * Admin routes
  * =========================
  **/
-$router->before('GET|POST|DELETE', '/admin/.*', function() {
-    if (!isset($_SESSION['user'])) {
-        header('location: /auth/login');
-        exit();
-    }
+$router->before('GET|POST|DELETE', '/admin/.*', function () {
+	if (!isset($_SESSION['user'])) {
+		header('location: /auth/login');
+		exit();
+	}
 });
 $router->get('/admin/dashboard', '\App\Controllers\Admin\DashboardController@index');
 
