@@ -1,0 +1,54 @@
+<div class="row g-5">
+	<div class="col-md-12">
+			<div class="">
+					<label class="form-label" for="news_title">Title</label>
+					<input type="text" value="{{data.news_title}}" name="news_title" class="form-control" id="news_title" required>
+			</div>
+	</div>
+	<div class="col-md-6">
+			<div class="">
+					<label class="form-label" for="news_url">URL</label>
+					<input type="text" value="{{data.news_url}}" name="news_url" class="form-control" id="news_url">
+			</div>
+	</div>
+	<div class="col-md-6">
+			<div class="">
+					<label class="form-label" for="news_image">Image</label>
+					<input type="file" accept=".jpg,.jpeg,.png,.webp" value="{{data.news_image}}" name="news_image" class="form-control" id="news_image">
+			</div>
+	</div>
+	<div class="col-md-12">
+			<div class="">
+					<label class="form-label" for="news_description">Description</label>
+					<textarea rows="10" name="news_description" class="form-control" id="news_description">{{data.news_description | raw }}</textarea>
+			</div>
+	</div>
+</div>
+<div class="text-end mt-4">
+	<button type="button" class="btn btn-sm btn-neutral me-2">Cancel</button>
+	<button type="submit" class="btn btn-sm btn-primary">Save</button>
+</div>
+
+{% block scripts %}
+	<script
+					type="text/javascript"
+					src='/resources/assets/js/news.js'>
+	</script>
+	<script type="text/javascript">
+			tinymce.init({
+					selector: '#news_description',
+					height: 600,
+					plugins: [
+							'advlist autolink link lists charmap preview hr anchor pagebreak',
+							'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime nonbreaking',
+							'table paste help'
+					],
+					toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | ' +
+							'bullist numlist outdent indent | link | preview fullpage | ' +
+							'forecolor backcolor | help',
+
+					menubar: 'edit view insert format tools table help',
+			});
+	</script>
+
+{% endblock %}

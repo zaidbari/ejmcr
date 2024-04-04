@@ -29,6 +29,8 @@ class App
 			mkdir($dir . '/uploads/featured', 0777, true);
 		if (!file_exists($dir . '/uploads/editors'))
 			mkdir($dir . '/uploads/editors', 0777, true);
+		if (!file_exists($dir . '/uploads/news'))
+			mkdir($dir . '/uploads/news', 0777, true);
 
 
 

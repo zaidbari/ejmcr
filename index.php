@@ -41,7 +41,7 @@ if (isset($_GET['mno'])) {
 
 $router->get('/', '\App\Controllers\HomeController@index');
 $router->get('/current-issue', '\App\Controllers\IssueController@current_issue');
-$router->get('/latest-issue', '\App\Controllers\IssueController@latest_issue');
+$router->get('/latest-articles', '\App\Controllers\IssueController@latest_issue');
 $router->get('/issue', '\App\Controllers\IssueController@index');
 $router->get('/archives', '\App\Controllers\IssueController@archives');
 $router->get('/article/{mno}', '\App\Controllers\ArticlesController@index');
@@ -65,9 +65,9 @@ $router->get('/admin', '\App\Controllers\Admin\AuthController@login');
  * =========================
  **/
 $router->before('GET|POST|DELETE', '/admin/.*', function () {
-	if (!isset($_SESSION['user'])) {
+	if (!isset ($_SESSION['user'])) {
 		header('location: /auth/login');
-		exit();
+		exit ();
 	}
 });
 $router->get('/admin/dashboard', '\App\Controllers\Admin\DashboardController@index');
@@ -116,5 +116,17 @@ $router->post('/admin/editors/upload-image/{id}', '\App\Controllers\Admin\Editor
 $router->post('/admin/editors/delete/{id}', '\App\Controllers\Admin\EditorController@delete');
 $router->get('/admin/editors/edit/{id}', '\App\Controllers\Admin\EditorController@edit');
 $router->post('/admin/update-editor/{id}', '\App\Controllers\Admin\EditorController@update');
+
+/**
+ * =========================
+ * Journal News routes
+ * =========================
+ **/
+$router->get('/admin/news', '\App\Controllers\Admin\NewsController@index');
+$router->get('/admin/news/create', '\App\Controllers\Admin\NewsController@create');
+$router->post('/admin/create-news', '\App\Controllers\Admin\NewsController@insert');
+$router->post('/admin/news/delete/{id}', '\App\Controllers\Admin\NewsController@delete');
+$router->get('/admin/news/edit/{id}', '\App\Controllers\Admin\NewsController@edit');
+$router->post('/admin/update-news/{id}', '\App\Controllers\Admin\NewsController@update');
 
 $router->run();

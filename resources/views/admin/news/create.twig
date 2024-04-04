@@ -1,0 +1,6 @@
+{% extends "/admin/partials/layout.twig" %}
+{% block content %}
+<form class="mb-6" action="/admin/create-news" method="post"  enctype="multipart/form-data">
+    {% include "/admin/news/form.twig" %}
+</form>
+{% endblock %}
