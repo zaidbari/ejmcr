@@ -34,9 +34,9 @@ JOURNAL_PUBLISHER="Waraqa Scientific Publishing House / Discover STM Publishing 
 DB_CONNECTION=mysql
 DB_HOST=localhost
 DB_PORT=3306
-DB_USERNAME=sjemed_admin
-DB_DATABASE=sjemed_admin
-DB_PASSWORD=0hMyG0d683Z!
+DB_USERNAME=
+DB_DATABASE=
+DB_PASSWORD=
 
 
 # Debug Config
